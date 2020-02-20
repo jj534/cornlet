@@ -1,0 +1,28 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const Button = styled.button`
+  padding: .5rem .8rem;
+  background-color: white;
+  background-color: ${props => props.inverted ? props.theme[props.color] : ''};
+  color: ${(props) => props.theme[props.color]};
+  color: ${props => props.inverted ? 'white' : ''};
+  display: inline-block;
+  font-size: inherit;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+`;
+
+const Btn = ({ children, color, inverted, ...rest }) => {
+  return (
+    <Button 
+      color={color}
+      inverted={inverted}
+      {...rest}
+    >
+      {children}
+    </Button>
+  )
+};
+
+export default Btn;
