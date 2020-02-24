@@ -17,7 +17,6 @@ listingRouter.post('/create', async (req, res) => {
     const result = await new Listing(data).save();
     res.send(result);
   } catch (e) {
-    console.log(e);
     res.status(500).send(e);
   }
 })
@@ -25,9 +24,13 @@ listingRouter.post('/create', async (req, res) => {
 listingRouter.get('/', async (req, res) => {
   try {
     // format query
-    const { uid } = req.query;
-    let query = {};
-    query = uid ? { 'user.uid': uid } : {};
+    const { uid, active } = req.query;
+    const uidQuery = uid ? { 'user.uid': uid } : {};
+    const activeQuery = active ? { active } : {};
+    const query = {
+      ...activeQuery,
+      ...uidQuery
+    };
     
     // query
     const docs = await Listing.find(query);
@@ -49,7 +52,6 @@ listingRouter.get('/:id', async (req, res) => {
 listingRouter.put('/:id/update', async (req, res) => {
   try {
     const doc = await Listing.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    console.log(doc);
     res.send(doc);
   } catch (e) {
     res.status(500).send(e);

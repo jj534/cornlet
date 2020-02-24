@@ -39,11 +39,11 @@ var listingSchema = Schema({
   },
   active: {
     type: Boolean,
-    default: true
+    required: true
   },
   sold: {
     type: Boolean,
-    default: false
+    required: true,
   },
   term: String,
   createdAt: {

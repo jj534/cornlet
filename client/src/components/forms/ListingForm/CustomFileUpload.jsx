@@ -45,7 +45,7 @@ const CustomFileUpload = ({ formik, name, label, user }) => {
       }
       formik.setFieldValue(name, newFiles);
     }
-  }, [src])
+  }, [src, name])
   
   const handleDelete = (src) => {
     const newFiles = [...formik.values[name]];

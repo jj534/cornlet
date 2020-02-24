@@ -17,7 +17,7 @@ const ListingIndex = ({ match }) => {
         .then((res) => setListing(res.data))
         .catch((e) => log(`ERROR get listing at listing details page`, e))
     }
-  }, [])
+  }, [id])
   
   if (!listing) return <div />;
   

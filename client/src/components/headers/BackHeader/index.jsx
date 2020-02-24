@@ -4,8 +4,7 @@ import { ReactComponent as Left } from 'src/assets/svgs/left.svg';
 import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
-  padding: 2rem;
-
+  padding: 2rem ${props => props.fullwidth ? '2rem' : '.5rem'};
 `;
 
 const BackBtn = styled(Left)`
@@ -15,12 +14,16 @@ const BackBtn = styled(Left)`
   cursor: pointer;
 `
 
-const BackHeader = () => {
+const BackHeader = ({ to, fullwidth }) => {
   const history = useHistory();
-  const goBack = () => history.push('/');
+  const handleClick = () => {
+    if (to) history.push(to);
+    else history.push('/')
+  }
+  
   return (
-    <Container>
-      <BackBtn onClick={goBack}/>
+    <Container fullwidth={fullwidth}>
+      <BackBtn onClick={handleClick}/>
     </Container>
   )
 };

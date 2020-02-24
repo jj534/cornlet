@@ -15,6 +15,7 @@ const Form = styled.form`
 const Center = styled.div`
   display: flex;
   justify-content: center;
+  margin: 2rem 0;
 `
 
 const FormComponent = ({ user, initialValues }) => {
@@ -26,7 +27,9 @@ const FormComponent = ({ user, initialValues }) => {
       price: 0,
       term: '',
       imgs: [],
-      desc: ''
+      desc: '',
+      active: true,
+      sold: false
     }
   const dynInitValues = initialValues ? initialValues : defaultValues;
   
@@ -44,6 +47,10 @@ const FormComponent = ({ user, initialValues }) => {
         .of(Yup.string())
         .required('Required'),
       desc: Yup.string()
+        .required('Required'),
+      active: Yup.boolean()
+        .required('Required'),
+      sold: Yup.boolean()
         .required('Required'),
     }),
     onSubmit: values => {

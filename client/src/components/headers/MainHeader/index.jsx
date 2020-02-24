@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem 3rem;
+  padding: 5rem 2rem;
 `;
 
 const Right = styled.div`

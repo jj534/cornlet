@@ -14,7 +14,8 @@ const Container = styled.div`
 `;
 
 const FormikInput = ({ formik, name, label, adornment, multiline, ...rest}) => {
-  const error = formik.errors[name];
+  const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
+  const error = hasError ? formik.errors[name] : undefined;
   const formikProps = formik ? formik.getFieldProps(name) : [];
   const wrappedAdornment = adornment 
     ? <InputAdornment position="start">{adornment}</InputAdornment>
@@ -22,23 +23,23 @@ const FormikInput = ({ formik, name, label, adornment, multiline, ...rest}) => {
   const multilineProps = {
     multiline: multiline,
     variant: 'outlined',
-    rows: 4
+    rows: 8
   }
   const conditionalMultiline = multiline ? multilineProps : {};
   
   return (
     <Container>
-        <TextField 
-          {...rest}
-          {...formikProps}
-          label={label} 
-          error={error ? true : false}
-          helperText={error}
-          fullwidth
-          margin='normal'
-          InputProps={{ startAdornment: wrappedAdornment, }}
-          {...conditionalMultiline}
-        />
+      <TextField 
+        {...rest}
+        {...formikProps}
+        label={label} 
+        error={error ? true : false}
+        helperText={error}
+        fullwidth={1}
+        margin='normal'
+        InputProps={{ startAdornment: wrappedAdornment, }}
+        {...conditionalMultiline}
+      />
     </Container>
   );
 };

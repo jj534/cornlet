@@ -21,10 +21,10 @@ const MyListings = ({ uid, setHasListings }) => {
         .then((res) => setListings(res.data))
         .catch((e) => log(`ERROR get mylistings`, e))
     }
-  }, [])
+  }, [uid])
   useEffect(() => {
     if (listings.length > 0) setHasListings(true);
-  }, [listings])
+  }, [listings, setHasListings])
   
   return (
     <Container>

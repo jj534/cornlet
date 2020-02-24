@@ -1,12 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import Home from './Home';
 import firebase from 'src/services/firebase';
 import { useDispatch } from 'react-redux';
-
-const Container = styled.div`
-
-`;
 
 const HomeIndex = () => {
   const dispatch = useDispatch();
@@ -23,11 +18,7 @@ const HomeIndex = () => {
       })
     }
   });
-  return (
-    <Container>
-      <Home />
-    </Container>
-  )
+  return <Home />
 };
 
 export default HomeIndex;

@@ -9,7 +9,7 @@ const NewIndex = () => {
   const history = useHistory();
   if (!user) {
     signIn();
-    history.push('/');
+    history.push('/')
     return <div />;
   }
   return (

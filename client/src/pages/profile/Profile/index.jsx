@@ -6,7 +6,6 @@ import { useHistory, Link } from 'react-router-dom';
 import BackHeader from 'src/components/headers/BackHeader';
 import Heading from 'src/components/fonts/Heading';
 import Body from 'src/components/fonts/Body';
-import DynContainer from 'src/components/views/DynContainer';
 import MyListings from './MyListings';
 
 const Container = styled.div`
@@ -49,7 +48,6 @@ const Profile = ({ user }) => {
   return (
     <Container>
       <BackHeader />
-      <DynContainer>
         <Section>
           <Row>
             <Heading>{`Hi, ${user.displayName}`}</Heading>
@@ -73,7 +71,6 @@ const Profile = ({ user }) => {
             onClick={handleSignOut}
           >Sign Out</Btn>
         </Center>
-      </DynContainer>
     </Container>
   )
 };

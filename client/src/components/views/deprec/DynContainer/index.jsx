@@ -9,6 +9,10 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 90%;
+  
+  @media (min-width: ${props => props.theme.md}px) {
+    width: 70%;
+  }
 `;
 
 const DynContainer = ({ children, ...rest}) => {

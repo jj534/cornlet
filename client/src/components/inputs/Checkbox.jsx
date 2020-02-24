@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import ErrMsg from 'src/components/common/form/ErrMsg';
-import Label from 'src/components/common/form/Label';
+import Label from 'src/components/fonts/Label';
+import ErrMsg from 'src/components/fonts/ErrMsg';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const Wrapper = styled.div`
+
+`
 
 const InputArea = styled.div`
   display: flex;
@@ -17,42 +16,31 @@ const CheckboxLabel = styled(Label)`
   margin: 4px 0 0 .5rem;
 `;
 
-const Input = styled.input`
- margin: 0;
-`;
-
-const ButtonContainer = styled.div`
-  margin-left: 1rem;
-`;
-
-const Checkbox = (props) => {
-  const {
-    formik, name, label, sideButton,
-  } = props;
+const Checkbox = ({ label, name, formik, ...rest }) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
-  const formikProps = formik ? formik.getFieldProps(name) : [];
 
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      formik.setFieldValue(name, true)
+    } else {
+      formik.setFieldValue(name, false);
+    }
+  }
+  
   return (
-    <Container>
+    <Wrapper {...rest}>
       <InputArea>
-        <Input
-          type="checkbox"
+        <input 
+          type="checkbox" 
           checked={formik.values[name]}
-          {...props}
-          {...formikProps}
-          hasError={hasError}
+          onChange={handleChange}
         />
-        <CheckboxLabel htmlFor={name}>{label}</CheckboxLabel>
-        {sideButton && (
-          <ButtonContainer>
-            {sideButton}
-          </ButtonContainer>
-        )}
+        <CheckboxLabel>{label}</CheckboxLabel>
       </InputArea>
-      {hasError
-        ? <ErrMsg>{formik.errors[name]}</ErrMsg>
-        : null}
-    </Container>
+      {hasError? (
+        <ErrMsg>{formik.errors[name]}</ErrMsg>
+      ) : null}
+    </Wrapper>
   );
 };
 

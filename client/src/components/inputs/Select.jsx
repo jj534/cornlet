@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
 const Select = ({
   formik, name, opts, label, ...rest
 }) => {
-  const error = formik.errors[name];
+  const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
+  const error = hasError ? formik.errors[name] : undefined;
   const formikProps = formik ? formik.getFieldProps(name) : [];
   const classes = useStyles();
 
