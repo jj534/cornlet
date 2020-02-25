@@ -26,7 +26,7 @@ const ImgInnerContainer = styled.div`
 `
 
 const Content = styled.div`
-
+  margin-top: 2rem;
 `
 
 const Section = styled.div`

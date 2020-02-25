@@ -1,38 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./ImgCarousel.scss";
 
 const Container = styled.div`
-  overflow: hidden;
-  object-fit: cover;
+`
+
+const ImgContainer = styled.div`
   height: 250px;
-  
-  & > img {
-    object-fit: cover;
-  }
   
   @media (min-width: ${props => props.theme.md}px) {
     height: 500px;
   }
-`;
+`
+
+const Img = styled.img`
+  width: 100%;
+  object-fit: cover;
+  height: inherit;
+`
 
 const ImgCarousel = ({ imgs }) => {
   if (!imgs || !imgs.length) return <div />;
+  
+  const config = {
+      dots: true,
+      accessibility: true,
+      speed: 150
+    };
+    
   return (
     <Container>
-      <Carousel
-        showThumbs={false}
-        showStatus={false}
-        emulateTouch={true}
-        
-      >
+      <Slider {...config}>
         {imgs.map((src) => (
-          <div>
-            <img src={src} />
-          </div>
+          <ImgContainer>
+            <Img src={src} />
+          </ImgContainer>
         ))}
-      </Carousel>
+      </Slider>
     </Container>
   )
 };
