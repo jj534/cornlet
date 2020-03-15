@@ -7,13 +7,11 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const HomeUI = () => {
-  return (
-    <Container>
-      <MainHeader />
-      <Listings />
-    </Container>
-  )
-};
+const HomeUI = () => (
+  <Container>
+    <MainHeader />
+    <Listings />
+  </Container>
+);
 
 export default HomeUI;

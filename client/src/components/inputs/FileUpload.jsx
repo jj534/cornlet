@@ -19,9 +19,9 @@ const FileUpload = ({ path, setSrc }) => {
         setLoading(false);
         setSrc(url);
       })
-      .catch((e) => {
+      .catch((error) => {
         setLoading(false);
-        log('ERROR upload file');
+        log('FileUpload', e);
       });
   };
   return (

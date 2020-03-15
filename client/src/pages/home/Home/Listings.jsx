@@ -7,7 +7,7 @@ import DynCardList from 'src/components/views/DynCardList';
 
 const CardContainer = styled.div`
   margin: 1rem 0;
-`
+`;
 
 const Listings = () => {
   const [listings, setListings] = useState([]);
@@ -15,21 +15,21 @@ const Listings = () => {
     api.get('/listing?active=true')
       .then((res) => setListings(res.data))
       .catch((e) => {
-        log(`ERROR get listings at home`, e)
-      })
-  }, [])
-  
+        log('ERROR get listings at home', e);
+      });
+  }, []);
+
   return (
     <DynCardList>
       {listings.map((listing) => (
-      <CardContainer>
-        <ListingCard
-          listing={listing}
-        />
-      </CardContainer>
+        <CardContainer key={listing._id}>
+          <ListingCard
+            listing={listing}
+          />
+        </CardContainer>
       ))}
     </DynCardList>
-  )
+  );
 };
 
 export default Listings;

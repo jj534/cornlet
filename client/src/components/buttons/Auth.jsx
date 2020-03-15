@@ -13,7 +13,7 @@ const SignIn = styled(Google)`
   padding: .5rem;
   border-radius: 5px;
   cursor: pointer;
-`
+`;
 
 const Container = styled.div`
 
@@ -21,17 +21,19 @@ const Container = styled.div`
 
 const Auth = () => {
   const user = useSelector((state) => state.user);
-  if (user) return (
+  if (user) {
+    return (
       <Avatar
         src={user.photoURL}
-        path={`/profile`}
+        path="/profile"
       />
-    )
+    );
+  }
   return (
     <Container>
-      <SignIn onClick={signIn}/>
+      <SignIn onClick={signIn} />
     </Container>
-  )
+  );
 };
 
 export default Auth;

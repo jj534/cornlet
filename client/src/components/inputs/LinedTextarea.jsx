@@ -34,11 +34,11 @@ const ErrorMsg = styled(ErrMsg)`
 
 const LinedTextarea = (props) => {
   const {
-    formik, name, label, sideButton, rows, cols
+    formik, name, label, sideButton, rows, cols,
   } = props;
   const hasError = formik && formik.touched[name] && formik.errors[name];
-  const formikProps = formik ? formik.getFieldProps(name) : []
-  
+  const formikProps = formik ? formik.getFieldProps(name) : [];
+
   return (
     <Container>
       <Label htmlFor={name}>{label}</Label>

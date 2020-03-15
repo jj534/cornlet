@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import FormContents from './FormContents';
 import Btn from 'src/components/buttons/Btn';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory } from 'react-router-dom';
+import FormContents from './FormContents';
 
 const Form = styled.form`
 
@@ -16,23 +16,24 @@ const Center = styled.div`
   display: flex;
   justify-content: center;
   margin: 2rem 0;
-`
+`;
 
 const FormComponent = ({ user, initialValues }) => {
   const history = useHistory();
-  
+
   // configure inital values
   const defaultValues = {
-      addr: '',
-      price: 0,
-      term: '',
-      imgs: [],
-      desc: '',
-      active: true,
-      sold: false
-    }
-  const dynInitValues = initialValues ? initialValues : defaultValues;
-  
+    addr: '',
+    price: 0,
+    start: new Date(),
+    end: new Date(),
+    imgs: [],
+    desc: '',
+    active: true,
+    sold: false,
+  };
+  const dynInitValues = initialValues || defaultValues;
+
   // define form
   const formik = useFormik({
     initialValues: dynInitValues,
@@ -41,7 +42,9 @@ const FormComponent = ({ user, initialValues }) => {
         .required('Required'),
       price: Yup.number()
         .required('Required'),
-      term: Yup.string()
+      start: Yup.object()
+        .required('Required'),
+      end: Yup.object()
         .required('Required'),
       imgs: Yup.array()
         .of(Yup.string())
@@ -53,40 +56,42 @@ const FormComponent = ({ user, initialValues }) => {
       sold: Yup.boolean()
         .required('Required'),
     }),
-    onSubmit: values => {
+    onSubmit: (values) => {
       if (initialValues) {
         api.put(`/listing/${initialValues._id}/update`, values)
           .then((res) => {
-            history.push('/profile')
+            history.push('/profile');
           })
-          .catch((e) => log(`ERROR ListingForm update`, e))
+          .catch((e) => log('ERROR ListingForm update', e));
       } else {
         api.post('/listing/create', { ...values, user })
           .then(() => {
-            history.push('/')
+            history.push('/');
           })
           .catch((e) => {
-            log(`ERROR new listing submit form`, e)
-          })
+            log('ERROR new listing submit form', e);
+          });
       }
     },
   });
-  
+
   return (
     <Form onSubmit={formik.handleSubmit}>
-      <FormContents 
+      <FormContents
         formik={formik}
         user={user}
       />
       <Center>
         <Btn
-          color='primary'
+          color="primary"
           inverted
-          type='submit'
-        >Save</Btn>
+          type="submit"
+        >
+Save
+        </Btn>
       </Center>
     </Form>
-  )
+  );
 };
 
 export default FormComponent;

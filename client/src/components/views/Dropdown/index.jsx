@@ -9,19 +9,19 @@ const Container = styled.div`
   position: absolute;
   top: 3rem;
   right: 0;
-  display: ${props => props.show ? 'inline-block' : 'none'};
+  display: ${(props) => (props.show ? 'inline-block' : 'none')};
   overflow: overlay;
   width: 100px;
-`
+`;
 
-const Dropdown = ({ show, setShow, children, ...rest }) => {
-  return (
-      <Container
-        show={show}
-      >
-        {children}
-      </Container>
-  )
-};
+const Dropdown = ({
+  show, setShow, children, ...rest
+}) => (
+  <Container
+    show={show}
+  >
+    {children}
+  </Container>
+);
 
 export default Dropdown;

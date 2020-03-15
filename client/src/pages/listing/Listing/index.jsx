@@ -9,10 +9,10 @@ import StateBadges from 'src/components/displays/StateBadges';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 const Container = styled.div`
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     max-width: 800px;
   }
 `;
@@ -20,18 +20,18 @@ const Container = styled.div`
 const ImgInnerContainer = styled.div`
   width: 100vw;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     width: 800px;
   }
-`
+`;
 
 const Content = styled.div`
   margin-top: 2rem;
-`
+`;
 
 const Section = styled.div`
   margin: 1rem 0 2.5rem 0;
-`
+`;
 
 const Row = styled.div`
   display: flex;
@@ -39,47 +39,49 @@ const Row = styled.div`
   padding: 0 1rem;
   margin: .2rem 0;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     margin: .5rem 0;
   }
-`
+`;
 
 const Addr = styled.h2`
   font-size: 1.2rem;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     font-weight: bold;
     font-size: 1.5rem;
   }
-`
+`;
 
 const Price = styled.p`
   font-size: 1.5rem;
-  color: ${props => props.theme.primary};
-`
+  color: ${(props) => props.theme.primary};
+`;
 
 const Listing = ({ listing }) => {
-  const { imgs, addr, price, user, desc, sold } = listing;
+  const {
+    imgs, addr, price, user, desc, sold,
+  } = listing;
   return (
     <Wrapper>
-    <Container>
-      <BackHeader fullwidth />
-      <ImgInnerContainer>
-        <ImgCarousel imgs={imgs} />
-      </ImgInnerContainer>
-      <Content>
-        <Section>
-          <Row>
-            <Addr>{addr}</Addr>
-            <Price>{`$${price}`}</Price>
-          </Row>
-          <Row>
-            <StateBadges
-              listing={listing}
-            />
-          </Row>
-        </Section>
-        {!sold && (
+      <Container>
+        <BackHeader fullwidth />
+        <ImgInnerContainer>
+          <ImgCarousel imgs={imgs} />
+        </ImgInnerContainer>
+        <Content>
+          <Section>
+            <Row>
+              <Addr>{addr}</Addr>
+              <Price>{`$${price}`}</Price>
+            </Row>
+            <Row>
+              <StateBadges
+                listing={listing}
+              />
+            </Row>
+          </Section>
+          {!sold && (
           <Section>
             <Row>
               <DetailedAvatar
@@ -89,16 +91,16 @@ const Listing = ({ listing }) => {
               />
             </Row>
           </Section>
-        )}
-        <Section>
-          <Row>
-            <Body>{desc}</Body>
-          </Row>
-        </Section>
-      </Content>
-    </Container>
+          )}
+          <Section>
+            <Row>
+              <Body>{desc}</Body>
+            </Row>
+          </Section>
+        </Content>
+      </Container>
     </Wrapper>
-  )
+  );
 };
 
 export default Listing;

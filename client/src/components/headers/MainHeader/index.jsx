@@ -18,30 +18,29 @@ const Right = styled.div`
   & > * {
     margin-left: 1rem;
   }
-`
+`;
 
 const Logo = styled.h1`
   font-size: 2rem;
-  color: ${props => props.theme.primary};
-`
+  color: ${(props) => props.theme.primary};
+`;
 
 
-const MainHeader = () => {
-  
-  return (
-    <Container>
-      <Logo>cornlet</Logo>
-      <Right>
-      <Link to='/new'>
+const MainHeader = () => (
+  <Container>
+    <Logo>cornlet</Logo>
+    <Right>
+      <Link to="/new">
         <Badge
-          color='primary'
+          color="primary"
           inverted={1}
-        >new</Badge>
+        >
+new
+        </Badge>
       </Link>
       <Auth />
-      </Right>
-    </Container>
-  )
-};
+    </Right>
+  </Container>
+);
 
 export default MainHeader;

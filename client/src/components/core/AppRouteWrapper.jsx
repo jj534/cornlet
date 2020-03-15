@@ -6,18 +6,16 @@ import New from 'src/pages/new';
 import Profile from 'src/pages/profile';
 import Edit from 'src/pages/edit';
 
-const AppRouter = () => {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/listing/:id/edit" component={Edit} />
-        <Route exact path="/listing/:id" component={Listing} />
-        <Route exact path="/new" component={New} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/" component={Home} />
-      </Switch>
-    </BrowserRouter>
-  )
-};
+const AppRouter = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/listing/:id/edit" component={Edit} />
+      <Route exact path="/listing/:id" component={Listing} />
+      <Route exact path="/new" component={New} />
+      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/" component={Home} />
+    </Switch>
+  </BrowserRouter>
+);
 
 export default AppRouter;

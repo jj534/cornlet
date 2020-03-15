@@ -13,31 +13,33 @@ const Container = styled.div`
   }
 `;
 
-const FormikInput = ({ formik, name, label, adornment, multiline, ...rest}) => {
+const FormikInput = ({
+  formik, name, label, adornment, multiline, ...rest
+}) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
   const formikProps = formik ? formik.getFieldProps(name) : [];
-  const wrappedAdornment = adornment 
+  const wrappedAdornment = adornment
     ? <InputAdornment position="start">{adornment}</InputAdornment>
     : null;
   const multilineProps = {
-    multiline: multiline,
+    multiline,
     variant: 'outlined',
-    rows: 8
-  }
+    rows: 8,
+  };
   const conditionalMultiline = multiline ? multilineProps : {};
-  
+
   return (
     <Container>
-      <TextField 
+      <TextField
         {...rest}
         {...formikProps}
-        label={label} 
-        error={error ? true : false}
+        label={label}
+        error={!!error}
         helperText={error}
         fullwidth={1}
-        margin='normal'
-        InputProps={{ startAdornment: wrappedAdornment, }}
+        margin="normal"
+        InputProps={{ startAdornment: wrappedAdornment }}
         {...conditionalMultiline}
       />
     </Container>

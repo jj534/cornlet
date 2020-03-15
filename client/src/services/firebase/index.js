@@ -1,9 +1,9 @@
-import * as firebase from 'firebase/app';
+import * as firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/analytics';
 
-import signIn from './signIn';
+// import signIn from './signIn';
 import signOut from './signOut';
 import uploadFile from './uploadFile';
 
@@ -20,6 +20,14 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+var provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: 'select_account'
+});
+const signIn = () => {
+  firebase.auth().signInWithRedirect(provider);
+}
 
 export default firebase;
 export {

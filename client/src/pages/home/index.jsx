@@ -1,7 +1,7 @@
 import React from 'react';
-import Home from './Home';
 import firebase from 'src/services/firebase';
 import { useDispatch } from 'react-redux';
+import Home from './Home';
 
 const HomeIndex = () => {
   const dispatch = useDispatch();
@@ -9,16 +9,16 @@ const HomeIndex = () => {
     if (user) {
       dispatch({
         type: 'USER_SET',
-        payload: user
-      })
+        payload: user,
+      });
     } else {
       dispatch({
         type: 'USER_SET',
-        payload: null
-      })
+        payload: null,
+      });
     }
   });
-  return <Home />
+  return <Home />;
 };
 
 export default HomeIndex;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Listing from './Listing';
 import api from 'src/util/api';
 import log from 'src/util/log';
+import Listing from './Listing';
 
 const Container = styled.div`
 
@@ -15,19 +15,19 @@ const ListingIndex = ({ match }) => {
     if (id) {
       api.get(`/listing/${id}`)
         .then((res) => setListing(res.data))
-        .catch((e) => log(`ERROR get listing at listing details page`, e))
+        .catch((e) => log('ERROR get listing at listing details page', e));
     }
-  }, [id])
-  
+  }, [id]);
+
   if (!listing) return <div />;
-  
+
   return (
     <Container>
-      <Listing 
+      <Listing
         listing={listing}
       />
     </Container>
-  )
+  );
 };
 
 export default ListingIndex;

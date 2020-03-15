@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import 'src/theme/Normalise.scss';
 import theme from 'src/theme';
-import AppReduxWrapper from './AppReduxWrapper';
 import MainFooter from 'src/components/footers/MainFooter';
+import AppReduxWrapper from './AppReduxWrapper';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -17,10 +16,10 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 90%;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     width: 70%;
   }
-`
+`;
 
 const AppThemeWrapper = () => (
   <ThemeProvider theme={theme}>

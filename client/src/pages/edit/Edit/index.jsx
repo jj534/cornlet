@@ -7,16 +7,14 @@ const Container = styled.div`
 
 `;
 
-const Edit = ({ user, initialValues }) => {
-  return (
-    <Container>
-      <BackHeader to='/profile' />
-        <ListingForm
-          user={user}
-          initialValues={initialValues}
-        />
-    </Container>
-  )
-};
+const Edit = ({ user, initialValues }) => (
+  <Container>
+    <BackHeader to="/profile" />
+    <ListingForm
+      user={user}
+      initialValues={initialValues}
+    />
+  </Container>
+);
 
 export default Edit;

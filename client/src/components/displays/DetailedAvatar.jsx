@@ -21,18 +21,16 @@ const Email = styled.div`
   opacity: .8;
 `;
 
-const UserData = ({ name, email, src}) => {
-  return (
-    <Container>
-      <Avatar
-        src={src}
-      />
-      <Data>
-        <Name>{name}</Name>
-        <Email>{email}</Email>
-      </Data>
-    </Container>
-  );
-};
+const UserData = ({ name, email, src }) => (
+  <Container>
+    <Avatar
+      src={src}
+    />
+    <Data>
+      <Name>{name}</Name>
+      <Email>{email}</Email>
+    </Data>
+  </Container>
+);
 
 export default UserData;

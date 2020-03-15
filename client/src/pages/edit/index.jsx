@@ -15,12 +15,12 @@ const EditIndex = ({ match }) => {
   useEffect(() => {
     api.get(`/listing/${id}`)
       .then((res) => setListing(res.data))
-      .catch((e) => log(`ERROR EditIndex get listing by id`, e))
-  }, [id])
+      .catch((e) => log('ERROR EditIndex get listing by id', e));
+  }, [id]);
   const user = useSelector((state) => state.user);
 
   if (!user || !listing || user.uid !== listing.user.uid) return <div />;
-  
+
   return (
     <Container>
       <Edit
@@ -28,7 +28,7 @@ const EditIndex = ({ match }) => {
         initialValues={listing}
       />
     </Container>
-  )
+  );
 };
 
 export default EditIndex;

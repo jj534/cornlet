@@ -5,12 +5,10 @@ const Container = styled.div`
 
 `;
 
-const Filters = () => {
-  return (
-    <Container>
-        Filters
-    </Container>
-  )
-};
+const Filters = () => (
+  <Container>
+    
+  </Container>
+);
 
 export default Filters;

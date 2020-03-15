@@ -5,13 +5,6 @@ const Container = styled.div`
   min-height: 4rem;
 `;
 
-const MainFooter = () => {
-  // used in AppRouter
-  return (
-    <Container>
-      
-    </Container>
-  )
-};
+const MainFooter = () => <Container />;
 
 export default MainFooter;

@@ -6,9 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const Container = styled.div`
 
-`
+`;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   textField: {
     'min-width': 150,
   },
@@ -28,18 +28,18 @@ const Select = ({
         select
         {...rest}
         {...formikProps}
-        label={label} 
+        label={label}
         error={error}
         helperText={error}
-        margin='normal'
+        margin="normal"
         className={classes.textField}
-        >
-          {opts.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+      >
+        {opts.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
     </Container>
   );
 };

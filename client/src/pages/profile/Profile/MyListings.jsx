@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import api from 'src/util/api'
-import log from 'src/util/log'
+import api from 'src/util/api';
+import log from 'src/util/log';
 import ListingCard from 'src/components/cards/ListingCard';
 import DynCardList from 'src/components/views/DynCardList';
 
 const Container = styled.div`
   margin: 2rem 0;
-`
+`;
 
 const CardContainer = styled.div`
   margin: 1rem 0;
@@ -19,13 +19,13 @@ const MyListings = ({ uid, setHasListings }) => {
     if (uid) {
       api.get(`/listing?uid=${uid}`)
         .then((res) => setListings(res.data))
-        .catch((e) => log(`ERROR get mylistings`, e))
+        .catch((e) => log('ERROR get mylistings', e));
     }
-  }, [uid])
+  }, [uid]);
   useEffect(() => {
     if (listings.length > 0) setHasListings(true);
-  }, [listings, setHasListings])
-  
+  }, [listings, setHasListings]);
+
   return (
     <Container>
       <DynCardList>
@@ -36,12 +36,10 @@ const MyListings = ({ uid, setHasListings }) => {
               edit
             />
           </CardContainer>
-        ))
-          
-        }
+        ))}
       </DynCardList>
     </Container>
-  )
+  );
 };
 
 export default MyListings;

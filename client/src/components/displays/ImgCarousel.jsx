@@ -1,36 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./ImgCarousel.scss";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './ImgCarousel.scss';
 
 const Container = styled.div`
-`
+`;
 
 const ImgContainer = styled.div`
   height: 250px;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     height: 500px;
   }
-`
+`;
 
 const Img = styled.img`
   width: 100%;
   object-fit: cover;
   height: inherit;
-`
+`;
 
 const ImgCarousel = ({ imgs }) => {
   if (!imgs || !imgs.length) return <div />;
-  
+
   const config = {
-      dots: true,
-      accessibility: true,
-      speed: 150
-    };
-    
+    dots: true,
+    accessibility: true,
+    speed: 150,
+  };
+
   return (
     <Container>
       <Slider {...config}>
@@ -41,7 +41,7 @@ const ImgCarousel = ({ imgs }) => {
         ))}
       </Slider>
     </Container>
-  )
+  );
 };
 
 export default ImgCarousel;

@@ -8,16 +8,14 @@ const Container = styled.div`
 
 `;
 
-const New = ({ user }) => {
-  return (
-    <Container>
-      <BackHeader />
-        <Heading>New Listing</Heading>
-        <ListingForm 
-          user={user}
-        />
-    </Container>
-  )
-};
+const New = ({ user }) => (
+  <Container>
+    <BackHeader />
+    <Heading>New Listing</Heading>
+    <ListingForm
+      user={user}
+    />
+  </Container>
+);
 
 export default New;

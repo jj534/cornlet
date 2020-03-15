@@ -14,27 +14,27 @@ const Container = styled.div`
 
 const Section = styled.div`
   margin: 1rem 0 3rem 0;
-`
+`;
 
 const Row = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: .5rem 0;
-`
+`;
 
 const Center = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 const Profile = ({ user }) => {
   const history = useHistory();
   const handleSignOut = async () => {
     await signOut();
-    history.push('/')
-  }
-  
+    history.push('/');
+  };
+
   // conditionally render body text
   const defaultText = 'Create a new listing to get started';
   const hasListingsText = 'Click on your listing to make edits';
@@ -43,36 +43,40 @@ const Profile = ({ user }) => {
   useEffect(() => {
     if (hasListings) setText(hasListingsText);
     else setText(defaultText);
-  }, [hasListings])
-  
+  }, [hasListings]);
+
   return (
     <Container>
       <BackHeader />
-        <Section>
-          <Row>
-            <Heading>{`Hi, ${user.displayName}`}</Heading>
-            <Link to='/new'>
-              <Btn
-                color='primary'
-                inverted
-              >new</Btn>
-            </Link>
-          </Row>
-          <Body>{text}</Body>
-        </Section>
-        <MyListings
-          uid={user.uid}
-          setHasListings={setHasListings}
-        />
-        <Center>
-          <Btn
-            color='primary'
-            type='button'
-            onClick={handleSignOut}
-          >Sign Out</Btn>
-        </Center>
+      <Section>
+        <Row>
+          <Heading>{`Hi, ${user.displayName}`}</Heading>
+          <Link to="/new">
+            <Btn
+              color="primary"
+              inverted
+            >
+new
+            </Btn>
+          </Link>
+        </Row>
+        <Body>{text}</Body>
+      </Section>
+      <MyListings
+        uid={user.uid}
+        setHasListings={setHasListings}
+      />
+      <Center>
+        <Btn
+          color="primary"
+          type="button"
+          onClick={handleSignOut}
+        >
+Sign Out
+        </Btn>
+      </Center>
     </Container>
-  )
+  );
 };
 
 export default Profile;
