@@ -24,6 +24,9 @@ const Img = styled.img`
   width: ${theme.CARD_WIDTH}px;
   height: 300px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  
+  // faded
+  opacity: ${props => props.faded ? '.5' : ''};
 `
 
 const TopRow = styled.div`
@@ -39,12 +42,15 @@ const Price = styled.p`
 `
 
 const ListingCardUI = ({ listing, edit }) => {
-  const { _id, addr, price, imgs } = listing;
+  const { _id, addr, price, imgs, sold } = listing;
   const path = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   return (
     <Link to={path}>
       <Container>
-        <Img src={imgs[0]} />
+        <Img 
+        src={imgs[0]} 
+        faded={sold}
+        />
         <TextArea>
           <TopRow>
             <Addr>{addr}</Addr>

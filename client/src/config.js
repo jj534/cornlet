@@ -1,6 +1,4 @@
 const cfg = {
-  BASE: '/api',
-  BASE_PROD: '',
   TERMS: [{
     label: 'Summer 2020',
     value: 'Summer 2020'

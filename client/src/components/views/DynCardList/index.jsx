@@ -13,7 +13,8 @@ const Container = styled.div`
   justify-content: center;
   
   @media (min-width: ${props => props.theme.md}px) {
-    //justify-content: flex-start;
+    justify-content: flex-start;
+    max-width: 1250px;
   }
 `;
 
