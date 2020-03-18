@@ -14,7 +14,7 @@ const Container = styled.div`
   
   @media (min-width: ${(props) => props.theme.md}px) {
     justify-content: flex-start;
-    max-width: 1250px;
+    width: 1250px;
   }
 `;
 
