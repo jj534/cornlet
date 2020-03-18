@@ -32,8 +32,8 @@ userRouter.get('/:id', async (req, res) => {
     const result = await User.findById(req.params.id).populate({
       path: 'cart.item',
       populate: {
-        path: 'owner'
-      }
+        path: 'owner',
+      },
     });
     res.send(result);
   } catch (e) {

@@ -37,7 +37,7 @@ const Img = styled.img`
 `;
 
 const CustomFileUpload = ({
-  formik, name, label, user,
+  formik, name, user,
 }) => {
   const [newSrc, setNewSrc] = useState();
 
@@ -67,7 +67,7 @@ const CustomFileUpload = ({
       />
       <ErrMsg
         formik={formik}
-        name='imgs'
+        name="imgs"
       />
       <ImgContainer>
         {formik.values[name].map((src) => (

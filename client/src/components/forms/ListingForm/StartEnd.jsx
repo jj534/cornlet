@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import ErrMsg from 'src/components/fonts/ErrMsg';
 
 const Container = styled.div`
@@ -23,24 +23,24 @@ const StyledPicker = styled(DatePicker)`
   line-height: 1.2;
   
   width: 100px;
-`
+`;
 
 const Col = styled.div`
 
-`
+`;
 
 const StartEnd = ({ formik }) => {
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
-  
+
   useEffect(() => {
     formik.setFieldValue('start', new Date(start));
-  }, [start])
-  
+  }, [start]);
+
   useEffect(() => {
     formik.setFieldValue('end', new Date(end));
-  }, [end])
-  
+  }, [end]);
+
   return (
     <Container>
       <Col>
@@ -50,7 +50,7 @@ const StartEnd = ({ formik }) => {
         />
         <ErrMsg
           formik={formik}
-          name='end'
+          name="end"
         />
       </Col>
       <p>to</p>
@@ -61,11 +61,11 @@ const StartEnd = ({ formik }) => {
         />
         <ErrMsg
           formik={formik}
-          name='end'
+          name="end"
         />
       </Col>
     </Container>
-  )
+  );
 };
 
 export default StartEnd;

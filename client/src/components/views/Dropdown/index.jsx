@@ -19,6 +19,7 @@ const Dropdown = ({
 }) => (
   <Container
     show={show}
+    {...rest}
   >
     {children}
   </Container>

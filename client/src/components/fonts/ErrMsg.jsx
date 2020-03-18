@@ -7,15 +7,17 @@ const Container = styled.div`
   margin-top: .5rem;
 `;
 
-const ErrMsg = ({ children, formik, name, ...rest }) => {
+const ErrMsg = ({
+  children, formik, name, ...rest
+}) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
-  
+
   return (
     <Container {...rest}>
       {error || children}
     </Container>
-  )
+  );
 };
 
 export default ErrMsg;

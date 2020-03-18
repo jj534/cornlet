@@ -46,13 +46,19 @@ var listingSchema = Schema({
     required: true,
   },
   term: String,
+  start: {
+    type: Date,
+    required: true
+  },
+  end: {
+    type: Date,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: new Date
   }
 });
-
-listingSchema.index({title: 'text', body: 'text'});
 
 listingSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Listing', listingSchema);

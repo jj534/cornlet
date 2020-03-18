@@ -4,20 +4,24 @@ import ListingCard from 'src/components/cards/ListingCard';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import DynCardList from 'src/components/views/DynCardList';
+import useRouter from 'src/util/hooks/useRouter';
 
 const CardContainer = styled.div`
   margin: 1rem 0;
 `;
 
 const Listings = () => {
+  const router = useRouter();
   const [listings, setListings] = useState([]);
+
   useEffect(() => {
-    api.get('/listing?active=true')
+    const connector = router.location.search ? '&' : '?';
+    api.get(`/listing${router.location.search}${connector}active=true`)
       .then((res) => setListings(res.data))
       .catch((e) => {
         log('ERROR get listings at home', e);
       });
-  }, []);
+  }, [router]);
 
   return (
     <DynCardList>

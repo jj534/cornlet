@@ -59,7 +59,7 @@ const FormComponent = ({ user, initialValues }) => {
     onSubmit: (values) => {
       if (initialValues) {
         api.put(`/listing/${initialValues._id}/update`, values)
-          .then((res) => {
+          .then(() => {
             history.push('/profile');
           })
           .catch((e) => log('ERROR ListingForm update', e));

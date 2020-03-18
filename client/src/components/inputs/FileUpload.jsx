@@ -11,6 +11,7 @@ const Container = styled.div`
 
 const FileUpload = ({ path, setSrc }) => {
   const [loading, setLoading] = useState(false);
+
   const handleUpload = (e) => {
     setLoading(true);
     const file = e.target.files[0];
@@ -21,9 +22,10 @@ const FileUpload = ({ path, setSrc }) => {
       })
       .catch((error) => {
         setLoading(false);
-        log('FileUpload', e);
+        log('FileUpload', error);
       });
   };
+
   return (
     <Container>
       <input

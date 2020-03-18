@@ -8,7 +8,7 @@ const Container = styled.div`
 
 `;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   textField: {
     'min-width': 150,
   },

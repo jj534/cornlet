@@ -14,11 +14,11 @@ const StageBadges = ({ listing }) => {
   const hasDates = listing.start && listing.end;
   const badgeText = hasDates ? `${startDate} ~ ${endDate}` : listing.term;
   return (
-  <Container>
-    <Badge color="primary" size="sm">{badgeText}</Badge>
-    {listing.sold && <Badge color="primary" size="sm" inverted>Sold</Badge>}
-  </Container>
-  )
+    <Container>
+      <Badge color="primary" size="sm">{badgeText}</Badge>
+      {listing.sold && <Badge color="primary" size="sm" inverted>Sold</Badge>}
+    </Container>
+  );
 };
 
 export default StageBadges;
