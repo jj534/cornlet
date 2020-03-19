@@ -25,7 +25,7 @@ const FormikInput = ({
   const multilineProps = {
     multiline,
     variant: 'outlined',
-    rows: 8,
+    rows: 20,
   };
   const conditionalMultiline = multiline ? multilineProps : {};
 

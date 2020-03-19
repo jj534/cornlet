@@ -7,6 +7,7 @@ import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory } from 'react-router-dom';
 import FormContents from './FormContents';
+import guidelines from './guidelines';
 
 const Form = styled.form`
 
@@ -28,7 +29,7 @@ const FormComponent = ({ user, initialValues }) => {
     start: new Date(),
     end: new Date(),
     imgs: [],
-    desc: '',
+    desc: guidelines,
     active: true,
     sold: false,
   };
