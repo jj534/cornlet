@@ -60,8 +60,9 @@ const Price = styled.p`
 
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold,
+    imgs, addr, price, user, desc, sold, displayName, displayEmail
   } = listing;
+  
   return (
     <Wrapper>
       <Container>
@@ -85,9 +86,9 @@ const Listing = ({ listing }) => {
           <Section>
             <Row>
               <DetailedAvatar
-                name={user.name}
-                email={user.email}
-                src={user.photo}
+                name={displayName || user.name}
+                email={displayEmail || user.email}
+                src={displayName ? undefined : user.photo}
               />
             </Row>
           </Section>

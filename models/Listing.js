@@ -37,6 +37,8 @@ var listingSchema = Schema({
       required: true
     }
   },
+  displayEmail: String,
+  displayName: String,
   active: {
     type: Boolean,
     required: true
