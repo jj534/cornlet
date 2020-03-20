@@ -53,6 +53,20 @@ const FormContents = ({ formik, user }) => (
       label="Mark as Sold"
     />
     <Body>*Your contact info will not be displayed if marked as sold</Body>
+    {user.email === 'jj534@cornell.edu' && (
+      <div>
+        <Input
+          formik={formik}
+          name="displayName"
+          label="Display Name"
+        />
+        <Input
+          formik={formik}
+          name="displayEmail"
+          label="Display Email"
+        />
+      </div>
+    )}
   </Container>
 );
 
