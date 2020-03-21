@@ -29,9 +29,7 @@ const DateFilter = ({ name, placeholder }) => {
 
   useEffect(() => {
     if (router.query[name]) {
-      console.log(router.query[name]);
-      const newDate = new Date(router.query[name]);
-      console.log(newDate);
+      const newDate = new Date(router.query[name].replace(/-/g, '/'));
       setDate(newDate);
     } else {
       setDate(null);
