@@ -30,8 +30,8 @@ const Col = styled.div`
 `;
 
 const StartEnd = ({ formik }) => {
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
+  const [start, setStart] = useState(new Date(formik.values.start) || new Date());
+  const [end, setEnd] = useState(new Date(formik.values.end) || new Date());
 
   useEffect(() => {
     formik.setFieldValue('start', new Date(start));

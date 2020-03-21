@@ -28,7 +28,7 @@ const Logo = styled.h1`
 
 const MainHeader = () => (
   <Container>
-    <Link to='/'>
+    <Link to="/">
       <Logo>cornlet</Logo>
     </Link>
     <Right>

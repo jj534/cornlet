@@ -60,9 +60,9 @@ const Price = styled.p`
 
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold, displayName, displayEmail
+    imgs, addr, price, user, desc, sold, displayName, displayEmail,
   } = listing;
-  
+
   return (
     <Wrapper>
       <Container>
