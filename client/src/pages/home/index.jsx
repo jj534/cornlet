@@ -5,7 +5,9 @@ import Home from './Home';
 
 const HomeIndex = () => {
   const dispatch = useDispatch();
-  firebase.auth().onAuthStateChanged((user) => {
+  
+  // auth 
+  const setUser = (user) => {
     if (user) {
       dispatch({
         type: 'USER_SET',
@@ -17,7 +19,19 @@ const HomeIndex = () => {
         payload: null,
       });
     }
+  }
+  
+  firebase.auth().onAuthStateChanged((user) => {
+    setUser(user);
   });
+  
+  firebase.auth().getRedirectResult()
+    .then(({ user }) => {
+      setUser(user);
+    })
+    .catch((error) => {});
+
+  
   return <Home />;
 };
 

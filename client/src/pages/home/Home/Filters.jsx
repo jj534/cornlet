@@ -5,7 +5,7 @@ import DateFilter from 'src/components/filters/DateFilter';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 const Container = styled.div`
   margin-bottom: 4rem;
@@ -17,7 +17,7 @@ const Container = styled.div`
     margin-right: .8rem;
   }
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     width: 1250px;
   }
 `;

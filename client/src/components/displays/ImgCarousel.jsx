@@ -28,7 +28,7 @@ const ImgCarousel = ({ imgs }) => {
   const config = {
     dots: true,
     accessibility: true,
-    speed: 150,
+    speed: 100,
   };
 
   return (

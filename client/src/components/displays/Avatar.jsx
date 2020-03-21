@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
-import {ReactComponent as AvatarIconRaw} from 'src/assets/svgs/avatar.svg';
+import { ReactComponent as AvatarIconRaw } from 'src/assets/svgs/avatar.svg';
 
 const SAvatar = styled(Avatar)`
   width: 20px;
@@ -17,10 +17,9 @@ const AvatarIcon = styled(AvatarIconRaw)`
   border-radius: 50%;
   padding: 5px;
   opacity: .8;
-`
+`;
 
-const ProfileIcon = ({ src, path }) => {
-  return (
+const ProfileIcon = ({ src, path }) => (
   <div>
     {src
       ? (
@@ -29,13 +28,11 @@ const ProfileIcon = ({ src, path }) => {
             src={src}
           />
         </Link>
-        )
+      )
       : (
         <AvatarIcon />
-        )
-    }
+      )}
   </div>
-  )
-};
+);
 
 export default ProfileIcon;

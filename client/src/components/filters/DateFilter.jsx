@@ -26,14 +26,15 @@ const StyledPicker = styled(DatePicker)`
 const DateFilter = ({ name, placeholder }) => {
   const router = useRouter();
   const [date, setDate] = useState();
-  
+
   useEffect(() => {
     if (router.query[name]) {
-      setDate(new Date(router.query[name]))
+      const newDate = new Date(router.query[name].replace(/-/g, '/'));
+      setDate(newDate);
     } else {
       setDate(null);
     }
-  }, [router.query[name]])
+  }, [router.query[name]]);
 
   useEffect(() => {
     if (!date) return;
@@ -42,10 +43,13 @@ const DateFilter = ({ name, placeholder }) => {
     newQuery[name] = formatDate(date);
     router.updateQuery(newQuery);
   }, [date]);
+  
+  const handleDateChangeRaw = (e) => e.preventDefault();
 
   return (
     <Container>
       <StyledPicker
+        onChangeRaw={handleDateChangeRaw}
         value={date ? undefined : placeholder}
         selected={date}
         onChange={(newDate) => setDate(newDate)}
