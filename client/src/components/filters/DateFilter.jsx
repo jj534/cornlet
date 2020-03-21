@@ -47,6 +47,7 @@ const DateFilter = ({ name, placeholder }) => {
   return (
     <Container>
       <StyledPicker
+        readonly='readonly'
         value={date ? undefined : placeholder}
         selected={date}
         onChange={(newDate) => setDate(newDate)}

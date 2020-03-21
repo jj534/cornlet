@@ -19,7 +19,10 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+
+if (process.env !== 'development') {
+  firebase.analytics();
+}
 
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
