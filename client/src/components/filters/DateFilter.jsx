@@ -43,11 +43,13 @@ const DateFilter = ({ name, placeholder }) => {
     newQuery[name] = formatDate(date);
     router.updateQuery(newQuery);
   }, [date]);
+  
+  const handleDateChangeRaw = (e) => e.preventDefault();
 
   return (
     <Container>
       <StyledPicker
-        readOnly={true}
+        onChangeRaw={handleDateChangeRaw}
         value={date ? undefined : placeholder}
         selected={date}
         onChange={(newDate) => setDate(newDate)}
