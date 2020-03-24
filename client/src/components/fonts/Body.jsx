@@ -2,13 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledBody = styled.h2`
-  opacity: .8;
+  opacity: 1;
   font-size: 1rem;
   white-space: pre-line;
+  line-height: 1.2;
+  
+  // muted
+  opacity: ${props => props.muted ? '.8' : ''};
 `;
 
 const Body = (props) => (
-  <StyledBody>
+  <StyledBody {...props}>
     {props.children}
   </StyledBody>
 );
