@@ -6,7 +6,7 @@ import theme from 'src/theme';
 
 const Container = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin-right: 1rem;
+    margin-right: .7rem;
   }
 `;
 
@@ -16,7 +16,7 @@ const TextArea = styled.div`
 `;
 
 const Addr = styled.p`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
 `;
 
 const Img = styled.img`
@@ -33,11 +33,11 @@ const TopRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 0 .5rem 0;
+  margin: .6rem 0 .4rem 0;
 `;
 
 const Price = styled.p`
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
   color: ${(props) => props.theme.primary};
 `;
 

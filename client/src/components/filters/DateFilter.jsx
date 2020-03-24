@@ -10,17 +10,20 @@ const Container = styled.div`
 `;
 
 const StyledPicker = styled(DatePicker)`
-  padding: .5rem .8rem;
+  padding: .4rem;
   font-size: .8rem;
   background-color: white;
   display: inline;
   border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-  width: 80px;
+  width: 6rem;
   text-align: center;
   background-color: ${(props) => props.theme.primary};
   color: white;
   cursor: pointer;
+  
+  // date
+  width: ${props => props.value ? '3.5rem' : ''};
 `;
 
 const DateFilter = ({ name, placeholder }) => {

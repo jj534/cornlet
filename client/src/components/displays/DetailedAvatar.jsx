@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Avatar from 'src/components/displays/Avatar';
+import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
   display: flex;
@@ -13,12 +14,8 @@ const Data = styled.div`
   margin-left: 1rem;
 `;
 
-const Name = styled.div`
-  margin-bottom: .2rem;
-`;
-
-const Email = styled.div`
-  opacity: .8;
+const Name = styled(Body)`
+  margin-bottom: .1rem;
 `;
 
 const UserData = ({ name, email, src }) => (
@@ -27,8 +24,8 @@ const UserData = ({ name, email, src }) => (
       src={src}
     />
     <Data>
-      <Name>{name}</Name>
-      <Email>{email}</Email>
+      <Name sm>{name}</Name>
+      <Body sm muted>{email}</Body>
     </Data>
   </Container>
 );

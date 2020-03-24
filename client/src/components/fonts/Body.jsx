@@ -9,6 +9,9 @@ const StyledBody = styled.h2`
   
   // muted
   opacity: ${props => props.muted ? '.8' : ''};
+  
+  // sm
+  font-size: ${props => props.sm ? '.8rem' : ''};
 `;
 
 const Body = (props) => (

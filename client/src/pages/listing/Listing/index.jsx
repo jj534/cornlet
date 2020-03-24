@@ -26,7 +26,7 @@ const ImgInnerContainer = styled.div`
 `;
 
 const Content = styled.div`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 `;
 
 const Section = styled.div`
@@ -46,15 +46,15 @@ const Row = styled.div`
 
 const Addr = styled.h2`
   font-size: 1.2rem;
-  
+
   @media (min-width: ${(props) => props.theme.md}px) {
     font-weight: bold;
-    font-size: 1.5rem;
   }
+
 `;
 
 const Price = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: ${(props) => props.theme.primary};
 `;
 
