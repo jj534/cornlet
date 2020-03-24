@@ -8,6 +8,7 @@ const HomeIndex = () => {
   
   // auth 
   const setUser = (user) => {
+    console.log('user', user);
     if (user) {
       dispatch({
         type: 'USER_SET',
@@ -22,15 +23,9 @@ const HomeIndex = () => {
   }
   
   firebase.auth().onAuthStateChanged((user) => {
+    console.log('state change', user)
     setUser(user);
   });
-  
-  firebase.auth().getRedirectResult()
-    .then(({ user }) => {
-      setUser(user);
-    })
-    .catch((error) => {});
-
   
   return <Home />;
 };
