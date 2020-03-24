@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import StageBadges from 'src/components/displays/StateBadges';
 import theme from 'src/theme';
+import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
@@ -15,8 +16,12 @@ const TextArea = styled.div`
   width: ${theme.CARD_WIDTH}px;
 `;
 
-const Addr = styled.p`
-  // font-size: 1.2rem;
+const Addr = styled(Body)`
+  white-space: nowrap;
+  flex-grow: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: .5rem;
 `;
 
 const Img = styled.img`
@@ -34,10 +39,10 @@ const TopRow = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: .6rem 0 .4rem 0;
+  text-overflow: ellipsis;
 `;
 
 const Price = styled.p`
-  // font-size: 1.2rem;
   color: ${(props) => props.theme.primary};
 `;
 
