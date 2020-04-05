@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Btn from 'src/components/buttons/Btn';
-import signOut from 'src/services/firebase/signOut';
-import { useHistory, Link } from 'react-router-dom';
-import BackHeader from 'src/components/headers/BackHeader';
+import { Link } from 'react-router-dom';
 import Heading from 'src/components/fonts/Heading';
 import Body from 'src/components/fonts/Body';
-import MyListings from './MyListings';
+import Listings from './Listings';
+import { useSelector } from 'react-redux';
+import MainHeader from 'src/components/headers/MainHeader';
+import Navbar from 'src/components/headers/Navbar';
 
 const Container = styled.div`
 
@@ -14,6 +15,7 @@ const Container = styled.div`
 
 const Section = styled.div`
   margin: 1rem 0 3rem 0;
+  padding: 0 1rem;
 `;
 
 const Row = styled.div`
@@ -23,17 +25,8 @@ const Row = styled.div`
   margin: .5rem 0;
 `;
 
-const Center = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const Profile = ({ user }) => {
-  const history = useHistory();
-  const handleSignOut = async () => {
-    await signOut();
-    history.push('/');
-  };
+const MyListings = () => {
+  const user = useSelector((state) => state.user);
 
   // conditionally render body text
   const defaultText = 'Create a new listing to get started';
@@ -47,7 +40,8 @@ const Profile = ({ user }) => {
 
   return (
     <Container>
-      <BackHeader />
+      <MainHeader />
+      <Navbar />
       <Section>
         <Row>
           <Heading>{`Hi, ${user.displayName}`}</Heading>
@@ -62,21 +56,12 @@ new
         </Row>
         <Body>{text}</Body>
       </Section>
-      <MyListings
+      <Listings
         uid={user.uid}
         setHasListings={setHasListings}
       />
-      <Center>
-        <Btn
-          color="primary"
-          type="button"
-          onClick={handleSignOut}
-        >
-Sign Out
-        </Btn>
-      </Center>
     </Container>
   );
 };
 
-export default Profile;
+export default MyListings;

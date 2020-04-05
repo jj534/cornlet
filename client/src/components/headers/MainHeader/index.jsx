@@ -8,7 +8,12 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem 2rem;
+  padding: 5rem 1rem 2rem 1rem;
+  
+  @media (min-width: ${props => props.theme.md}px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 const Right = styled.div`
