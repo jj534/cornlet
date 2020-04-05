@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Badge from 'src/components/displays/Badge';
+import Btn from 'src/components/buttons/Btn';
 import { Link } from 'react-router-dom';
 import Auth from 'src/components/buttons/Auth';
 
@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem 1rem 2rem 1rem;
+  padding: 5rem 0 2rem 0;
   
   @media (min-width: ${props => props.theme.md}px) {
     padding-left: 0;
@@ -38,12 +38,12 @@ const MainHeader = () => (
     </Link>
     <Right>
       <Link to="/new">
-        <Badge
+        <Btn
           color="primary"
-          inverted={1}
+          inverted
         >
 new
-        </Badge>
+        </Btn>
       </Link>
       <Auth />
     </Right>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import 'src/theme/Normalise.scss';
 import theme from 'src/theme';
@@ -17,19 +17,25 @@ const Container = styled.div`
   width: 90%;
   
   @media (min-width: ${(props) => props.theme.md}px) {
-    width: 70%;
+    width: 85%;
   }
 `;
 
-const AppThemeWrapper = () => (
-  <ThemeProvider theme={theme}>
-    <Wrapper>
-      <Container>
-        <AppReduxWrapper />
-        <MainFooter />
-      </Container>
-    </Wrapper>
-  </ThemeProvider>
-);
+const AppThemeWrapper = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <Container>
+          <AppReduxWrapper />
+          <MainFooter />
+        </Container>
+      </Wrapper>
+    </ThemeProvider>
+  )
+};
 
 export default AppThemeWrapper;

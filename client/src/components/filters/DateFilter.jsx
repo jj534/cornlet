@@ -16,14 +16,20 @@ const StyledPicker = styled(DatePicker)`
   display: inline;
   border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-  width: 6rem;
   text-align: center;
-  background-color: ${(props) => props.theme.primary};
-  color: white;
   cursor: pointer;
   
-  // date
-  width: ${props => props.value ? '3.5rem' : ''};
+  // default
+  width: 3.5rem;
+  background-color: inherit;
+  color: rgba(0, 0, 0, .7);
+  border: 1px solid rgba(0, 0, 0, .2);
+  
+  // value set
+  width: ${props => !props.value ? '6rem' : ''};
+  background-color: ${(props) => !props.value ? props.theme.primary : ''};
+  color: ${props => !props.value ? 'white' : ''};
+  border: ${props => !props.value ? 'none' : ''};
 `;
 
 const DateFilter = ({ name, placeholder }) => {

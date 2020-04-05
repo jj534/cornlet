@@ -15,7 +15,6 @@ const Container = styled.div`
 
 const Section = styled.div`
   margin: 1rem 0 3rem 0;
-  padding: 0 1rem;
 `;
 
 const Row = styled.div`
