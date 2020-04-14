@@ -28,8 +28,8 @@ const Navbar = () => {
           to='/profile/listings'
         />
         <NavElt
-          label='Chat'
-          to='/profile/chat'
+          label='Bookmarks'
+          to='/profile/bookmarks'
         />
         <NavElt
           label='Settings'

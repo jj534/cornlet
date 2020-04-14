@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import ListingCard from 'src/components/cards/ListingCard';
-import DynCardList from 'src/components/views/DynCardList';
+import DynCardList from 'src/containers/DynCardList';
 
 const Container = styled.div`
   margin: 2rem 0;

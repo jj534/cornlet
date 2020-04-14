@@ -8,6 +8,7 @@ import Edit from 'src/pages/edit';
 import Profile from 'src/pages/profile';
 import MyListings from 'src/pages/profile/MyListings';
 import MyChats from 'src/pages/profile/MyChats';
+import MyBookmarks from 'src/pages/profile/MyBookmarks';
 import Settings from 'src/pages/profile/Settings';
 
 const AppRouter = () => (
@@ -17,7 +18,7 @@ const AppRouter = () => (
       <Route exact path="/listing/:id" component={Listing} />
       <Route exact path="/new" component={New} />
       <Route exact path="/profile/settings" component={Settings} />
-      <Route exact path="/profile/chat" component={MyChats} />
+      <Route exact path="/profile/bookmarks" component={MyBookmarks} />
       <Route exact path="/profile/listings" component={MyListings} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/" component={Home} />
