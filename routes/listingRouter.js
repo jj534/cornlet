@@ -24,9 +24,9 @@ listingRouter.post('/create', async (req, res) => {
 
 listingRouter.get('/', async (req, res) => {
   try {
-    // query
+    // format query
     const {
-      uid, active, start, end,
+      uid, active, start, end, sort
     } = req.query;
     const uidQuery = uid ? { 'user.uid': uid } : {};
     const activeQuery = active ? { active } : {};
@@ -38,9 +38,16 @@ listingRouter.get('/', async (req, res) => {
       ...startQuery,
       ...endQuery,
     };
+    
+    // sort
+    const sortTypeToQuery = {
+      'recent': {sort: {updatedAt: -1}},
+      'price-asc': {sort: {price: 1}},
+      'price-desc': {sort: {price: -1}},
+    }
+    const sortQuery = sortTypeToQuery[sort] || {sort: {updatedAt: -1}};
 
-    // query
-    const docs = await Listing.find(query);
+    const docs = await Listing.find(query, null, sortQuery);
     res.send(docs);
   } catch (e) {
     res.status(500).send(e);
@@ -58,7 +65,11 @@ listingRouter.get('/:id', async (req, res) => {
 
 listingRouter.put('/:id/update', async (req, res) => {
   try {
-    const doc = await Listing.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const data = {
+      ...req.body,
+      updatedAt: new Date()
+    }
+    const doc = await Listing.findByIdAndUpdate(req.params.id, data, { new: true });
     res.send(doc);
   } catch (e) {
     res.status(500).send(e);

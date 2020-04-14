@@ -12,6 +12,9 @@ const StyledBody = styled.h2`
   
   // sm
   font-size: ${props => props.sm ? '.8rem' : ''};
+  
+  // color
+  color: ${props => props.color ? props.theme[props.color] : ''};
 `;
 
 const Body = (props) => (

@@ -15,9 +15,12 @@ const StyledPicker = styled(DatePicker)`
   background-color: white;
   display: inline;
   border-radius: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   text-align: center;
   cursor: pointer;
+  
+  @media (min-width: ${props => props.theme.md}px) {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  }
   
   // default
   width: 3.5rem;

@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import StageBadges from 'src/components/displays/StateBadges';
+import Badge from 'src/components/displays/Badge';
 import theme from 'src/theme';
 import Body from 'src/components/fonts/Body';
+import { formatDate, getDateDiff } from 'src/util/helpers/date';
 
 const Container = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
@@ -48,9 +49,11 @@ const Price = styled.p`
 
 const ListingCardUI = ({ listing, edit }) => {
   const {
-    _id, addr, price, imgs, sold,
+    _id, addr, price, imgs, sold, start, end
   } = listing;
   const path = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
+  const dateString = `${formatDate(start)} ~ ${formatDate(end)}`;
+  
   return (
     <Link to={path}>
       <Container>
@@ -60,12 +63,13 @@ const ListingCardUI = ({ listing, edit }) => {
         />
         <TextArea>
           <TopRow>
-            <Addr>{addr}</Addr>
+            {sold
+              ? <Badge color='primary' size='sm' inverted>Sold</Badge>
+              : <Body muted sm>{dateString}</Body>
+            }
             <Price>{`$${price}`}</Price>
           </TopRow>
-          <StageBadges
-            listing={listing}
-          />
+          <Addr>{addr}</Addr>
         </TextArea>
       </Container>
     </Link>

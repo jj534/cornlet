@@ -19,9 +19,9 @@ export default function useRouter() {
     history.push(newPath);
   }
   
-  const updateQuery = (obj) => {
+  const updateQuery = (obj, overwrite = false) => {
     const newQuery = Object.assign({}, query, obj);
-    setQuery(newQuery);
+    setQuery(overwrite ? obj : newQuery);
   }
 
   return useMemo(() => {

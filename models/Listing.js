@@ -56,6 +56,10 @@ var listingSchema = Schema({
     type: Date,
     required: true
   },
+  updatedAt: {
+    type: Date,
+    default: new Date
+  },
   createdAt: {
     type: Date,
     default: new Date
