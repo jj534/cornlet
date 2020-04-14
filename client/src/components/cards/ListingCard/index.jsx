@@ -6,11 +6,12 @@ const Container = styled.div`
 
 `;
 
-const ListingCardIndex = ({ listing, edit }) => (
+const ListingCardIndex = ({ listing, edit, reload }) => (
   <Container>
     <ListingCardUI
       listing={listing}
       edit={edit}
+      reload={reload}
     />
   </Container>
 );

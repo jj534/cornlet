@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Badge from 'src/components/displays/Badge';
 import theme from 'src/theme';
 import Body from 'src/components/fonts/Body';
-import { formatDate, getDateDiff } from 'src/util/helpers/date';
+import { formatDate } from 'src/util/helpers/date';
+import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
+import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import api from 'src/util/api';
+import log from 'src/util/log';
 
 const Container = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
@@ -47,16 +53,75 @@ const Price = styled.p`
   color: ${(props) => props.theme.primary};
 `;
 
-const ListingCardUI = ({ listing, edit }) => {
+const EditTools = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;;
+  margin-top: .5rem;
+  padding: 0 .2rem;
+`
+
+const RightSection = styled.div`
+  display: flex;
+  
+  & > * {
+    margin-left: .5rem;
+  }
+`
+
+const Pen = styled(PenRaw)`
+  height: 1rem;
+  width: 1rem;
+  cursor: pointer;
+  opacity: .7;
+  
+  &:hover {
+    opacity: 1;
+  }
+`
+
+const Bin = styled(BinRaw)`
+  height: 1rem;
+  width: 1rem;
+  cursor: pointer;
+  opacity: .7;
+  
+  &:hover {
+    opacity: 1;
+  }
+`
+
+const ListingCardUI = ({ listing, edit, reload }) => {
   const {
-    _id, addr, price, imgs, sold, start, end
+    _id, addr, price, imgs, sold, start, end, active
   } = listing;
-  const path = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
+  const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
+  const listingPath = `/listing/${_id}`;
   const dateString = `${formatDate(start)} ~ ${formatDate(end)}`;
   
+  // active toggling
+  const [activeLocal, setActiveLocal] = useState(true);
+  
+  useEffect(() => {
+    setActiveLocal(active)
+  }, [active])
+  
+  const handleChange = () => {
+    setActiveLocal(!activeLocal);
+    api.put(`/listing/${_id}/update`, { active: !activeLocal})
+      .catch((e) => log('ERROR ListingCardUI', e))
+  }
+  
+  // handle delete
+  const handleDelete = () => {
+    api.put(`/listing/${_id}/update`, { active: false, deleted: true })
+      .then(() => reload())
+      .catch((e) => log('ERROR ListingCardUI', e))
+  }
+  
   return (
-    <Link to={path}>
-      <Container>
+    <Container>
+      <Link to={listingPath}>
         <Img
           src={imgs[0]}
           faded={sold}
@@ -71,8 +136,29 @@ const ListingCardUI = ({ listing, edit }) => {
           </TopRow>
           <Addr>{addr}</Addr>
         </TextArea>
-      </Container>
-    </Link>
+      </Link>
+      {edit && (
+        <EditTools>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={activeLocal}
+                onChange={handleChange}
+                color="primary"
+                size="small"
+              />
+            }
+            label={activeLocal ? 'Active' : 'Inactive'}
+          />
+          <RightSection>
+            <Link to={editPath}>
+              <Pen />
+            </Link>
+            <Bin onClick={handleDelete}/>
+          </RightSection>
+        </EditTools>
+      )}
+    </Container>
   );
 };
 

@@ -29,7 +29,7 @@ const MyListings = () => {
 
   // conditionally render body text
   const defaultText = 'Create a new listing to get started';
-  const hasListingsText = 'Click on your listing to make edits';
+  const hasListingsText = 'Update your listing to improve its sort rating';
   const [hasListings, setHasListings] = useState(false);
   const [text, setText] = useState(defaultText);
   useEffect(() => {

@@ -15,13 +15,21 @@ const CardContainer = styled.div`
 
 const MyListings = ({ uid, setHasListings }) => {
   const [listings, setListings] = useState([]);
+
+  const reload = () => {
+    api.get(`/listing?uid=${uid}`)
+      .then((res) => {
+        setListings(res.data);
+      })
+      .catch((e) => log('ERROR get mylistings', e));
+  }
+
   useEffect(() => {
     if (uid) {
-      api.get(`/listing?uid=${uid}`)
-        .then((res) => setListings(res.data))
-        .catch((e) => log('ERROR get mylistings', e));
+      reload();
     }
   }, [uid]);
+
   useEffect(() => {
     if (listings.length > 0) setHasListings(true);
   }, [listings, setHasListings]);
@@ -34,6 +42,7 @@ const MyListings = ({ uid, setHasListings }) => {
             <ListingCard
               listing={listing}
               edit
+              reload={reload}
             />
           </CardContainer>
         ))}

@@ -48,7 +48,8 @@ listingRouter.get('/', async (req, res) => {
     const sortQuery = sortTypeToQuery[sort] || {sort: {updatedAt: -1}};
 
     const docs = await Listing.find(query, null, sortQuery);
-    res.send(docs);
+    const notDeletedDocs = docs.filter((doc) => !doc.deleted)
+    res.send(notDeletedDocs);
   } catch (e) {
     res.status(500).send(e);
   }
