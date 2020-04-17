@@ -4,6 +4,7 @@ import Btn from 'src/components/buttons/Btn';
 import { Link } from 'react-router-dom';
 import Auth from 'src/components/buttons/Auth';
 import Logo from 'src/components/displays/Logo';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -26,23 +27,27 @@ const Right = styled.div`
   }
 `;
 
-const MainHeader = () => (
-  <Container>
-    <Link to="/">
-      <Logo />
-    </Link>
-    <Right>
-      <Link to="/new">
-        <Btn
-          color="primary"
-          inverted
-        >
-new
-        </Btn>
+const MainHeader = () => {
+  const authing = useSelector((state) => state.authing);
+  return (
+    <Container>
+      <Link to="/">
+        <Logo />
       </Link>
-      <Auth />
-    </Right>
-  </Container>
-);
+      <Right>
+        {!authing && (
+          <Link to="/new">
+            <Btn
+              color="primary"
+              inverted
+            >new
+            </Btn>
+          </Link>
+        )}
+        <Auth />
+      </Right>
+    </Container>
+  )
+};
 
 export default MainHeader;

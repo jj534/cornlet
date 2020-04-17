@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import signIn from 'src/services/firebase/signIn';
 import { ReactComponent as Google } from 'src/assets/svgs/google.svg';
-import { useSelector } from 'react-redux';
 import Avatar from 'src/components/displays/Avatar';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from 'src/components/displays/Loading';
 
 const SignIn = styled(Google)`
   height: 30px;
@@ -21,6 +22,17 @@ const Container = styled.div`
 
 const Auth = () => {
   const user = useSelector((state) => state.user);
+  
+  const dispatch = useDispatch();
+  const authing = useSelector((state) => state.authing)
+  const handleClick = () => {
+    signIn();
+    dispatch({
+      type: 'AUTHING_SET',
+      payload: true
+    })
+  }
+  
   if (user) {
     return (
       <Avatar
@@ -29,9 +41,13 @@ const Auth = () => {
       />
     );
   }
+  
   return (
     <Container>
-      <SignIn onClick={signIn} />
+      {authing
+        ? <Loading />
+        : <SignIn onClick={handleClick} />
+      }
     </Container>
   );
 };
