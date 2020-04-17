@@ -32,6 +32,7 @@ const MyListings = ({ uid, setHasListings }) => {
 
   useEffect(() => {
     if (listings.length > 0) setHasListings(true);
+    else setHasListings(false);
   }, [listings, setHasListings]);
 
   return (

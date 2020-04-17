@@ -67,7 +67,7 @@ const FormComponent = ({ user, initialValues }) => {
       } else {
         api.post('/listing/create', { ...values, user })
           .then(() => {
-            history.push('/');
+            history.push('/profile/listings');
           })
           .catch((e) => {
             log('ERROR new listing submit form', e);

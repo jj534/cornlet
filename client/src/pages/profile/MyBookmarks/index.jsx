@@ -4,16 +4,19 @@ import MainHeader from 'src/components/headers/MainHeader';
 import Navbar from 'src/components/headers/Navbar';
 
 const Container = styled.div`
-
+  display: flex;
+  justify-content: center;
 `;
 
 const MyBookmarks = () => {
   return (
-    <Container>
+    <div>
       <MainHeader />
       <Navbar />
-        MyBookmarks
-    </Container>
+      <Container>
+        Coming Soon!
+      </Container>
+    </div>
   )
 };
 

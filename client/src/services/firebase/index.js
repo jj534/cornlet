@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/analytics';
 
-// import signIn from './signIn';
+//import signIn from './signIn';
 import signOut from './signOut';
 import uploadFile from './uploadFile';
 
@@ -25,9 +25,11 @@ if (process.env !== 'development') {
 }
 
 var provider = new firebase.auth.GoogleAuthProvider();
+
 provider.setCustomParameters({
   prompt: 'select_account'
 });
+
 const signIn = () => {
   firebase.auth().signInWithRedirect(provider);
 }
