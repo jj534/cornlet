@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Btn from 'src/components/buttons/Btn';
 import { Link } from 'react-router-dom';
 import Auth from 'src/components/buttons/Auth';
+import Logo from 'src/components/displays/Logo';
 
 const Container = styled.div`
   display: flex;
@@ -25,16 +26,10 @@ const Right = styled.div`
   }
 `;
 
-const Logo = styled.h1`
-  font-size: 2rem;
-  color: ${(props) => props.theme.primary};
-`;
-
-
 const MainHeader = () => (
   <Container>
     <Link to="/">
-      <Logo>cornlet</Logo>
+      <Logo />
     </Link>
     <Right>
       <Link to="/new">
