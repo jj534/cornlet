@@ -7,6 +7,7 @@ import DetailedAvatar from 'src/components/displays/DetailedAvatar';
 import Body from 'src/components/fonts/Body';
 import getDateString from 'src/util/helpers/getDateString';
 import RenderOn from 'src/containers/RenderOn';
+import Badge from 'src/components/displays/Badge';
 
 const Wrapper = styled.div`
   display: flex;
@@ -56,11 +57,18 @@ const Section = styled.div`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 1rem;
   margin: .2rem 0;
   
   @media (min-width: ${(props) => props.theme.md}px) {
     margin: 0 0 .5rem 0;
+  }
+  
+  // meta
+  justify-content: ${props => props.meta ? 'flex-start' : ''};
+  & > * {
+    margin-right: ${props => props.meta ? '.5rem' : ''};
   }
 `;
 
@@ -103,8 +111,16 @@ const Listing = ({ listing }) => {
                   <Addr>{addr}</Addr>
                   <Price>{`$${price}`}</Price>
                 </Row>
-                <Row>
+                <Row meta>
                   <Body muted sm>{getDateString(listing)}</Body>
+                  {sold && (
+                    <Badge
+                      color='primary'
+                      inverted
+                      
+                    >Sold
+                    </Badge>
+                  )}
                 </Row>
               </Section>
               {!sold && (
