@@ -18,7 +18,7 @@ const StyledPicker = styled(DatePicker)`
   text-align: center;
   cursor: pointer;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   }
   
@@ -29,10 +29,10 @@ const StyledPicker = styled(DatePicker)`
   border: 1px solid rgba(0, 0, 0, .2);
   
   // value set
-  width: ${props => !props.value ? '6rem' : ''};
-  background-color: ${(props) => !props.value ? props.theme.primary : ''};
-  color: ${props => !props.value ? 'white' : ''};
-  border: ${props => !props.value ? 'none' : ''};
+  width: ${(props) => (!props.value ? '6rem' : '')};
+  background-color: ${(props) => (!props.value ? props.theme.primary : '')};
+  color: ${(props) => (!props.value ? 'white' : '')};
+  border: ${(props) => (!props.value ? 'none' : '')};
 `;
 
 const DateFilter = ({ name, placeholder }) => {
@@ -55,7 +55,7 @@ const DateFilter = ({ name, placeholder }) => {
     newQuery[name] = formatDate(date);
     router.updateQuery(newQuery);
   }, [date]);
-  
+
   const handleDateChangeRaw = (e) => e.preventDefault();
 
   return (

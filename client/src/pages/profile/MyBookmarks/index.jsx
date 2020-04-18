@@ -8,16 +8,14 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const MyBookmarks = () => {
-  return (
-    <div>
-      <MainHeader />
-      <Navbar />
-      <Container>
+const MyBookmarks = () => (
+  <div>
+    <MainHeader />
+    <Navbar />
+    <Container>
         Coming Soon!
-      </Container>
-    </div>
-  )
-};
+    </Container>
+  </div>
+);
 
 export default MyBookmarks;

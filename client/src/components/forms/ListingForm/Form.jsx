@@ -6,9 +6,9 @@ import Btn from 'src/components/buttons/Btn';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory } from 'react-router-dom';
+import { formatDate } from 'src/util/helpers/date';
 import FormContents from './FormContents';
 import guidelines from './guidelines';
-import { formatDate } from 'src/util/helpers/date';
 
 const Form = styled.form`
 
@@ -61,8 +61,8 @@ const FormComponent = ({ user, initialValues }) => {
     onSubmit: (values) => {
       const data = {
         ...values,
-        dateString: `${formatDate(values.start)} ~ ${formatDate(values.end)}`
-      }
+        dateString: `${formatDate(values.start)} ~ ${formatDate(values.end)}`,
+      };
       if (initialValues) {
         api.put(`/listing/${initialValues._id}/update`, data)
           .then(() => {

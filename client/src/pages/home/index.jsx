@@ -5,13 +5,13 @@ import Home from './Home';
 
 const HomeIndex = () => {
   const dispatch = useDispatch();
-  
+
   firebase.auth().onAuthStateChanged((user) => {
     dispatch({
       type: 'AUTHING_SET',
-      payload: false
-    })
-    
+      payload: false,
+    });
+
     if (user) {
       dispatch({
         type: 'USER_SET',
@@ -24,7 +24,7 @@ const HomeIndex = () => {
       });
     }
   });
-  
+
   return <Home />;
 };
 

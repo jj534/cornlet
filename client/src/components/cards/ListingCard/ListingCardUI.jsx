@@ -59,7 +59,7 @@ const EditTools = styled.div`
   justify-content: space-between;;
   margin-top: .5rem;
   padding: 0 .2rem;
-`
+`;
 
 const RightSection = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ const RightSection = styled.div`
   & > * {
     margin-left: .5rem;
   }
-`
+`;
 
 const Pen = styled(PenRaw)`
   height: 1rem;
@@ -78,7 +78,7 @@ const Pen = styled(PenRaw)`
   &:hover {
     opacity: 1;
   }
-`
+`;
 
 const Bin = styled(BinRaw)`
   height: 1rem;
@@ -89,35 +89,35 @@ const Bin = styled(BinRaw)`
   &:hover {
     opacity: 1;
   }
-`
+`;
 
 const ListingCardUI = ({ listing, edit, reload }) => {
   const {
-    _id, addr, price, imgs, sold, active, dateString
+    _id, addr, price, imgs, sold, active,
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
-  
+
   // active toggling
   const [activeLocal, setActiveLocal] = useState(true);
-  
+
   useEffect(() => {
-    setActiveLocal(active)
-  }, [active])
-  
+    setActiveLocal(active);
+  }, [active]);
+
   const handleChange = () => {
     setActiveLocal(!activeLocal);
-    api.put(`/listing/${_id}/update`, { active: !activeLocal})
-      .catch((e) => log('ERROR ListingCardUI', e))
-  }
-  
+    api.put(`/listing/${_id}/update`, { active: !activeLocal })
+      .catch((e) => log('ERROR ListingCardUI', e));
+  };
+
   // handle delete
   const handleDelete = () => {
     api.put(`/listing/${_id}/update`, { active: false, deleted: true })
       .then(() => reload())
-      .catch((e) => log('ERROR ListingCardUI', e))
-  }
-  
+      .catch((e) => log('ERROR ListingCardUI', e));
+  };
+
   return (
     <Container>
       <Link to={listingPath}>
@@ -128,9 +128,8 @@ const ListingCardUI = ({ listing, edit, reload }) => {
         <TextArea>
           <TopRow>
             {sold
-              ? <Badge color='primary' size='sm' inverted>Sold</Badge>
-              : <Body muted sm>{getDateString(listing)}</Body>
-            }
+              ? <Badge color="primary" size="sm" inverted>Sold</Badge>
+              : <Body muted sm>{getDateString(listing)}</Body>}
             <Price>{`$${price}`}</Price>
           </TopRow>
           <Addr>{addr}</Addr>
@@ -139,21 +138,21 @@ const ListingCardUI = ({ listing, edit, reload }) => {
       {edit && (
         <EditTools>
           <FormControlLabel
-            control={
+            control={(
               <Switch
                 checked={activeLocal}
                 onChange={handleChange}
                 color="primary"
                 size="small"
               />
-            }
+            )}
             label={activeLocal ? 'Active' : 'Inactive'}
           />
           <RightSection>
             <Link to={editPath}>
               <Pen />
             </Link>
-            <Bin onClick={handleDelete}/>
+            <Bin onClick={handleDelete} />
           </RightSection>
         </EditTools>
       )}

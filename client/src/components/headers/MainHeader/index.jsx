@@ -6,13 +6,14 @@ import Auth from 'src/components/buttons/Auth';
 import Logo from 'src/components/displays/Logo';
 import { useSelector } from 'react-redux';
 
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5rem 0 2rem 0;
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     padding-left: 0;
     padding-right: 0;
   }
@@ -29,6 +30,7 @@ const Right = styled.div`
 
 const MainHeader = () => {
   const authing = useSelector((state) => state.authing);
+
   return (
     <Container>
       <Link to="/">
@@ -40,14 +42,15 @@ const MainHeader = () => {
             <Btn
               color="primary"
               inverted
-            >new
+            >
+new
             </Btn>
           </Link>
         )}
         <Auth />
       </Right>
     </Container>
-  )
+  );
 };
 
 export default MainHeader;

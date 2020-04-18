@@ -22,17 +22,17 @@ const Container = styled.div`
 
 const Auth = () => {
   const user = useSelector((state) => state.user);
-  
+
   const dispatch = useDispatch();
-  const authing = useSelector((state) => state.authing)
+  const authing = useSelector((state) => state.authing);
   const handleClick = () => {
     signIn();
     dispatch({
       type: 'AUTHING_SET',
-      payload: true
-    })
-  }
-  
+      payload: true,
+    });
+  };
+
   if (user) {
     return (
       <Avatar
@@ -41,13 +41,12 @@ const Auth = () => {
       />
     );
   }
-  
+
   return (
     <Container>
       {authing
         ? <Loading />
-        : <SignIn onClick={handleClick} />
-      }
+        : <SignIn onClick={handleClick} />}
     </Container>
   );
 };

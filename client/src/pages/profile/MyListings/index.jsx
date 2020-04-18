@@ -4,10 +4,10 @@ import Btn from 'src/components/buttons/Btn';
 import { Link } from 'react-router-dom';
 import Heading from 'src/components/fonts/Heading';
 import Body from 'src/components/fonts/Body';
-import Listings from './Listings';
 import { useSelector } from 'react-redux';
 import MainHeader from 'src/components/headers/MainHeader';
 import Navbar from 'src/components/headers/Navbar';
+import Listings from './Listings';
 
 const Container = styled.div`
 

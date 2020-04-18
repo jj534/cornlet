@@ -22,7 +22,7 @@ const MyListings = ({ uid, setHasListings }) => {
         setListings(res.data);
       })
       .catch((e) => log('ERROR get mylistings', e));
-  }
+  };
 
   useEffect(() => {
     if (uid) {

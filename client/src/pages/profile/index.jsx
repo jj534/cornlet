@@ -5,10 +5,10 @@ import { useHistory } from 'react-router-dom';
 const ProfileIndex = () => {
   const user = useSelector((state) => state.user);
   const history = useHistory();
-  
+
   if (!user) history.push('/');
   else history.push('/profile/listings');
-  
+
   return <div />;
 };
 

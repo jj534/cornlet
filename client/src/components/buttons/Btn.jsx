@@ -12,7 +12,7 @@ const Button = styled.button`
   border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     padding: .5rem .8rem;
   }
 `;

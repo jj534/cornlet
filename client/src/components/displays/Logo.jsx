@@ -6,8 +6,6 @@ const LogoText = styled.h1`
   color: ${(props) => props.theme.primary};
 `;
 
-const Logo = () => {
-  return <LogoText>cornlet</LogoText>
-};
+const Logo = () => <LogoText>cornlet</LogoText>;
 
 export default Logo;

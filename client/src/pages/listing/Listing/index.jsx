@@ -35,7 +35,7 @@ const Content = styled.div`
   
   @media (min-width: ${(props) => props.theme.md}px) {
     margin-top: 0;
-    min-width: 500px;
+    width: 500px;
   }
 `;
 
@@ -43,7 +43,7 @@ const ListingSection = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
     display: flex;
   }
-`
+`;
 
 const Section = styled.div`
   margin: 1rem 0 2.5rem 0;
@@ -85,29 +85,29 @@ const Listing = ({ listing }) => {
 
   return (
     <div>
-    <RenderOn desktop>
-      <MainHeader />
-    </RenderOn>
-    <Wrapper>
-      <Container>
-        <RenderOn mobile>
-          <BackHeader fullwidth />
-        </RenderOn>
-        <ListingSection>
-          <ImgInnerContainer>
-            <ImgCarousel imgs={imgs} />
-          </ImgInnerContainer>
-          <Content>
-            <Section>
-              <Row>
-                <Addr>{addr}</Addr>
-                <Price>{`$${price}`}</Price>
-              </Row>
-              <Row>
-                <Body muted sm>{getDateString(listing)}</Body>
-              </Row>
-            </Section>
-            {!sold && (
+      <RenderOn desktop>
+        <MainHeader />
+      </RenderOn>
+      <Wrapper>
+        <Container>
+          <RenderOn mobile>
+            <BackHeader fullwidth />
+          </RenderOn>
+          <ListingSection>
+            <ImgInnerContainer>
+              <ImgCarousel imgs={imgs} />
+            </ImgInnerContainer>
+            <Content>
+              <Section>
+                <Row>
+                  <Addr>{addr}</Addr>
+                  <Price>{`$${price}`}</Price>
+                </Row>
+                <Row>
+                  <Body muted sm>{getDateString(listing)}</Body>
+                </Row>
+              </Section>
+              {!sold && (
               <Section>
                 <Row>
                   <DetailedAvatar
@@ -117,16 +117,16 @@ const Listing = ({ listing }) => {
                   />
                 </Row>
               </Section>
-            )}
-            <Section>
-              <Row>
-                <Body>{desc}</Body>
-              </Row>
-            </Section>
-          </Content>
-        </ListingSection>
-      </Container>
-    </Wrapper>
+              )}
+              <Section>
+                <Row>
+                  <Body>{desc}</Body>
+                </Row>
+              </Section>
+            </Content>
+          </ListingSection>
+        </Container>
+      </Wrapper>
     </div>
   );
 };

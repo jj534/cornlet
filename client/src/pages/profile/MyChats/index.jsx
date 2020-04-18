@@ -14,24 +14,24 @@ const Container = styled.div`
 const MyChats = () => {
   const [listings, setListings] = useState([]);
   const user = useSelector((state) => state.user);
-  
+
   useEffect(() => {
     if (!user) return;
-    
-    api.get()
-  }, [user])
-  
+
+    api.get();
+  }, [user]);
+
   if (!user) return <div />;
-  
+
   return (
     <Container>
       <MainHeader />
       <Navbar />
-        <DynCardList>
+      <DynCardList>
         MyChats
-        </DynCardList>
+      </DynCardList>
     </Container>
-  )
+  );
 };
 
 export default MyChats;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {ReactComponent as CrossRaw } from 'src/assets/svgs/close.svg';
+import { ReactComponent as CrossRaw } from 'src/assets/svgs/close.svg';
 
 const Container = styled.div`
   background: white;
@@ -28,14 +28,12 @@ const Cross = styled(CrossRaw)`
   &:hover {
     opacity: .9;
   }
-`
+`;
 
-const CircleCross = (props) => {
-  return (
-    <Container {...props}>
-      <Cross />
-    </Container>
-  )
-};
+const CircleCross = (props) => (
+  <Container {...props}>
+    <Cross />
+  </Container>
+);
 
 export default CircleCross;

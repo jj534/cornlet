@@ -26,8 +26,8 @@ const Container = styled.div`
 
 const AppThemeWrapper = () => {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, [window.location]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -38,7 +38,7 @@ const AppThemeWrapper = () => {
         </Container>
       </Wrapper>
     </ThemeProvider>
-  )
+  );
 };
 
 export default AppThemeWrapper;

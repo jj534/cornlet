@@ -8,13 +8,13 @@ const StyledBody = styled.h2`
   line-height: 1.2;
   
   // muted
-  opacity: ${props => props.muted ? '.8' : ''};
+  opacity: ${(props) => (props.muted ? '.8' : '')};
   
   // sm
-  font-size: ${props => props.sm ? '.8rem' : ''};
+  font-size: ${(props) => (props.sm ? '.8rem' : '')};
   
   // color
-  color: ${props => props.color ? props.theme[props.color] : ''};
+  color: ${(props) => (props.color ? props.theme[props.color] : '')};
 `;
 
 const Body = (props) => (

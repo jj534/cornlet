@@ -12,7 +12,7 @@ const HrLine = styled.div`
   left: 0;
   right: 0;
   border-top: 1px solid rgba(0, 0, 0, .2);
-`
+`;
 
 const Content = styled.div`
   display: flex;
@@ -20,47 +20,44 @@ const Content = styled.div`
   align-items: center;
   
   padding: 1rem 0;
-`
+`;
 
 const Nav = styled.nav`
   display: flex;
-`
+`;
 
 const NavElt = styled.div`
   margin-left: 1rem;
-`
+`;
 
 const NavText = styled(Body)`
   opacity: .9;
-`
+`;
 
-const MainFooter = () => {
-  
-  return (
-    <Container>
-      <HrLine />
-      <Content>
-        <Logo />
-        <Nav>
-          <NavElt>
-            <a href='/'>
-              <NavText>Home</NavText>
-            </a>
-          </NavElt>
-          <NavElt>
-            <a href='/profile'>
-              <NavText>Profile</NavText>
-            </a>
-          </NavElt>
-          <NavElt>
-            <a href='/new'>
-              <NavText>Create Listing</NavText>
-            </a>
-          </NavElt>
-        </Nav>
-      </Content>
-    </Container>
-    )
-};
+const MainFooter = () => (
+  <Container>
+    <HrLine />
+    <Content>
+      <Logo />
+      <Nav>
+        <NavElt>
+          <a href="/">
+            <NavText>Home</NavText>
+          </a>
+        </NavElt>
+        <NavElt>
+          <a href="/profile">
+            <NavText>Profile</NavText>
+          </a>
+        </NavElt>
+        <NavElt>
+          <a href="/new">
+            <NavText>Create Listing</NavText>
+          </a>
+        </NavElt>
+      </Nav>
+    </Content>
+  </Container>
+);
 
 export default MainFooter;

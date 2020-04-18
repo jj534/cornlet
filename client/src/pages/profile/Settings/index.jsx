@@ -12,7 +12,7 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 const Settings = () => {
   const history = useHistory();
@@ -20,7 +20,7 @@ const Settings = () => {
     await signOut();
     history.push('/');
   };
-  
+
   return (
     <Container>
       <MainHeader />
@@ -35,7 +35,7 @@ Sign Out
         </Btn>
       </Content>
     </Container>
-  )
+  );
 };
 
 export default Settings;

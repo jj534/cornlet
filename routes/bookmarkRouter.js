@@ -14,20 +14,19 @@ listingRouter.put('/:uid/:action/:lid', async (req, res) => {
   try {
     const { uid, lid, action } = req.params;
     const doc = await Bookmark.findOne({ uid });
-    let newBookmarks = [...doc.bookmarks];
-    
+    const newBookmarks = [...doc.bookmarks];
+
     if (action === 'add') {
       if (!newBookmarks.includes(lid)) newBookmarks.push(lid);
-    }
-    else if (action === 'remove') {
+    } else if (action === 'remove') {
       if (newBookmarks.includes(lid)) {
         newBookmarks.splice(newBookmarks.indexOf(uid), 1);
       }
     }
     const newDoc = {
       ...doc,
-      bookmarks: newBookmarks
-    }
+      bookmarks: newBookmarks,
+    };
     const opts = { new: true, upsert: true };
     const updateRes = await Bookmark.findOneAndUpdate({ uid }, newDoc, opts);
     res.send(updateRes);
