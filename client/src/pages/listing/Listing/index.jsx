@@ -22,11 +22,11 @@ const Container = styled.div`
 
 const ImgInnerContainer = styled.div`
   width: 100vw;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
   @media (min-width: ${(props) => props.theme.md}px) {
     width: 800px;
     margin-right: 2rem;
+    height: auto;
   }
 `;
 

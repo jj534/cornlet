@@ -10,6 +10,7 @@ const Container = styled.div`
 
 const ImgContainer = styled.div`
   height: 250px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
   @media (min-width: ${(props) => props.theme.md}px) {
     height: 500px;
