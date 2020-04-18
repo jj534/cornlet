@@ -56,6 +56,10 @@ var listingSchema = Schema({
     type: Date,
     required: true
   },
+  dateString: {
+    type: String,
+    required: true
+  },
   deleted: {
     type: Boolean,
     default: false

@@ -8,6 +8,7 @@ import log from 'src/util/log';
 import { useHistory } from 'react-router-dom';
 import FormContents from './FormContents';
 import guidelines from './guidelines';
+import { formatDate } from 'src/util/helpers/date';
 
 const Form = styled.form`
 
@@ -58,14 +59,18 @@ const FormComponent = ({ user, initialValues }) => {
         .required('Required'),
     }),
     onSubmit: (values) => {
+      const data = {
+        ...values,
+        dateString: `${formatDate(values.start)} ~ ${formatDate(values.end)}`
+      }
       if (initialValues) {
-        api.put(`/listing/${initialValues._id}/update`, values)
+        api.put(`/listing/${initialValues._id}/update`, data)
           .then(() => {
             history.push('/profile');
           })
           .catch((e) => log('ERROR ListingForm update', e));
       } else {
-        api.post('/listing/create', { ...values, user })
+        api.post('/listing/create', { ...data, user })
           .then(() => {
             history.push('/profile/listings');
           })

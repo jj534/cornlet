@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Badge from 'src/components/displays/Badge';
 import theme from 'src/theme';
 import Body from 'src/components/fonts/Body';
-import { formatDate } from 'src/util/helpers/date';
+import getDateString from 'src/util/helpers/getDateString';
 import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -93,11 +93,10 @@ const Bin = styled(BinRaw)`
 
 const ListingCardUI = ({ listing, edit, reload }) => {
   const {
-    _id, addr, price, imgs, sold, start, end, active
+    _id, addr, price, imgs, sold, active, dateString
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
-  const dateString = `${formatDate(start)} ~ ${formatDate(end)}`;
   
   // active toggling
   const [activeLocal, setActiveLocal] = useState(true);
@@ -130,7 +129,7 @@ const ListingCardUI = ({ listing, edit, reload }) => {
           <TopRow>
             {sold
               ? <Badge color='primary' size='sm' inverted>Sold</Badge>
-              : <Body muted sm>{dateString}</Body>
+              : <Body muted sm>{getDateString(listing)}</Body>
             }
             <Price>{`$${price}`}</Price>
           </TopRow>

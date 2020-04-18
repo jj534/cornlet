@@ -1,36 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
+import MainHeader from 'src/components/headers/MainHeader';
 import BackHeader from 'src/components/headers/BackHeader';
 import ImgCarousel from 'src/components/displays/ImgCarousel';
 import DetailedAvatar from 'src/components/displays/DetailedAvatar';
 import Body from 'src/components/fonts/Body';
-import StateBadges from 'src/components/displays/StateBadges';
+import getDateString from 'src/util/helpers/getDateString';
+import RenderOn from 'src/containers/RenderOn';
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  
+  @media (min-width: ${(props) => props.theme.md}px) {
+    padding-top: 3rem;
+  }
 `;
 
 const Container = styled.div`
-  @media (min-width: ${(props) => props.theme.md}px) {
-    max-width: 800px;
-  }
 `;
 
 const ImgInnerContainer = styled.div`
   width: 100vw;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
   @media (min-width: ${(props) => props.theme.md}px) {
     width: 800px;
+    margin-right: 2rem;
   }
 `;
 
 const Content = styled.div`
   margin-top: 1.5rem;
+  
+  @media (min-width: ${(props) => props.theme.md}px) {
+    margin-top: 0;
+    min-width: 500px;
+  }
 `;
+
+const ListingSection = styled.div`
+  @media (min-width: ${(props) => props.theme.md}px) {
+    display: flex;
+  }
+`
 
 const Section = styled.div`
   margin: 1rem 0 2.5rem 0;
+  
+  @media (min-width: ${(props) => props.theme.md}px) {
+    margin-top: 0;
+  }
 `;
 
 const Row = styled.div`
@@ -40,7 +60,7 @@ const Row = styled.div`
   margin: .2rem 0;
   
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin: .5rem 0;
+    margin: 0 0 .5rem 0;
   }
 `;
 
@@ -64,43 +84,50 @@ const Listing = ({ listing }) => {
   } = listing;
 
   return (
+    <div>
+    <RenderOn desktop>
+      <MainHeader />
+    </RenderOn>
     <Wrapper>
       <Container>
-        <BackHeader fullwidth />
-        <ImgInnerContainer>
-          <ImgCarousel imgs={imgs} />
-        </ImgInnerContainer>
-        <Content>
-          <Section>
-            <Row>
-              <Addr>{addr}</Addr>
-              <Price>{`$${price}`}</Price>
-            </Row>
-            <Row>
-              <StateBadges
-                listing={listing}
-              />
-            </Row>
-          </Section>
-          {!sold && (
-          <Section>
-            <Row>
-              <DetailedAvatar
-                name={displayName || user.name}
-                email={displayEmail || user.email}
-                src={displayName ? undefined : user.photo}
-              />
-            </Row>
-          </Section>
-          )}
-          <Section>
-            <Row>
-              <Body>{desc}</Body>
-            </Row>
-          </Section>
-        </Content>
+        <RenderOn mobile>
+          <BackHeader fullwidth />
+        </RenderOn>
+        <ListingSection>
+          <ImgInnerContainer>
+            <ImgCarousel imgs={imgs} />
+          </ImgInnerContainer>
+          <Content>
+            <Section>
+              <Row>
+                <Addr>{addr}</Addr>
+                <Price>{`$${price}`}</Price>
+              </Row>
+              <Row>
+                <Body muted sm>{getDateString(listing)}</Body>
+              </Row>
+            </Section>
+            {!sold && (
+              <Section>
+                <Row>
+                  <DetailedAvatar
+                    name={displayName || user.name}
+                    email={displayEmail || user.email}
+                    src={displayName ? undefined : user.photo}
+                  />
+                </Row>
+              </Section>
+            )}
+            <Section>
+              <Row>
+                <Body>{desc}</Body>
+              </Row>
+            </Section>
+          </Content>
+        </ListingSection>
       </Container>
     </Wrapper>
+    </div>
   );
 };
 
