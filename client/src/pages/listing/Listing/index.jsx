@@ -117,7 +117,6 @@ const Listing = ({ listing }) => {
                     <Badge
                       color='primary'
                       inverted
-                      
                     >Sold
                     </Badge>
                   )}
