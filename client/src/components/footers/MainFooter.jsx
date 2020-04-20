@@ -38,7 +38,9 @@ const MainFooter = () => (
   <Container>
     <HrLine />
     <Content>
-      <Logo />
+      <a href="/">
+        <Logo />
+      </a>
       <Nav>
         <NavElt>
           <a href="/">

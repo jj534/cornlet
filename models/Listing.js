@@ -47,6 +47,15 @@ var listingSchema = Schema({
     type: Boolean,
     required: true,
   },
+  bookmarked: {
+    type: [ String ],  // uid
+    default: []
+  },
+  bookmarkedHistory: {
+    // add only
+    type: [ String ],
+    default: []
+  },
   term: String,
   start: {
     type: Date,
