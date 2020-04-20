@@ -4,14 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-const config = require('./config');
 const mongoose = require('mongoose');
+require('dotenv').config()
 
 // MONGODB
 const forceProdDB = false;
-const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && config.DB_PROD;
+const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD;
 const dbType = isProdDb ? 'prod' : 'dev';
-const URI = isProdDb ? config.DB_PROD : config.DB_DEV;
+const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
