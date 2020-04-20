@@ -47,11 +47,11 @@ var listingSchema = Schema({
     type: Boolean,
     required: true,
   },
-  bookmarked: {
+  faved: {
     type: [ String ],  // uid
     default: []
   },
-  bookmarkedHistory: {
+  favedHistory: {
     // add only
     type: [ String ],
     default: []
