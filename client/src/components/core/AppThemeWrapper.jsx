@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import 'src/theme/Normalise.scss';
 import theme from 'src/theme';
+import FeedbackBanner from 'src/components/headers/FeedbackBanner';
 import MainFooter from 'src/components/footers/MainFooter';
 import AppReduxWrapper from './AppReduxWrapper';
 
@@ -33,6 +34,7 @@ const AppThemeWrapper = () => {
     <ThemeProvider theme={theme}>
       <Wrapper>
         <Container>
+          <FeedbackBanner />
           <AppReduxWrapper />
           <MainFooter />
         </Container>
