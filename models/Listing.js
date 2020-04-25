@@ -47,13 +47,16 @@ var listingSchema = Schema({
     type: Boolean,
     required: true,
   },
-  faved: {
-    type: [ String ],  // uid
+  bmed: {
+    // uid of users who bookmarked this listing
+    type: [ String ],
+    required: true,
     default: []
   },
-  favedHistory: {
+  bmHistory: {
     // add only
     type: [ String ],
+    required: true,
     default: []
   },
   term: String,
@@ -71,14 +74,17 @@ var listingSchema = Schema({
   },
   deleted: {
     type: Boolean,
+    required: true,
     default: false
   },
   updatedAt: {
     type: Date,
+    required: true,
     default: new Date
   },
   createdAt: {
     type: Date,
+    required: true,
     default: new Date
   }
 });

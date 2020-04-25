@@ -52,51 +52,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// AUTH 
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const User = require('./models/User');
-const session = require("express-session")
-const bodyParser = require("body-parser");
-
-app.use(session({
-  secret: "cats",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
-  function(email, password, done) {
-    User.findOne({ email }, (err, user) => {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect email.' });
-      }
-      if (!user.validatePasswordSync(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
 // ROUTING
 app.use('/api', require('./routes'));
 

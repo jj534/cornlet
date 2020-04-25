@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Auth from 'src/components/buttons/Auth';
 import Logo from 'src/components/displays/Logo';
 import { useSelector } from 'react-redux';
-
+import Bookmarks from './Bookmarks';
 
 const Container = styled.div`
   display: flex;
@@ -37,6 +37,7 @@ const MainHeader = () => {
         <Logo />
       </Link>
       <Right>
+        {!authing && <Bookmarks />}
         {!authing && (
           <Link to="/new">
             <Btn

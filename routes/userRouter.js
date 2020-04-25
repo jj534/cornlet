@@ -1,59 +1,35 @@
 const userRouter = require('express').Router();
-const passport = require('passport');
-const bcrypt = require('bcrypt');
-const User = require('./../models/User');
+const Listing = require('./../models/Listing');
 
-const SALT = 10;
-
-// LOGIN
-userRouter.post('/login', passport.authenticate('local'), (req, res) => {
-  res.send(req.user);
-});
-
-// LOGOUT
-userRouter.post('/logout', (req, res) => {
-  req.logout();
-  res.send({ success: true });
-});
-
-// GET ALL Users
-userRouter.get('/', async (req, res) => {
+// get uid's bookmarked listings
+userRouter.get('/:uid/bm', async (req, res) => {
   try {
-    const result = await User.find({});
+    const docs = await Listing.find({});
+    const result = docs.filter((listing) => listing.bmed.includes(req.params.uid));
     res.send(result);
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-// GET User BY ID
-userRouter.get('/:id', async (req, res) => {
+// add lid to uid's bookmarked listings
+userRouter.put('/:uid/bm/add/:lid', async (req, res) => {
   try {
-    const result = await User.findById(req.params.id).populate({
-      path: 'cart.item',
-      populate: {
-        path: 'owner',
-      },
-    });
+    // TODO
+    const docs = await Listing.find({});
+    const result = docs.filter((listing) => listing.bmed.includes(req.params.uid));
     res.send(result);
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-// CREATE User
-userRouter.post('/create', async (req, res) => {
+// remove lid from uid's bookmarked listings
+userRouter.get('/:uid/bm/remove/:lid', async (req, res) => {
   try {
-    // HASH PWD
-    const hash = bcrypt.hashSync(req.body.password, SALT);
-
-    const data = {
-      ...req.body,
-      password: hash,
-    };
-
-    const doc = new User(data);
-    const result = await doc.save();
+    // TODO
+    const docs = await Listing.find({});
+    const result = docs.filter((listing) => listing.bmed.includes(req.params.uid));
     res.send(result);
   } catch (e) {
     res.status(500).send(e);
