@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ListingCard from 'src/components/cards/ListingCard';
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,12 +14,16 @@ const Container = styled.div`
   justify-content: center;
   
   @media (min-width: ${(props) => props.theme.md}px) {
-    justify-content: flex-start;
     width: 1565px;
+    justify-content: flex-start;
   }
 `;
 
-const DynCardList = ({ children, ...rest }) => (
+const CardContainer = styled.div`
+
+`
+
+const DynCardList = ({ children, listings, ...rest }) => (
   <Wrapper {...rest}>
     <Container>
       {children}

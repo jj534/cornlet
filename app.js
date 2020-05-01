@@ -1,11 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config()
+require('dotenv').config();
 
 // MONGODB
 const forceProdDB = false;
@@ -13,7 +13,7 @@ const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && process
 const dbType = isProdDb ? 'prod' : 'dev';
 const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('db connection:', dbType)
@@ -21,7 +21,7 @@ db.once('open', () => {
 
 // PORT
 const PORT = process.env.PORT || 8081;
-var app = express();
+const app = express();
 app.listen(PORT, () => {
   console.log(`listening at ${PORT}`)
 })

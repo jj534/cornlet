@@ -11,7 +11,9 @@ const StyledBody = styled.h2`
   opacity: ${(props) => (props.muted ? '.8' : '')};
   
   // sm
-  font-size: ${(props) => (props.sm ? '.8rem' : '')};
+  @media (min-width: ${props => props.theme.md}px) {
+    font-size: ${(props) => (props.sm ? '.8rem' : '')};
+  }
   
   // color
   color: ${(props) => (props.color ? props.theme[props.color] : '')};

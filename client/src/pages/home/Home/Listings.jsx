@@ -6,10 +6,6 @@ import log from 'src/util/log';
 import DynCardList from 'src/containers/DynCardList';
 import useRouter from 'src/util/hooks/useRouter';
 
-const CardContainer = styled.div`
-  margin: 1rem 0;
-`;
-
 const Listings = () => {
   const router = useRouter();
   const [listings, setListings] = useState([]);
@@ -26,11 +22,10 @@ const Listings = () => {
   return (
     <DynCardList>
       {listings.map((listing) => (
-        <CardContainer key={listing._id}>
-          <ListingCard
-            listing={listing}
-          />
-        </CardContainer>
+        <ListingCard
+          key={listing._id}
+          listing={listing}
+        />
       ))}
     </DynCardList>
   );

@@ -39,13 +39,11 @@ const MyListings = ({ uid, setHasListings }) => {
     <Container>
       <DynCardList>
         {listings.map((listing) => (
-          <CardContainer>
-            <ListingCard
-              listing={listing}
-              edit
-              reload={reload}
-            />
-          </CardContainer>
+          <ListingCard
+            listing={listing}
+            edit
+            reload={reload}
+          />
         ))}
       </DynCardList>
     </Container>
