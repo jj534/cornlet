@@ -1,47 +1,48 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var mongoosePaginate = require('mongoose-paginate-v2');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
-var listingSchema = Schema({
+const { Schema } = mongoose;
+
+const listingSchema = Schema({
   addr: {
     type: String,
-    required: true
+    required: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   imgs: {
     type: [String],
-    default: []
+    default: [],
   },
   desc: {
     type: String,
-    required: true
+    required: true,
   },
   user: {
     uid: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     photo: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   displayEmail: String,
   displayName: String,
   active: {
     type: Boolean,
-    required: true
+    required: true,
   },
   sold: {
     type: Boolean,
@@ -49,44 +50,39 @@ var listingSchema = Schema({
   },
   bmed: {
     // uid of users who bookmarked this listing
-    type: [ String ],
-    required: true,
-    default: []
-  },
-  bmHistory: {
     // add only
-    type: [ String ],
+    type: [String],
     required: true,
-    default: []
+    default: [],
   },
   term: String,
   start: {
     type: Date,
-    required: true
+    required: true,
   },
   end: {
     type: Date,
-    required: true
+    required: true,
   },
   dateString: {
     type: String,
-    required: true
+    required: true,
   },
   deleted: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
   },
   updatedAt: {
     type: Date,
     required: true,
-    default: new Date
+    default: new Date,
   },
   createdAt: {
     type: Date,
     required: true,
-    default: new Date
-  }
+    default: new Date,
+  },
 });
 
 listingSchema.plugin(mongoosePaginate);

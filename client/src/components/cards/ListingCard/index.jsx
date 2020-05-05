@@ -2,24 +2,50 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Badge from 'src/components/displays/Badge';
-import theme from 'src/theme';
 import Body from 'src/components/fonts/Body';
 import getDateString from 'src/util/helpers/getDateString';
-import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
-import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { useSelector, useDispatch } from 'react-redux';
+
 import api from 'src/util/api';
 import log from 'src/util/log';
+
+import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
+import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
+import { ReactComponent as BmFilledRaw } from 'src/assets/svgs/bookmark-filled.svg';
 
 const Container = styled.div`
   width: 100%;
   padding: 1rem .5rem;
+  position: relative;
 
   @media (min-width: ${props => props.theme.md}px) {
     width: 25%;
   }
 `;
+
+const BmContainer = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+  z-index: 2;
+  cursor: pointer;
+`
+
+const BmFilled = styled(BmFilledRaw)`
+  display: block;
+  fill: rgba(0, 0, 0, 0.5);
+  height: 20px;
+  width: 20px;
+  stroke: #FFFFFF;
+  stroke-width: 2;
+  overflow: visible !important;
+
+  // highlighted
+  fill: ${props => props.highlighted ? props.theme.primary : ''};
+  opacity: ${props => props.highlighted ? '.9' : ''};
+`
 
 const TextArea = styled.div`
   padding: 0 .2rem;
@@ -132,8 +158,43 @@ const ListingCard = ({ listing, edit, reload }) => {
       .catch((e) => log('ERROR ListingCard', e));
   };
 
+  // bm
+  const bm = useSelector((state) => state.bm);
+  const user = useSelector((state) => state.user);
+  let isBmed = false;
+  if (bm.listings) {
+    isBmed = bm.listings.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
+  }
+  const dispatch = useDispatch();
+  const toggleBm = async () => {
+    try {
+      const newState = !isBmed;
+      // redux
+      const type = newState ? 'BM_ADD' : 'BM_REMOVE';
+      dispatch({
+        type,
+        payload: listing
+      })
+      if (!user) return;
+      
+      // DB
+      if (newState) {
+        await api.put(`/user/${user.uid}/bm/add/${_id}`)
+      }
+      else {
+        await api.put(`/user/${user.uid}/bm/remove/${_id}`)
+      }
+    }
+    catch (e) {
+      log('ListingCard', e)
+    }
+  }
+
   return (
-    <Container>
+    <Container> 
+      <BmContainer onClick={toggleBm}>
+        <BmFilled highlighted={isBmed ? 1 : 0} />
+      </BmContainer>
       <Link to={listingPath}>
         <ImgContainer>
           <Img

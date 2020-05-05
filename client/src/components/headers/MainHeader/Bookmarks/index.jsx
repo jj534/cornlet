@@ -18,15 +18,14 @@ const BMIcon = styled(BMIconRaw)`
 const Bookmarks = () => {
   const bm = useSelector((state) => state.bm);
   const [dropdown, setDropdown] = useState(false);
-  const toggleDropdown = () => {
-    setDropdown(!dropdown);
+  const toggleDropdown = (e) => {
+    setDropdown(true);
   }
-  console.log('bm', bm)
   
   return (
     <Container>
       <BMIcon onClick={toggleDropdown}/>
-      {dropdown && <Dropdown listings={bm.listings} />}
+      {dropdown && <Dropdown listings={bm.listings} setDropdown={setDropdown} />}
     </Container>
   )
 };
