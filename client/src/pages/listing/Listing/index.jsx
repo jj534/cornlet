@@ -8,6 +8,7 @@ import Body from 'src/components/fonts/Body';
 import getDateString from 'src/util/helpers/getDateString';
 import RenderOn from 'src/containers/RenderOn';
 import Badge from 'src/components/displays/Badge';
+import BmBtn from 'src/components/buttons/BmBtn';
 
 const Wrapper = styled.div`
   display: flex;
@@ -113,26 +114,23 @@ const Listing = ({ listing }) => {
                 </Row>
                 <Row meta>
                   <Body muted sm>{getDateString(listing)}</Body>
-                  {sold && (
-                    <Badge
-                      color='primary'
-                      inverted
-                    >Sold
-                    </Badge>
-                  )}
                 </Row>
               </Section>
-              {!sold && (
               <Section>
-                <Row>
-                  <DetailedAvatar
-                    name={displayName || user.name}
-                    email={displayEmail || user.email}
-                    src={displayName ? undefined : user.photo}
-                  />
-                </Row>
+                {sold  
+                  ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
+                  :(
+                    <Row>
+                      <DetailedAvatar
+                        name={displayName || user.name}
+                        email={displayEmail || user.email}
+                        src={displayName ? undefined : user.photo}
+                      />
+                      <BmBtn listing={listing} />
+                    </Row>
+                  )
+                }
               </Section>
-              )}
               <Section>
                 <Row>
                   <Body>{desc}</Body>

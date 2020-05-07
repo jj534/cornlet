@@ -33,10 +33,6 @@ const HomeIndex = () => {
         type: 'USER_SET',
         payload: null,
       });
-      dispatch({
-        type: 'BM_SET',
-        payload: {},
-      })
     }
   });
 

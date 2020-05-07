@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as BMIconRaw } from 'src/assets/svgs/bookmark-filled.svg';
 import Dropdown from './Dropdown';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import CornerRedDot from 'src/components/displays/CornerRedDot';
 
 const Container = styled.div`
   position: relative;
@@ -11,19 +12,25 @@ const Container = styled.div`
 const BMIcon = styled(BMIconRaw)`
   height: 1.6rem;
   width: 1.6rem;
-  opacity: .8;
+  opacity: .7;
   cursor: pointer;
 `
 
 const Bookmarks = () => {
   const bm = useSelector((state) => state.bm);
   const [dropdown, setDropdown] = useState(false);
+  const dispatch = useDispatch();
   const toggleDropdown = (e) => {
     setDropdown(true);
+    dispatch({
+      type: 'BM_NOTIF_FALSE',
+      payload: null,
+    })
   }
   
   return (
     <Container>
+      {bm.notif && <CornerRedDot />}
       <BMIcon onClick={toggleDropdown}/>
       {dropdown && <Dropdown listings={bm.listings} dropdown={dropdown} setDropdown={setDropdown} />}
     </Container>

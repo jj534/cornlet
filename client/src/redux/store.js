@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-const blacklist = process.env.NODE_ENV === 'development' ? ['bm'] : [];
+const blacklist = process.env.NODE_ENV === 'development' ? [] : [];
 
 const persistConfig = {
   key: 'root',

@@ -35,7 +35,10 @@ userRouter.put('/:uid/bm/:opr/:lid', async (req, res) => {
     const user = await User.findOne({ uid });
     let newBm = defaultBm;
     if (opr === 'add') {
-      if (user && !user.bm.listings.includes(lid)) newBm.listings = [...user.bm.listings, lid];
+      if (user && !user.bm.listings.includes(lid)) {
+        newBm.listings = [...user.bm.listings, lid];
+        newBm.notif = true;
+      }
       else if (!user) newBm.listings = [lid];
     }
     else if (opr === 'remove') {

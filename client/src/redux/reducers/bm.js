@@ -6,7 +6,8 @@ const bmReducer = (state = {}, action) => {
     case 'BM_ADD':
       if (!state.listings) {
         return {
-          listings: [action.payload]
+          listings: [action.payload],
+          notif: true,
         }
       }
       else {
@@ -15,6 +16,7 @@ const bmReducer = (state = {}, action) => {
         return {
           ...state,
           listings: newListings,
+          notif: true,
         }
       }
 
@@ -28,6 +30,18 @@ const bmReducer = (state = {}, action) => {
           ...state,
           listings: newListings,
         }
+      }
+    
+    case 'BM_NOTIF_TRUE':
+      return {
+        ...state,
+        notif: true,
+      }
+
+    case 'BM_NOTIF_FALSE':
+      return {
+        ...state,
+        notif: false,
       }
       
     default:

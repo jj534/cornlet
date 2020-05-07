@@ -6,14 +6,13 @@ import Body from 'src/components/fonts/Body';
 import getDateString from 'src/util/helpers/getDateString';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { useSelector, useDispatch } from 'react-redux';
 
 import api from 'src/util/api';
 import log from 'src/util/log';
 
 import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
-import { ReactComponent as BmFilledRaw } from 'src/assets/svgs/bookmark-filled.svg';
+import BmBtn from 'src/components/buttons/BmBtn';
 
 const Container = styled.div`
   width: 90vw;
@@ -32,20 +31,6 @@ const BmContainer = styled.div`
   right: 1rem;
   z-index: 2;
   cursor: pointer;
-`
-
-const BmFilled = styled(BmFilledRaw)`
-  display: block;
-  fill: rgba(0, 0, 0, 0.5);
-  height: 20px;
-  width: 20px;
-  stroke: #FFFFFF;
-  stroke-width: 2;
-  overflow: visible !important;
-
-  // highlighted
-  fill: ${props => props.highlighted ? props.theme.primary : ''};
-  opacity: ${props => props.highlighted ? '.9' : ''};
 `
 
 const TextArea = styled.div`
@@ -159,42 +144,10 @@ const ListingCard = ({ listing, edit, reload }) => {
       .catch((e) => log('ERROR ListingCard', e));
   };
 
-  // bm
-  const bm = useSelector((state) => state.bm);
-  const user = useSelector((state) => state.user);
-  let isBmed = false;
-  if (bm.listings) {
-    isBmed = bm.listings.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
-  }
-  const dispatch = useDispatch();
-  const toggleBm = async () => {
-    try {
-      const newState = !isBmed;
-      // redux
-      const type = newState ? 'BM_ADD' : 'BM_REMOVE';
-      dispatch({
-        type,
-        payload: listing
-      })
-      if (!user) return;
-      
-      // DB
-      if (newState) {
-        await api.put(`/user/${user.uid}/bm/add/${_id}`)
-      }
-      else {
-        await api.put(`/user/${user.uid}/bm/remove/${_id}`)
-      }
-    }
-    catch (e) {
-      log('ListingCard', e)
-    }
-  }
-
   return (
     <Container> 
-      <BmContainer onClick={toggleBm}>
-        <BmFilled highlighted={isBmed ? 1 : 0} />
+      <BmContainer>
+        <BmBtn listing={listing} />
       </BmContainer>
       <Link to={listingPath}>
         <ImgContainer>
