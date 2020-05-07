@@ -1,15 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { signIn } from 'src/services/firebase';
-import { useHistory } from 'react-router-dom';
 import New from './New';
+import useRouter from 'src/util/hooks/useRouter';
 
 const NewIndex = () => {
   const user = useSelector((state) => state.user);
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const router = useRouter();
   if (!user) {
+    router.history.push('/?redirect=new');
+    dispatch({
+      type: 'AUTHING_SET',
+      payload: true,
+    })
     signIn();
-    history.push('/');
     return <div />;
   }
   return (
