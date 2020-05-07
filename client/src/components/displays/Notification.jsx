@@ -6,10 +6,8 @@ const Container = styled.span`
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  color:
-  #fff;
-  background:
-  #dd5850;
+  color: #fff;
+  background: #dd5850;
   text-align: center;
   line-height: 18px;
   font-size: .7rem;

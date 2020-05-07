@@ -58,7 +58,7 @@ listingRouter.get('/', async (req, res) => {
 listingRouter.get('/:id', async (req, res) => {
   try {
     const doc = await Listing.findById(req.params.id);
-    res.send(doc);
+    res.send(doc.toObject({ virtuals: true }));
   } catch (e) {
     res.status(500).send(e);
   }

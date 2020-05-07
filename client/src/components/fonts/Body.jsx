@@ -6,6 +6,9 @@ const StyledBody = styled.h2`
   font-size: 1rem;
   white-space: pre-line;
   line-height: 1.2;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
   
   // muted
   opacity: ${(props) => (props.muted ? '.8' : '')};

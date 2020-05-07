@@ -61,7 +61,6 @@ const FormComponent = ({ user, initialValues }) => {
     onSubmit: (values) => {
       const data = {
         ...values,
-        dateString: `${formatDate(values.start)} ~ ${formatDate(values.end)}`,
       };
       if (initialValues) {
         api.put(`/listing/${initialValues._id}/update`, data)

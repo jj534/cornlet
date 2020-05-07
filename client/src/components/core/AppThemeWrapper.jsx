@@ -8,7 +8,7 @@ import AppReduxWrapper from './AppReduxWrapper';
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100.5vh;
-  background-color: rgba(0, 0, 0, .05);
+  background-color: white;
   display: flex;
   justify-content: center;
 `;

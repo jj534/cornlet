@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+const formatDate = require('../util/formatDate');
 
 const { Schema } = mongoose;
 
@@ -64,10 +65,6 @@ const listingSchema = Schema({
     type: Date,
     required: true,
   },
-  dateString: {
-    type: String,
-    required: true,
-  },
   deleted: {
     type: Boolean,
     required: true,
@@ -83,6 +80,10 @@ const listingSchema = Schema({
     required: true,
     default: new Date,
   },
+});
+
+listingSchema.virtual('dateString').get(function () {
+  return formatDate(this.start) + ' ~ ' + formatDate(this.end);
 });
 
 listingSchema.plugin(mongoosePaginate);

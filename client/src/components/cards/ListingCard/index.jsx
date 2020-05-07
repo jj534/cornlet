@@ -16,9 +16,10 @@ import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import { ReactComponent as BmFilledRaw } from 'src/assets/svgs/bookmark-filled.svg';
 
 const Container = styled.div`
-  width: 100%;
+  width: 90vw;
   padding: 1rem .5rem;
   position: relative;
+  overflow: hidden;
 
   @media (min-width: ${props => props.theme.md}px) {
     width: 25%;

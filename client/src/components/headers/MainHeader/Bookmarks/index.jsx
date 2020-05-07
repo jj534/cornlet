@@ -25,7 +25,7 @@ const Bookmarks = () => {
   return (
     <Container>
       <BMIcon onClick={toggleDropdown}/>
-      {dropdown && <Dropdown listings={bm.listings} setDropdown={setDropdown} />}
+      {dropdown && <Dropdown listings={bm.listings} dropdown={dropdown} setDropdown={setDropdown} />}
     </Container>
   )
 };
