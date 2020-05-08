@@ -19,7 +19,7 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   
-  padding: 1rem 0;
+  padding: .5rem 0 .8rem 0;
 `;
 
 const Nav = styled.nav`
@@ -38,7 +38,7 @@ const MainFooter = () => (
         <Logo />
       </a>
       <Nav>
-        <MadeWithLove>Made with ❤️ by Jae, Rebecca, Katie</MadeWithLove>
+        <MadeWithLove>Made with ❤️ by 🐻</MadeWithLove>
       </Nav>
     </Content>
   </Container>
