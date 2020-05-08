@@ -26,13 +26,9 @@ const Nav = styled.nav`
   display: flex;
 `;
 
-const NavElt = styled.div`
-  margin-left: 1rem;
-`;
-
-const NavText = styled(Body)`
-  opacity: .9;
-`;
+const MadeWithLove = styled(Body)`
+  line-height: 1.5;
+`
 
 const MainFooter = () => (
   <Container>
@@ -42,21 +38,7 @@ const MainFooter = () => (
         <Logo />
       </a>
       <Nav>
-        <NavElt>
-          <a href="/">
-            <NavText>Home</NavText>
-          </a>
-        </NavElt>
-        <NavElt>
-          <a href="/profile">
-            <NavText>Profile</NavText>
-          </a>
-        </NavElt>
-        <NavElt>
-          <a href="/new">
-            <NavText>Create Listing</NavText>
-          </a>
-        </NavElt>
+        <MadeWithLove>Made with ❤️ by Jae, Rebecca, Katie</MadeWithLove>
       </Nav>
     </Content>
   </Container>
