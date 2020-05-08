@@ -9,6 +9,8 @@ import getDateString from 'src/util/helpers/getDateString';
 import RenderOn from 'src/containers/RenderOn';
 import Badge from 'src/components/displays/Badge';
 import BmBtn from 'src/components/buttons/BmBtn';
+import { useSelector } from 'react-redux';
+import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,7 +28,7 @@ const ImgInnerContainer = styled.div`
   width: 100vw;
   
   @media (min-width: ${(props) => props.theme.md}px) {
-    width: 800px;
+    width: 700px;
     margin-right: 2rem;
     height: auto;
   }
@@ -82,6 +84,17 @@ const Addr = styled.h2`
 
 `;
 
+const LockSVG = styled(LockRaw)`
+  height: 1rem;
+  margin-right: .5rem;
+  opacity: .7;
+`
+
+const LockSection = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const Price = styled.p`
   font-size: 1.2rem;
   color: ${(props) => props.theme.primary};
@@ -91,6 +104,8 @@ const Listing = ({ listing }) => {
   const {
     imgs, addr, price, user, desc, sold, displayName, displayEmail,
   } = listing;
+
+  const viewingUser = useSelector((state) => state.user);
 
   return (
     <div>
@@ -121,11 +136,21 @@ const Listing = ({ listing }) => {
                   ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
                   :(
                     <Row>
-                      <DetailedAvatar
-                        name={displayName || user.name}
-                        email={displayEmail || user.email}
-                        src={displayName ? undefined : user.photo}
-                      />
+                      {viewingUser
+                      ? (
+                          <DetailedAvatar
+                            name={displayName || user.name}
+                            email={displayEmail || user.email}
+                            src={displayName ? undefined : user.photo}
+                          />
+                        )
+                      : (
+                        <LockSection>
+                          <LockSVG />
+                          <Body muted>Sign in to view contact details</Body>
+                        </LockSection>
+                        )
+                      }
                       <BmBtn listing={listing} />
                     </Row>
                   )
