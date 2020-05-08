@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as LogoRaw } from 'src/assets/svgs/logo.svg';
 
-const LogoText = styled.h1`
-  font-size: 2rem;
-  color: ${(props) => props.theme.primary};
-`;
+const LogoSVG = styled(LogoRaw)`
+  height: 3rem;
+`
 
-const Logo = () => <LogoText>cornlet</LogoText>;
+const Logo = () => <LogoSVG />;
 
 export default Logo;
