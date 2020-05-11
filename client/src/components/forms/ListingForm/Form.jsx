@@ -6,12 +6,13 @@ import Btn from 'src/components/buttons/Btn';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory } from 'react-router-dom';
-import { formatDate } from 'src/util/helpers/date';
 import FormContents from './FormContents';
 import guidelines from './guidelines';
 
 const Form = styled.form`
-
+  @media (min-width: ${props => props.theme.md}px) {
+    max-width: 700px;
+  }
 `;
 
 const Center = styled.div`
@@ -29,10 +30,16 @@ const FormComponent = ({ user, initialValues }) => {
     price: 0,
     start: new Date(),
     end: new Date(),
+    totalRooms: 0,
+    availRooms: 0,
+    bathrooms: 0,
+    femaleRoommates: 0,
+    maleRoommates: 0,
     imgs: [],
     desc: guidelines,
     active: true,
     sold: false,
+    cornellOnly: false,
   };
   const dynInitValues = initialValues || defaultValues;
 
@@ -56,6 +63,8 @@ const FormComponent = ({ user, initialValues }) => {
       active: Yup.boolean()
         .required('Required'),
       sold: Yup.boolean()
+        .required('Required'),
+      cornellOnly: Yup.boolean()
         .required('Required'),
     }),
     onSubmit: (values) => {

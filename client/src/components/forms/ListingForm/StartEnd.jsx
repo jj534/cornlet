@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ErrMsg from 'src/components/fonts/ErrMsg';
+import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
   display: flex;
   align-items: center;
+  margin: 2rem 0 !important;
   
   & > * {
     margin-right: 1rem;
@@ -22,11 +24,13 @@ const StyledPicker = styled(DatePicker)`
   text-align: center;
   line-height: 1.2;
   
-  width: 100px;
+  width: 130px;
+  padding: .5rem 1rem;
 `;
 
 const Col = styled.div`
-
+  display: flex;
+  align-items: center;
 `;
 
 const StartEnd = ({ formik }) => {
@@ -55,7 +59,7 @@ const StartEnd = ({ formik }) => {
           name="end"
         />
       </Col>
-      <p>to</p>
+      <Body>to</Body>
       <Col>
         <StyledPicker
           selected={end}

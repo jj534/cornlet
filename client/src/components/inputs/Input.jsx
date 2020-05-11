@@ -11,10 +11,13 @@ const Container = styled.div`
   & > * {
     flex-grow: 2;
   }
+
+  // width
+  width: ${props => props.width ? `${props.width}px` : ''};
 `;
 
 const FormikInput = ({
-  formik, name, label, adornment, multiline, ...rest
+  formik, name, label, adornment, multiline, width, margin, ...rest
 }) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
@@ -30,7 +33,7 @@ const FormikInput = ({
   const conditionalMultiline = multiline ? multilineProps : {};
 
   return (
-    <Container>
+    <Container width={width}>
       <TextField
         {...rest}
         {...formikProps}
@@ -38,8 +41,8 @@ const FormikInput = ({
         error={!!error}
         helperText={error}
         fullwidth={1}
-        margin="normal"
-        InputProps={{ startAdornment: wrappedAdornment }}
+        margin={margin || 'normal'}
+        InputProps={{ startAdornment: wrappedAdornment, style: { textAlign: 'center' } }}
         {...conditionalMultiline}
       />
     </Container>

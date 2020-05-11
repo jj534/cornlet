@@ -13,6 +13,31 @@ const listingSchema = Schema({
     type: Number,
     required: true,
   },
+  totalRooms: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  availRooms: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  bathrooms: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  femaleRoommates: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  maleRoommates: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   imgs: {
     type: [String],
     default: [],
@@ -48,6 +73,11 @@ const listingSchema = Schema({
   sold: {
     type: Boolean,
     required: true,
+  },
+  cornellOnly: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
   bmed: {
     // uid of users who bookmarked this listing
