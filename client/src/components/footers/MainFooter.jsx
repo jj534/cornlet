@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Logo from 'src/components/displays/Logo';
 import Body from 'src/components/fonts/Body';
@@ -30,18 +30,20 @@ const MadeWithLove = styled(Body)`
   line-height: 1.5;
 `
 
-const MainFooter = () => (
-  <Container>
-    <HrLine />
-    <Content>
-      <a href="/">
-        <Logo />
-      </a>
-      <Nav>
-        <MadeWithLove>Made with ❤️ by 🐻</MadeWithLove>
-      </Nav>
-    </Content>
-  </Container>
-);
+const MainFooter = () => {
+  return (
+    <Container>
+      <HrLine />
+      <Content>
+        <a href="/">
+          <Logo />
+        </a>
+        <Nav>
+          <MadeWithLove>Made with ❤️ by 🐻</MadeWithLove>
+        </Nav>
+      </Content>
+    </Container>
+  )
+};
 
 export default MainFooter;

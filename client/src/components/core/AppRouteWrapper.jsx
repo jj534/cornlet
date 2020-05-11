@@ -9,7 +9,6 @@ import Env from 'src/pages/env';
 
 import Profile from 'src/pages/profile';
 import MyListings from 'src/pages/profile/MyListings';
-import MyChats from 'src/pages/profile/MyChats';
 import MyBookmarks from 'src/pages/profile/MyBookmarks';
 import Settings from 'src/pages/profile/Settings';
 
