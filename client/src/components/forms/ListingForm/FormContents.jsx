@@ -111,13 +111,13 @@ const FormContents = ({ formik, user }) => (
       formik={formik}
       name="sold"
       label="Mark as Sold"
-      sublabel='Your contact information will not be displayed if marked as sold'
+      sublabel='Your name and contact information will not be displayed if marked as sold'
     />
     <Checkbox
       formik={formik}
       name="cornellOnly"
       label="Restrict to Cornell"
-      sublabel='Your contact information will only be visible to users signed in with a cornell.edu email'
+      sublabel='Your name and contact information will only be visible to users signed in with a @cornell.edu email'
     />
     {user.email === 'jj534@cornell.edu' && (
       <div>

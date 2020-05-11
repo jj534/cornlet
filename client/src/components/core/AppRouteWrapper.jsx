@@ -15,7 +15,6 @@ import Settings from 'src/pages/profile/Settings';
 
 const AppRouter = () => (
   <BrowserRouter>
-    <ScrollToTop />
     <Switch>
       <Route exact path="/listing/:id/edit" component={Edit} />
       <Route exact path="/listing/:id" component={Listing} />
@@ -27,6 +26,7 @@ const AppRouter = () => (
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/" component={Home} />
     </Switch>
+    <ScrollToTop />
   </BrowserRouter>
 );
 
