@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Logo from 'src/components/displays/Logo';
 import Body from 'src/components/fonts/Body';

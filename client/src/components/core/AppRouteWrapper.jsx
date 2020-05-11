@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 
 import Home from 'src/pages/home';
 import Listing from 'src/pages/listing';
@@ -14,6 +15,7 @@ import Settings from 'src/pages/profile/Settings';
 
 const AppRouter = () => (
   <BrowserRouter>
+    <ScrollToTop />
     <Switch>
       <Route exact path="/listing/:id/edit" component={Edit} />
       <Route exact path="/listing/:id" component={Listing} />
