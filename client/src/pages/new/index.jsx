@@ -6,17 +6,7 @@ import useRouter from 'src/util/hooks/useRouter';
 
 const NewIndex = () => {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  if (!user) {
-    router.history.push('/?redirect=new');
-    dispatch({
-      type: 'AUTHING_SET',
-      payload: true,
-    })
-    signIn();
-    return <div />;
-  }
+  
   return (
     <New
       user={user}

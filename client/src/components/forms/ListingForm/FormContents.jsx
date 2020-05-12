@@ -34,7 +34,7 @@ const MarginedHeading = styled(Heading)`
 
 const FormContents = ({ formik, user }) => (
   <Container>
-  <MarginedHeading>Listing Details</MarginedHeading>
+  <MarginedHeading>Property Information</MarginedHeading>
     <Input
       formik={formik}
       name="addr"
@@ -48,7 +48,6 @@ const FormContents = ({ formik, user }) => (
         adornment="$"
       />
     </InputContainer>
-    <StartEnd formik={formik} />
     <InputContainer>
       <Incrementor
         formik={formik}
@@ -72,6 +71,8 @@ const FormContents = ({ formik, user }) => (
       />
     </InputContainer>
     <VerticalMargin />
+    <MarginedHeading>Duration</MarginedHeading>
+    <StartEnd formik={formik} />
     <InputContainer>
       <Incrementor
         formik={formik}
@@ -87,6 +88,7 @@ const FormContents = ({ formik, user }) => (
       />
     </InputContainer>
     <VerticalMargin />
+    <MarginedHeading>Description</MarginedHeading>
     <Input
       formik={formik}
       name="desc"
@@ -119,7 +121,7 @@ const FormContents = ({ formik, user }) => (
       label="Restrict to Cornell"
       sublabel='Your name and contact information will only be visible to users signed in with a @cornell.edu email'
     />
-    {user.email === 'jj534@cornell.edu' && (
+    {user && user.email === 'jj534@cornell.edu' && (
       <div>
         <Input
           formik={formik}

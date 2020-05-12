@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FileUpload from 'src/components/inputs/FileUpload';
 import ErrMsg from 'src/components/fonts/ErrMsg';
+import generator from 'generate-password';
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -40,6 +41,10 @@ const CustomFileUpload = ({
   formik, name, user,
 }) => {
   const [newSrc, setNewSrc] = useState();
+  var random = generator.generate({
+    length: 16,
+    numbers: true
+});
 
   useEffect(() => {
     if (newSrc) {
@@ -62,7 +67,7 @@ const CustomFileUpload = ({
   return (
     <Container>
       <FileUpload
-        path={`/user/${user.uid}`}
+        path={user ?`/user/${user.uid}` : `/temp/${random}`}
         setSrc={setNewSrc}
       />
       <ErrMsg

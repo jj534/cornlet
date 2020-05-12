@@ -7,6 +7,10 @@ import 'firebase/analytics';
 import signOut from './signOut';
 import uploadFile from './uploadFile';
 
+import store from 'src/redux/store';
+import api from 'src/util/api';
+import log from 'src/util/log';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9olIfEWy0ydA0yJU52qfH0paJn9MXIM",
   authDomain: "cornlet-prod.firebaseapp.com",
@@ -33,6 +37,46 @@ provider.setCustomParameters({
 const signIn = () => {
   firebase.auth().signInWithRedirect(provider);
 }
+
+firebase.auth().onAuthStateChanged((user) => {
+  console.log('authing state changed')
+
+  if (user) {
+    store.dispatch({
+      type: 'USER_SET',
+      payload: user,
+    });
+
+    api.get(`/user/${user.uid}/bm`)
+      .then(({ data }) => {
+        store.dispatch({
+          type: 'BM_SET',
+          payload: data,
+        })
+        store.dispatch({
+          type: 'AUTHING_SET',
+          payload: false,
+        });
+      })
+      .catch(({ response }) => {
+        log('HomeIndex', response);
+        store.dispatch({
+          type: 'AUTHING_SET',
+          payload: false,
+        });
+      })
+  } 
+  else {
+    store.dispatch({
+      type: 'USER_SET',
+      payload: null,
+    });
+    store.dispatch({
+      type: 'AUTHING_SET',
+      payload: false,
+    });
+  }
+});
 
 export default firebase;
 export {

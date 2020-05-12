@@ -7,7 +7,9 @@ import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory } from 'react-router-dom';
 import FormContents from './FormContents';
-import guidelines from './guidelines';
+import { signIn } from 'src/services/firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import useRouter from 'src/util/hooks/useRouter';
 
 const Form = styled.form`
   @media (min-width: ${props => props.theme.md}px) {
@@ -23,6 +25,10 @@ const Center = styled.div`
 
 const FormComponent = ({ user, initialValues }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const tempValues = useSelector(state => state.tempValues);
+  const authing = useSelector(state => state.authing);
+  const router = useRouter();
 
   // configure inital values
   const defaultValues = {
@@ -36,12 +42,28 @@ const FormComponent = ({ user, initialValues }) => {
     femaleRoommates: 0,
     maleRoommates: 0,
     imgs: [],
-    desc: guidelines,
+    desc: '',
     active: true,
     sold: false,
     cornellOnly: false,
   };
-  const dynInitValues = initialValues || defaultValues;
+  const devValues = {
+    addr: 'test addr',
+    price: 100,
+    start: new Date(),
+    end: new Date(),
+    totalRooms: 3,
+    availRooms: 1,
+    bathrooms: 1.5,
+    femaleRoommates: 1,
+    maleRoommates: 2,
+    imgs: ["https://firebasestorage.googleapis.com/v0/b/cornlet-prod.appspot.com/o/temp%2Fforest.jpg?alt=media&token=967fa2f7-3730-4ebf-9b05-aa3c4cafeb59"],
+    desc: 'tes description',
+    active: true,
+    sold: false,
+    cornellOnly: false,
+  }
+  const dynInitValues = initialValues || tempValues || (false && process.env.NODE_ENV === 'development' && devValues) || defaultValues;
 
   // define form
   const formik = useFormik({
@@ -68,26 +90,63 @@ const FormComponent = ({ user, initialValues }) => {
         .required('Required'),
     }),
     onSubmit: (values) => {
-      const data = {
-        ...values,
-      };
       if (initialValues) {
-        api.put(`/listing/${initialValues._id}/update`, data)
+        api.put(`/listing/${initialValues._id}/update`, values)
           .then(() => {
             history.push('/profile');
           })
           .catch((e) => log('ERROR ListingForm update', e));
       } else {
-        api.post('/listing/create', { ...data, user })
+        if (user) {
+          api.post('/listing/create', { ...values, user })
+            .then(() => {
+              history.push('/profile/listings');
+            })
+            .catch((e) => {
+              log('ERROR new listing submit form', e);
+            });
+        }
+        else {
+          signIn();
+          dispatch({
+            type: 'AUTHING_SET',
+            payload: true,
+          })
+          dispatch({
+            type: 'TEMP_VALUES_SET',
+            payload: values,
+          })
+        }
+      }
+    },
+  });
+
+  if (tempValues) {
+    if (!authing) {
+      if (user) {
+        console.log('auto create new listing')
+        api.post('/listing/create', { ...tempValues, user })
           .then(() => {
-            history.push('/profile/listings');
+            dispatch({
+              type: 'TEMP_VALUES_SET',
+              payload: null,
+            })
+            router.history.push('/profile/listings');
           })
           .catch((e) => {
             log('ERROR new listing submit form', e);
           });
       }
-    },
-  });
+      else {
+        console.log('user failed signin, return to /new');
+        dispatch({
+          type: 'TEMP_VALUES_SET',
+          payload: null,
+        })
+      }
+    }
+    return <div>processing signin</div>
+  }
 
   return (
     <Form onSubmit={formik.handleSubmit}>

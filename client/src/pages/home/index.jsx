@@ -1,50 +1,19 @@
 import React from 'react';
-import firebase from 'src/services/firebase';
-import { useDispatch } from 'react-redux';
-import Home from './Home';
-import api from 'src/util/api';
-import log from 'src/util/log';
-import useRouter from 'src/util/hooks/useRouter';
+import styled from 'styled-components';
+import MainHeader from 'src/components/headers/MainHeader';
+import Listings from './Listings';
+import Filters from './Filters';
 
-const HomeIndex = () => {
-  const dispatch = useDispatch();
-  const router = useRouter();
+const Container = styled.div`
+  width: 100%;
+`;
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (router.query.redirect !== 'new') {
-      dispatch({
-        type: 'AUTHING_SET',
-        payload: false,
-      });
-    }
+const HomeUI = () => (
+  <Container>
+    <MainHeader />
+    <Filters />
+    <Listings />
+  </Container>
+);
 
-    if (user) {
-      dispatch({
-        type: 'USER_SET',
-        payload: user,
-      });
-
-      if (router.query.redirect === 'new') {
-        router.history.push('/new')
-      }
-
-      api.get(`/user/${user.uid}/bm`)
-        .then(({ data }) => {
-          dispatch({
-            type: 'BM_SET',
-            payload: data,
-          })
-        })
-        .catch(({ response }) => log('HomeIndex', response))
-    } else {
-      dispatch({
-        type: 'USER_SET',
-        payload: null,
-      });
-    }
-  });
-
-  return <Home />;
-};
-
-export default HomeIndex;
+export default HomeUI;
