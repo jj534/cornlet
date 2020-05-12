@@ -8,12 +8,19 @@ import CustomFileUpload from './CustomFileUpload';
 import StartEnd from './StartEnd';
 import Rooms from './Rooms';
 import Incrementor from 'src/components/inputs/Incrementor';
+import Select from 'src/components/inputs/Select';
 
 const Container = styled.div`
   & > * {
     margin: .5rem 0;
   }
 `;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 
 const InputContainer = styled.div`
   margin: 1rem 0;
@@ -41,12 +48,21 @@ const FormContents = ({ formik, user }) => (
       label="Address"
     />
     <InputContainer>
-      <Input
-        formik={formik}
-        name="price"
-        label="Price per Month"
-        adornment="$"
-      />
+      <Row>
+        <Input
+          formik={formik}
+          name="price"
+          label="Price per Month"
+          adornment="$"
+          width={120}
+        />
+        <Select
+          formik={formik}
+          name='type'
+          label='Property Type'
+          opts={[{ label: 'Apartment', value: 'apt' }, { label: 'House', value: 'house' }, { label: 'Studio', value: 'studio' },]}
+        />
+      </Row>
     </InputContainer>
     <InputContainer>
       <Incrementor

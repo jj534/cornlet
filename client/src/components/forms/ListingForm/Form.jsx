@@ -36,6 +36,7 @@ const FormComponent = ({ user, initialValues }) => {
     price: 0,
     start: new Date(),
     end: new Date(),
+    type: '',
     totalRooms: 0,
     availRooms: 0,
     bathrooms: 0,
@@ -52,18 +53,19 @@ const FormComponent = ({ user, initialValues }) => {
     price: 100,
     start: new Date(),
     end: new Date(),
+    type: '',
     totalRooms: 3,
     availRooms: 1,
     bathrooms: 1.5,
     femaleRoommates: 1,
     maleRoommates: 2,
     imgs: ["https://firebasestorage.googleapis.com/v0/b/cornlet-prod.appspot.com/o/temp%2Fforest.jpg?alt=media&token=967fa2f7-3730-4ebf-9b05-aa3c4cafeb59"],
-    desc: 'tes description',
+    desc: 'test description',
     active: true,
     sold: false,
     cornellOnly: false,
   }
-  const dynInitValues = initialValues || tempValues || (false && process.env.NODE_ENV === 'development' && devValues) || defaultValues;
+  const dynInitValues = initialValues || tempValues || (process.env.NODE_ENV === 'development' && devValues) || defaultValues;
 
   // define form
   const formik = useFormik({
@@ -76,6 +78,8 @@ const FormComponent = ({ user, initialValues }) => {
       start: Yup.object()
         .required('Required'),
       end: Yup.object()
+        .required('Required'),
+      type: Yup.string()
         .required('Required'),
       imgs: Yup.array()
         .of(Yup.string())

@@ -31,7 +31,7 @@ const Select = ({
         label={label}
         error={error}
         helperText={error}
-        margin="normal"
+        margin="none"
         className={classes.textField}
       >
         {opts.map((option) => (

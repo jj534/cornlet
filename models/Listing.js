@@ -13,6 +13,11 @@ const listingSchema = Schema({
     type: Number,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+    default: '',
+  },
   totalRooms: {
     type: Number,
     required: true,
