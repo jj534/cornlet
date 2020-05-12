@@ -53,7 +53,7 @@ const FormComponent = ({ user, initialValues }) => {
     price: 100,
     start: new Date(),
     end: new Date(),
-    type: '',
+    type: 'apt',
     totalRooms: 3,
     availRooms: 1,
     bathrooms: 1.5,

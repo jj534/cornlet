@@ -44,14 +44,6 @@ const MyListings = () => {
       <Section>
         <Row>
           <Heading>{`Hi, ${user.displayName.split(' ')[0]}`}</Heading>
-          <Link to="/new">
-            <Btn
-              color="primary"
-              inverted
-            >
-new
-            </Btn>
-          </Link>
         </Row>
         <Body>{text}</Body>
       </Section>
