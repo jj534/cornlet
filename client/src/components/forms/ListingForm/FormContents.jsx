@@ -6,7 +6,7 @@ import Heading from 'src/components/fonts/Heading';
 
 import CustomFileUpload from './CustomFileUpload';
 import StartEnd from './StartEnd';
-import Rooms from './Rooms';
+import Amenities from './Amenities';
 import Incrementor from 'src/components/inputs/Incrementor';
 import Select from 'src/components/inputs/Select';
 
@@ -86,6 +86,10 @@ const FormContents = ({ formik, user }) => (
         increment={.5}
       />
     </InputContainer>
+    <VerticalMargin />
+    <Amenities
+      formik={formik}
+    />
     <VerticalMargin />
     <MarginedHeading>Duration</MarginedHeading>
     <StartEnd formik={formik} />
