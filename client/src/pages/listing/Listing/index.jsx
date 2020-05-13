@@ -5,6 +5,7 @@ import BackHeader from 'src/components/headers/BackHeader';
 import ImgCarousel from 'src/components/displays/ImgCarousel';
 import DetailedAvatar from 'src/components/displays/DetailedAvatar';
 import Body from 'src/components/fonts/Body';
+import Subheading from 'src/components/fonts/Subheading';
 import getDateString from 'src/util/helpers/getDateString';
 import RenderOn from 'src/containers/RenderOn';
 import Badge from 'src/components/displays/Badge';
@@ -84,15 +85,32 @@ const Addr = styled.h2`
 
 `;
 
-const LockSVG = styled(LockRaw)`
-  height: 1rem;
-  margin-right: .5rem;
-  opacity: .7;
-`
-
 const LockSection = styled.div`
   display: flex;
+  align-items: flex-start;
+`
+
+const LockSVG = styled(LockRaw)`
+  height: 1rem;
+  opacity: .6;
+`
+
+const LockAvatar = styled.div`
+  height: 40px;
+  width: 40px;
+  background: rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  border-radius: 50%;
+  padding: .5rem;
+  margin-right: 1rem;
+
+  display: flex;
+  justify-content: center;
   align-items: center;
+`
+
+const TextSection = styled.div`
+  max-width: 270px;
 `
 
 const Price = styled.p`
@@ -102,11 +120,10 @@ const Price = styled.p`
 
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold, displayName, displayEmail,
+    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly
   } = listing;
 
-  const viewingUser = useSelector((state) => state.user);
-
+  const signedInUser = useSelector((state) => state.user);
   return (
     <div>
       <RenderOn desktop>
@@ -136,20 +153,25 @@ const Listing = ({ listing }) => {
                   ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
                   :(
                     <Row>
-                      {viewingUser
-                      ? (
-                          <DetailedAvatar
-                            name={displayName || user.name}
-                            email={displayEmail || user.email}
-                            src={displayName ? undefined : user.photo}
-                          />
-                        )
-                      : (
-                        <LockSection>
-                          <LockSVG />
-                          <Body muted>Sign in to view contact details</Body>
-                        </LockSection>
-                        )
+                      {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
+                        ? (
+                            <DetailedAvatar
+                              name={displayName || user.name}
+                              email={displayEmail || user.email}
+                              src={displayName ? undefined : user.photo}
+                            />
+                          )
+                        : (
+                          <LockSection>
+                            <LockAvatar>
+                              <LockSVG />
+                            </LockAvatar>
+                            <TextSection>
+                              <Subheading bold>Restricted to Cornell</Subheading>
+                              <Body muted>Sign in with a @cornell.edu account to view contact details</Body>
+                            </TextSection>
+                          </LockSection>
+                          )
                       }
                       <BmBtn listing={listing} />
                     </Row>

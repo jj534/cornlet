@@ -7,7 +7,6 @@ import Listing from 'src/pages/listing';
 import New from 'src/pages/new';
 import Edit from 'src/pages/edit';
 import Env from 'src/pages/env';
-import PostSignin from 'src/pages/post-signin';
 
 import Profile from 'src/pages/profile';
 import MyListings from 'src/pages/profile/MyListings';
@@ -20,7 +19,6 @@ const AppRouter = () => (
       <Route exact path="/listing/:id/edit" component={Edit} />
       <Route exact path="/listing/:id" component={Listing} />
       <Route exact path="/env" component={Env} />
-      <Route exact path="/post-signin" component={PostSignin} />
       <Route exact path="/new" component={New} />
       <Route exact path="/profile/settings" component={Settings} />
       <Route exact path="/profile/bookmarks" component={MyBookmarks} />
