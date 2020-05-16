@@ -44,7 +44,7 @@ const MainHeader = () => {
               color="primary"
               inverted
             >
-new
+New Listing
             </Btn>
           </Link>
         )}

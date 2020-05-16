@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as BMIconRaw } from 'src/assets/svgs/bookmark-filled.svg';
-import Dropdown from './Dropdown';
+import BmDropdown from './BmDropdown';
 import { useSelector, useDispatch } from 'react-redux';
 import CornerRedDot from 'src/components/displays/CornerRedDot';
 
@@ -32,7 +32,7 @@ const Bookmarks = () => {
     <Container>
       {bm.notif && <CornerRedDot />}
       <BMIcon onClick={toggleDropdown}/>
-      {dropdown && <Dropdown listings={bm.listings} dropdown={dropdown} setDropdown={setDropdown} />}
+      {dropdown && <BmDropdown listings={bm.listings} dropdown={dropdown} setDropdown={setDropdown} />}
     </Container>
   )
 };

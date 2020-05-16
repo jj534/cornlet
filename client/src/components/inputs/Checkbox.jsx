@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Label from 'src/components/fonts/Label';
 import ErrMsg from 'src/components/fonts/ErrMsg';
-import Subheading from 'src/components/fonts/Subheading';
+import Body from 'src/components/fonts/Body';
 
 const Wrapper = styled.div`
   // hasSublabel
@@ -54,7 +54,7 @@ const Checkbox = ({
         />
         <LabelSection>
           <CheckboxLabel hasSublabel={sublabel}>{label}</CheckboxLabel>
-          <Subheading>{sublabel}</Subheading>
+          <Body muted>{sublabel}</Body>
         </LabelSection>
       </InputArea>
       {hasError ? (

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledBody = styled.h2`
   opacity: 1;
   font-size: 1rem;
+  
   white-space: pre-line;
   line-height: 1.2;
   word-break: break-word;

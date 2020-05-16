@@ -20,7 +20,7 @@ const Container = styled.div`
   justify-content: space-between;
   
   @media (min-width: ${(props) => props.theme.md}px) {
-    width: 85%;
+    max-width: 1565px;
   }
 `;
 

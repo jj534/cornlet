@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Subheading from 'src/components/fonts/Subheading';
+import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
   width: 100%;
@@ -48,10 +48,10 @@ const Incrementor = ({ formik, label, name, increment }) => {
 
   return (
     <Container>
-      <Subheading>{label}</Subheading>
+      <Body>{label}</Body>
       <IncrementorSection>
         <IncrementBtn type='button' onClick={handleDecrement}>-</IncrementBtn>
-        <Subheading>{formik.values[name]}</Subheading>
+        <Body>{formik.values[name]}</Body>
         <IncrementBtn type='button' onClick={handleIncrement}>+</IncrementBtn>
       </IncrementorSection>
     </Container>

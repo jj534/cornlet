@@ -19,10 +19,6 @@ const Container = styled.div`
   }
 `;
 
-const CardContainer = styled.div`
-
-`
-
 const DynCardList = ({ children, listings, ...rest }) => (
   <Wrapper {...rest}>
     <Container>
