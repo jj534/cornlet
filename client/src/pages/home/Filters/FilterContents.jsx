@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Body from 'src/components/fonts/Body';
 import DateFilter from 'src/components/filters/DateFilter';
 import SliderFilter from 'src/components/filters/SliderFilter';
+import ClearFilters from './ClearFilters';
 
 const Container = styled.div`
   width: 350px;
-  min-height: 160px;
+  min-height: 200px;
   padding: 0 1rem;
 `;
 
@@ -26,6 +27,7 @@ const Row = styled.div`
 const FilterContents = () => {
   return (
     <Container>
+      <ClearFilters />
       <Name>Date</Name>
       <Row>
         <DateFilter

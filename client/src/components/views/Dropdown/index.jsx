@@ -11,7 +11,6 @@ const Container = styled.div`
   left: 10px;
   right: 10px;
   z-index: 5;
-  ${'' /* overflow: auto; */}
 
   @media (min-width: ${props => props.theme.md}px) {
     position: absolute;

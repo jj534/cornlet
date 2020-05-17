@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import DateFilter from 'src/components/filters/DateFilter';
 import Sort from 'src/components/filters/Sort';
-import ClearFilters from 'src/components/filters/ClearFilters';
 import { ReactComponent as FilterRaw } from 'src/assets/svgs/filter.svg';
 import Dropdown from 'src/components/views/Dropdown';
 import FilterContents from './FilterContents';
