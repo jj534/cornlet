@@ -26,7 +26,7 @@ const FilterSVG = styled(FilterRaw)`
 `
 
 const Filters = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   return (
     <Container>
