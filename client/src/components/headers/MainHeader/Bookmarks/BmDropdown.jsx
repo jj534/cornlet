@@ -4,6 +4,9 @@ import BmListing from './BmListing';
 import Dropdown from 'src/components/views/Dropdown';
 
 const Container = styled.div`
+  max-height: 350px;
+  overflow: auto;
+
   @media (min-width: ${props => props.theme.md}px) {
     width: 400px;
   }
