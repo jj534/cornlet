@@ -16,7 +16,7 @@ const StyledBody = styled.h2`
   
   // sm
   @media (min-width: ${props => props.theme.md}px) {
-    font-size: ${(props) => (props.sm ? '.8rem' : '')};
+    font-size: ${(props) => (props.sm ? '.9rem' : '')};
   }
   
   // color

@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const FilterBtn = styled.button`
   background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
   border-radius: 4px;
   padding: .5rem 1rem;
 

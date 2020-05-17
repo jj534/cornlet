@@ -1,13 +1,8 @@
-import { formatDate } from 'src/util/helpers/date';
+import formatDate from 'src/util/helpers/formatDate';
 
 const getDateString = (listing) => {
-  const { start, end, dateString } = listing;
-  if (!dateString) {
-    return `${formatDate(start)} ~ ${formatDate(end)}`;
-  }
-  else {
-    return dateString;
-  }
+  const { start, end } = listing;
+  return `${formatDate(start, true)} ~ ${formatDate(end, true)}, ${new Date(end).getFullYear()}`;
 }
 
 export default getDateString;
