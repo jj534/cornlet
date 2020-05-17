@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import DateFilter from 'src/components/filters/DateFilter';
-import Sort from 'src/components/filters/Sort';
 import { ReactComponent as FilterRaw } from 'src/assets/svgs/filter.svg';
 import Dropdown from 'src/components/views/Dropdown';
 import FilterContents from './FilterContents';
@@ -16,6 +14,9 @@ const FilterBtn = styled.button`
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
   border-radius: 4px;
   padding: .5rem 1rem;
+
+  display: flex;
+  align-items: center;
 `
 
 const FilterSVG = styled(FilterRaw)`
