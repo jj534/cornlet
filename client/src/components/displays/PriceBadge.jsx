@@ -8,10 +8,11 @@ const Container = styled.div`
 
   background: ${props => props.theme.primary};
   color: white;
+  opacity: .9;
   border-radius: 10px;
 
   font-weight: 400;
-  font-size: 1rem;
+  font-size: .9rem;
   padding: .3rem .8rem;
 
   // alignTop
