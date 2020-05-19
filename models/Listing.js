@@ -9,6 +9,15 @@ const listingSchema = Schema({
     type: String,
     required: true,
   },
+  lat: {
+    type: Number,
+  },
+  lng: {
+    type: Number,
+  },
+  toCampus: {
+    type: Number,
+  },
   price: {
     type: Number,
     required: true,

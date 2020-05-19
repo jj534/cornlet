@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import Input from 'src/components/inputs/Input';
-import Checkbox from 'src/components/inputs/Checkbox';
 import Heading from 'src/components/fonts/Heading';
 
+import Input from 'src/components/inputs/Input';
+import Checkbox from 'src/components/inputs/Checkbox';
 import CustomFileUpload from './CustomFileUpload';
 import StartEnd from './StartEnd';
 import Amenities from './Amenities';
 import Incrementor from 'src/components/inputs/Incrementor';
 import Select from 'src/components/inputs/Select';
+import AddrInput from 'src/components/inputs/AddrInput';
 
 const Container = styled.div`
   & > * {
@@ -42,7 +43,7 @@ const MarginedHeading = styled(Heading)`
 const FormContents = ({ formik, user }) => (
   <Container>
   <MarginedHeading>Property Information</MarginedHeading>
-    <Input
+    <AddrInput
       formik={formik}
       name="addr"
       label="Address"

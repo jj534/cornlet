@@ -35,7 +35,6 @@ const FormikInput = ({
   return (
     <Container width={width}>
       <TextField
-        {...rest}
         {...formikProps}
         label={label}
         error={!!error}
@@ -44,6 +43,7 @@ const FormikInput = ({
         margin={margin || 'normal'}
         InputProps={{ startAdornment: wrappedAdornment, style: { textAlign: 'center' } }}
         {...conditionalMultiline}
+        {...rest}
       />
     </Container>
   );

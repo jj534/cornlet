@@ -19,6 +19,9 @@ const Container = styled.div`
     // alignLeft
     left: ${props => props.alignLeft ? 'initial' : '-200px'};
     right: ${props => props.alignLeft ? 'initial' : 'initial'};
+
+    // alignTop
+    top: ${props => props.alignTop ? '0' : ''};
   }
   
   border-radius: 2px;
@@ -30,10 +33,13 @@ const Container = styled.div`
 
   // show
   display: ${props => props.show ? '' : 'none'};
+
+  // alignTop
+  margin-top: ${props => props.alignTop ? '0' : ''};
 `;
 
 const Dropdown = ({
-  show, setShow, children, alignLeft, ...rest
+  show, setShow, children, alignLeft, alignTop, ...rest
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
@@ -57,6 +63,7 @@ const Dropdown = ({
     onClick={handleClick} 
     show={show}
     alignLeft={alignLeft}
+    alignTop={alignTop}
     {...rest}
     >
       {children}
