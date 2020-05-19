@@ -13,6 +13,7 @@ import log from 'src/util/log';
 import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
+import PriceBadge from 'src/components/displays/PriceBadge';
 
 const Container = styled.div`
   width: 90vw;
@@ -34,6 +35,7 @@ const BmContainer = styled.div`
 `
 
 const TextArea = styled.div`
+  margin-top: .8rem;
   padding: 0 .2rem;
   width: 100%;
 `;
@@ -67,16 +69,12 @@ const Img = styled.img`
   opacity: ${(props) => (props.faded ? '.5' : '')};
 `;
 
-const TopRow = styled.div`
+const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: .6rem 0 .4rem 0;
   text-overflow: ellipsis;
-`;
-
-const Price = styled.p`
-  color: ${(props) => props.theme.primary};
+  margin-top: .2rem;
 `;
 
 const EditTools = styled.div`
@@ -155,15 +153,16 @@ const ListingCard = ({ listing, edit, reload }) => {
             src={imgs[0]}
             faded={sold}
           />
+          <PriceBadge>${price}</PriceBadge>
         </ImgContainer>
         <TextArea>
-          <TopRow>
+          <Addr>{addr}</Addr>
+          <Row>
             {sold
               ? <Badge color="primary" size="sm" inverted>Sold</Badge>
-              : <Body muted sm>{getDateString(listing)}</Body>}
-            <Price>{`$${price}`}</Price>
-          </TopRow>
-          <Addr>{addr}</Addr>
+              : <Body muted sm>{getDateString(listing)}</Body>
+            }
+          </Row>
         </TextArea>
       </Link>
       {edit && (
