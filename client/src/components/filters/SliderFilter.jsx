@@ -13,9 +13,9 @@ const Container = styled.div`
   }
 `;
 
-const SliderFilter = ({ startName, endName }) => {
+const SliderFilter = ({ startName, endName, max, step }) => {
   const router = useRouter();
-  const [value, setValue] = React.useState([0, 2000]);
+  const [value, setValue] = React.useState([0, max]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -36,7 +36,7 @@ const SliderFilter = ({ startName, endName }) => {
     if (router.query[startName] && router.query[endName]) {
       setValue([Number(router.query[startName]), Number(router.query[endName])]);
     } else {
-      setValue([0, 2000]);
+      setValue([0, max]);
     }
   }, [router.query[startName], router.query[endName]]);
 
@@ -49,8 +49,8 @@ const SliderFilter = ({ startName, endName }) => {
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"
         getAriaValueText={valuetext}
-        max={2000}
-        step={50}
+        max={max}
+        step={step}
       />
     </Container>
   );

@@ -26,19 +26,21 @@ listingRouter.get('/', async (req, res) => {
   try {
     // format query
     const {
-      uid, active, start, end, sort, minPrice, maxPrice
+      uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus
     } = req.query;
     const uidQuery = uid ? { 'user.uid': uid } : {};
     const activeQuery = active ? { active } : {};
     const startQuery = start ? { start: { $lt: moment(new Date(start)).endOf('day').toDate() } } : {};
     const endQuery = end ? { end: { $gte: new Date(end) } } : {};
     const priceQuery = minPrice && maxPrice ? { price: { $lte: Number(maxPrice), $gte: Number(minPrice) } } : {};
+    const toCampusQuery = minToCampus && maxToCampus ? { toCampus: { $lte: Number(maxToCampus), $gte: Number(minToCampus) } } : {};
     const query = {
       ...activeQuery,
       ...uidQuery,
       ...startQuery,
       ...endQuery,
       ...priceQuery,
+      ...toCampusQuery,
     };
 
     // sort

@@ -7,8 +7,7 @@ import ClearFilters from './ClearFilters';
 
 const Container = styled.div`
   width: 350px;
-  min-height: 200px;
-  padding: 0 1rem;
+  padding: 0 1rem 2rem 1rem;
 `;
 
 const Name = styled(Body)`
@@ -44,6 +43,15 @@ const FilterContents = () => {
       <SliderFilter
         startName='minPrice'
         endName='maxPrice'
+        max={2000}
+        step={50}
+      />
+      <Name>Distance to Campus</Name>
+      <SliderFilter
+        startName='minToCampus'
+        endName='maxToCampus'
+        max={5}
+        step={0.2}
       />
     </Container>
   )
