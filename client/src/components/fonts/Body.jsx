@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledBody = styled.h2`
+const StyledBody = styled.p`
   opacity: 1;
   font-size: 1rem;
   
@@ -21,6 +21,9 @@ const StyledBody = styled.h2`
   
   // color
   color: ${(props) => (props.color ? props.theme[props.color] : '')};
+
+  // lineHeight
+  line-height: ${props => props.lineHeight ? props.lineHeight : ''};
 `;
 
 const Body = (props) => (

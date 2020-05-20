@@ -13,7 +13,7 @@ const IncrementorSection = styled.div`
   display: flex;
   align-items: center;
 
-  & > h2 {
+  & > p {
     width: 60px;
     font-weight: bold;
     text-align: center;

@@ -7,6 +7,10 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   font-size: 16px;
+
+  & textarea {
+    line-height: 1.5;
+  }
   
   & > * {
     flex-grow: 2;

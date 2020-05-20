@@ -11,7 +11,17 @@ import RenderOn from 'src/containers/RenderOn';
 import Badge from 'src/components/displays/Badge';
 import BmBtn from 'src/components/buttons/BmBtn';
 import { useSelector } from 'react-redux';
+import PriceBadge from 'src/components/displays/PriceBadge';
+import Heading from 'src/components/fonts/Heading';
+import AmenitiesList from 'src/containers/AmenitiesList';
+import amenities from 'src/constants/amenities';
+import publicAmenities from 'src/constants/publicAmenities';
+import AmenityGrp from 'src/components/displays/AmenityGrp';
+
 import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
+import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
+import { ReactComponent as CalendarRaw } from 'src/assets/svgs/calendar.svg';
+import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,6 +37,7 @@ const Container = styled.div`
 
 const ImgInnerContainer = styled.div`
   width: 100vw;
+  position: relative;
   
   @media (min-width: ${(props) => props.theme.md}px) {
     width: 700px;
@@ -47,6 +58,7 @@ const Content = styled.div`
 const ListingSection = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
     display: flex;
+    padding: 4rem 0 8rem 0;
   }
 `;
 
@@ -68,21 +80,33 @@ const Row = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
     margin: 0 0 .5rem 0;
   }
-  
-  // meta
-  justify-content: ${props => props.meta ? 'flex-start' : ''};
-  & > * {
-    margin-right: ${props => props.meta ? '.5rem' : ''};
-  }
-`;
 
-const Addr = styled.h2`
-  font-size: 1.2rem;
+  // marginBottom
+  margin: ${props => props.marginBottom ? '.2rem 0 1rem 0' : ''};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    font-weight: bold;
+    margin: ${props => props.marginBottom ? '0 0 1.2rem 0' : ''};
   }
 
+  // icon
+  justify-content: ${props => props.icon ? 'flex-start' : ''};
+`;
+
+const SVGContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 2rem;
+  margin-right: .2rem;
+
+  & > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    opacity: .6;
+  }
+`
+
+export const CalendarSVG = styled(CalendarRaw)`
+  width: 30px !important;
 `;
 
 const LockSection = styled.div`
@@ -113,17 +137,16 @@ const TextSection = styled.div`
   max-width: 270px;
 `
 
-const Price = styled.p`
-  font-size: 1.2rem;
-  color: ${(props) => props.theme.primary};
-`;
-
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly
+    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus
   } = listing;
 
   const signedInUser = useSelector((state) => state.user);
+  let mergedAmenities = publicAmenities.concat(amenities.filter((amenity) => listing.amenities.includes(amenity.value)));
+  mergedAmenities[0].count = availRooms;
+  mergedAmenities[1].count = bathrooms;
+
   return (
     <div>
       <RenderOn desktop>
@@ -137,18 +160,48 @@ const Listing = ({ listing }) => {
           <ListingSection>
             <ImgInnerContainer>
               <ImgCarousel imgs={imgs} />
+              <PriceBadge alignTop lg>${price}</PriceBadge>
             </ImgInnerContainer>
             <Content>
               <Section>
-                <Row>
-                  <Addr>{addr}</Addr>
-                  <Price>{`$${price}`}</Price>
+                <Row marginBottom>
+                  <Heading>{totalRooms}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
+                  <BmBtn listing={listing} />
                 </Row>
-                <Row meta>
+                <Row icon>
+                  <SVGContainer><PlaceSVG /></SVGContainer>
+                  <Body muted sm>{addr}</Body>
+                </Row>
+                <Row icon>
+                  <SVGContainer><CalendarSVG /></SVGContainer>
                   <Body muted sm>{getDateString(listing)}</Body>
+                </Row>
+                <Row icon>
+                  <SVGContainer><WalkSVG /></SVGContainer>
+                  <Body muted sm>{toCampus} km to campus</Body>
                 </Row>
               </Section>
               <Section>
+                <Row marginBottom><Subheading bold>Description</Subheading></Row>
+                <Row>
+                  <Body lineHeight={1.5}>{desc}</Body>
+                </Row>
+                <Row>
+                  <AmenitiesList>
+                    {mergedAmenities.map((amenity) => (
+                      <AmenityGrp
+                        key={amenity.value} 
+                        count={amenity.count}
+                        icon={amenity.icon}
+                        label={amenity.label}
+                        active={true} 
+                      />
+                    ))}
+                  </AmenitiesList>
+                </Row>
+              </Section>
+              <Section>
+                <Row marginBottom><Subheading bold>Contact</Subheading></Row>
                 {sold  
                   ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
                   :(
@@ -173,15 +226,9 @@ const Listing = ({ listing }) => {
                           </LockSection>
                           )
                       }
-                      <BmBtn listing={listing} />
                     </Row>
                   )
                 }
-              </Section>
-              <Section>
-                <Row>
-                  <Body>{desc}</Body>
-                </Row>
               </Section>
             </Content>
           </ListingSection>

@@ -18,11 +18,16 @@ const Container = styled.div`
   // alignTop
   bottom: ${props => props.alignTop ? 'initial' : ''};
   top: ${props => props.alignTop ? '1rem' : ''};
+
+  // lg
+  font-size: ${props => props.lg ? '1.2rem' : ''};
+  padding: ${props => props.lg ? '.5rem 1rem' : ''};
+  right: ${props => props.lg ? '1rem' : ''};
 `;
 
-const PriceBadge = ({ children, alignTop }) => {
+const PriceBadge = ({ children, alignTop, lg }) => {
   return (
-    <Container alignTop={alignTop}>
+    <Container alignTop={alignTop} lg={lg}>
 		  {children}
     </Container>
   )
