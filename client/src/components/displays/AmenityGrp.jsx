@@ -9,7 +9,6 @@ const AmenityGrpContainer = styled.div`
   align-items: center;
   width: 4rem;
   margin: 1rem 1rem 0 0;
-  opacity: .5;
   cursor: pointer;
 
   // active
@@ -28,6 +27,7 @@ const Row = styled.div`
   & > svg {
     height: 1.7rem;
     width: 1.7rem;
+    opacity: ${props => props.active ? .7 : .3};
   }
 
   & > h2 {
@@ -41,10 +41,9 @@ const Row = styled.div`
 
 const AmenityGrp = ({ icon, label, active, onClick }) => (
   <AmenityGrpContainer 
-    active={active} 
     onClick={onClick}
   >
-    <Row>
+    <Row active={active}>
       {icon}
     </Row>
     <Body sm>{label}</Body>
