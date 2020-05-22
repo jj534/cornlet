@@ -26,8 +26,8 @@ const Row = styled.div`
   margin-top: ${props => props.count ? '.3rem' : ''};
 
   & > svg {
-    height: ${props => props.count ? '2rem' : '2.5rem'};
-    width: ${props => props.count ? '2rem' : '2.5rem'};
+    height: 1.7rem;
+    width: 1.7rem;
   }
 
   & > h2 {
@@ -39,16 +39,15 @@ const Row = styled.div`
   }
 `
 
-const AmenityGrp = ({ icon, label, count, active, onClick }) => (
+const AmenityGrp = ({ icon, label, active, onClick }) => (
   <AmenityGrpContainer 
     active={active} 
     onClick={onClick}
-    count={count == 0 ? true : count}
   >
-    <Row count={count}>
-      <Subheading>{count}</Subheading>{icon}
+    <Row>
+      {icon}
     </Row>
-    <Body>{label}</Body>
+    <Body sm>{label}</Body>
   </AmenityGrpContainer>
 )
 

@@ -15,13 +15,14 @@ import PriceBadge from 'src/components/displays/PriceBadge';
 import Heading from 'src/components/fonts/Heading';
 import AmenitiesList from 'src/containers/AmenitiesList';
 import amenities from 'src/constants/amenities';
-import publicAmenities from 'src/constants/publicAmenities';
 import AmenityGrp from 'src/components/displays/AmenityGrp';
 
 import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
 import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
 import { ReactComponent as CalendarRaw } from 'src/assets/svgs/calendar.svg';
 import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
+import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
+import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -88,6 +89,13 @@ const Row = styled.div`
     margin: ${props => props.marginBottom ? '0 0 1.2rem 0' : ''};
   }
 
+  // marginBottomLarge
+  margin: ${props => props.marginBottomLarge ? '.2rem 0 1.5rem 0' : ''};
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    margin: ${props => props.marginBottomLarge ? '0 0 1.7rem 0' : ''};
+  }
+
   // icon
   justify-content: ${props => props.icon ? 'flex-start' : ''};
 `;
@@ -143,13 +151,7 @@ const Listing = ({ listing }) => {
   } = listing;
 
   const signedInUser = useSelector((state) => state.user);
-  let mergedAmenities = publicAmenities.concat(amenities.filter((amenity) => listing.amenities.includes(amenity.value)));
-  
-  if (availRooms) mergedAmenities[0].count = availRooms;
-  else mergedAmenities.shift();
-
-  if (bathrooms) mergedAmenities[1].count = bathrooms;
-  else mergedAmenities.shift();
+  let availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
 
   return (
     <div>
@@ -169,7 +171,7 @@ const Listing = ({ listing }) => {
             <Content>
               <Section>
                 <Row marginBottom>
-                  <Heading>{totalRooms}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
+                  <Heading>{totalRooms || 1}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
                   <BmBtn listing={listing} />
                 </Row>
                 <Row icon>
@@ -188,13 +190,25 @@ const Listing = ({ listing }) => {
                 )}
               </Section>
               <Section>
-                <Row marginBottom><Subheading bold>Description</Subheading></Row>
+                <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
+                {availRooms !== 0 && (
+                  <Row icon>
+                    <SVGContainer><BedroomSVG /></SVGContainer>
+                    <Body muted sm>{availRooms} room(s) available</Body>
+                  </Row>
+                )}
+                {bathrooms !== 0 && (
+                  <Row icon marginBottomLarge>
+                    <SVGContainer><BathroomSVG /></SVGContainer>
+                    <Body muted sm>{bathrooms} Bathrooms</Body>
+                  </Row>
+                )}
                 <Row>
                   <Body lineHeight={1.5}>{desc}</Body>
                 </Row>
                 <Row>
                   <AmenitiesList>
-                    {mergedAmenities.map((amenity) => (
+                    {availAmenities.map((amenity) => (
                       <AmenityGrp
                         key={amenity.value} 
                         count={amenity.count}
