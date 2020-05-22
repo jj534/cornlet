@@ -83,18 +83,32 @@ const Row = styled.div`
     margin: 0 0 .5rem 0;
   }
 
-  // marginBottom
-  margin: ${props => props.marginBottom ? '.2rem 0 1rem 0' : ''};
+  // marginTop
+  margin-top: ${props => props.marginTop ? '1rem' : ''};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin: ${props => props.marginBottom ? '0 0 1.2rem 0' : ''};
+    margin-top: ${props => props.marginTop ? '1.2rem' : ''};
+  }
+
+  // marginTopLarge
+  margin-top: ${props => props.marginTopLarge ? '1.5rem' : ''};
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    margin-top: ${props => props.marginTopLarge ? '1.7rem' : ''};
+  }
+
+  // marginBottom
+  margin-bottom: ${props => props.marginBottom ? '1rem' : ''};
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    margin-bottom: ${props => props.marginBottom ? '1.2rem' : ''};
   }
 
   // marginBottomLarge
-  margin: ${props => props.marginBottomLarge ? '.2rem 0 1.5rem 0' : ''};
+  margin-bottom: ${props => props.marginBottomLarge ? '1.5rem' : ''};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin: ${props => props.marginBottomLarge ? '0 0 1.7rem 0' : ''};
+    margin-bottom: ${props => props.marginBottomLarge ? '1.7rem' : ''};
   }
 
   // icon
@@ -171,11 +185,11 @@ const Listing = ({ listing }) => {
             </ImgInnerContainer>
             <Content>
               <Section>
-                <Row marginBottom>
+                <Row>
                   <Heading>{totalRooms || 1}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
                   <BmBtn listing={listing} />
                 </Row>
-                <Row icon>
+                <Row marginTop icon>
                   <SVGContainer><PlaceSVG /></SVGContainer>
                   <Body muted sm>{addr}</Body>
                 </Row>
@@ -192,25 +206,25 @@ const Listing = ({ listing }) => {
               </Section>
               <Section>
                 <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
-                {availRooms !== 0 && (
-                  <Row icon>
-                    <SVGContainer><BedroomSVG /></SVGContainer>
-                    <Body muted sm>{availRooms} room(s) available</Body>
-                  </Row>
-                )}
-                {bathrooms !== 0 && (
-                  <Row icon>
-                    <SVGContainer><BathroomSVG /></SVGContainer>
-                    <Body muted sm>{bathrooms} bathrooms</Body>
-                  </Row>
-                )}
-                {(
-                  <Row icon marginBottomLarge>
-                    <SVGContainer><ProfileSVG /></SVGContainer>
-                    <Body muted sm>{maleRoommates + femaleRoommates} roommates during sublet</Body>
-                  </Row>
-                )}
-                <Row marginBottom>
+                  {availRooms !== 0 && (
+                    <Row icon>
+                      <SVGContainer><BedroomSVG /></SVGContainer>
+                      <Body muted sm>{availRooms} room(s) available</Body>
+                    </Row>
+                  )}
+                  {bathrooms !== 0 && (
+                    <Row icon>
+                      <SVGContainer><BathroomSVG /></SVGContainer>
+                      <Body muted sm>{bathrooms} bathrooms</Body>
+                    </Row>
+                  )}
+                  {(maleRoommates !== 0 || femaleRoommates !== 0) && (
+                    <Row icon>
+                      <SVGContainer><ProfileSVG /></SVGContainer>
+                      <Body muted sm>{maleRoommates + femaleRoommates} roommate(s) during sublet</Body>
+                    </Row>
+                  )}
+                <Row marginTopLarge marginBottom>
                   <Body lineHeight={1.5}>{desc}</Body>
                 </Row>
                 <Row>
@@ -228,7 +242,7 @@ const Listing = ({ listing }) => {
                 </Row>
               </Section>
               <Section>
-                <Row marginBottom><Subheading bold>Contact</Subheading></Row>
+                <Row marginTop><Subheading bold>Contact</Subheading></Row>
                 {sold  
                   ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
                   :(
