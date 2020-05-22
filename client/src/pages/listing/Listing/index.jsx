@@ -23,6 +23,7 @@ import { ReactComponent as CalendarRaw } from 'src/assets/svgs/calendar.svg';
 import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
 import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
 import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
+import { ReactComponent as ProfileSVG } from 'src/assets/svgs/profile.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,7 +65,7 @@ const ListingSection = styled.div`
 `;
 
 const Section = styled.div`
-  margin: 1rem 0 4rem 0;
+  margin: 1rem 0 3.5rem 0;
   
   @media (min-width: ${(props) => props.theme.md}px) {
     margin-top: 0;
@@ -147,7 +148,7 @@ const TextSection = styled.div`
 
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus
+    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus, maleRoommates, femaleRoommates
   } = listing;
 
   const signedInUser = useSelector((state) => state.user);
@@ -198,12 +199,18 @@ const Listing = ({ listing }) => {
                   </Row>
                 )}
                 {bathrooms !== 0 && (
-                  <Row icon marginBottomLarge>
+                  <Row icon>
                     <SVGContainer><BathroomSVG /></SVGContainer>
-                    <Body muted sm>{bathrooms} Bathrooms</Body>
+                    <Body muted sm>{bathrooms} bathrooms</Body>
                   </Row>
                 )}
-                <Row>
+                {(
+                  <Row icon marginBottomLarge>
+                    <SVGContainer><ProfileSVG /></SVGContainer>
+                    <Body muted sm>{maleRoommates + femaleRoommates} roommates during sublet</Body>
+                  </Row>
+                )}
+                <Row marginBottom>
                   <Body lineHeight={1.5}>{desc}</Body>
                 </Row>
                 <Row>
