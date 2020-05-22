@@ -63,7 +63,7 @@ const ListingSection = styled.div`
 `;
 
 const Section = styled.div`
-  margin: 1rem 0 2.5rem 0;
+  margin: 1rem 0 4rem 0;
   
   @media (min-width: ${(props) => props.theme.md}px) {
     margin-top: 0;
@@ -144,8 +144,12 @@ const Listing = ({ listing }) => {
 
   const signedInUser = useSelector((state) => state.user);
   let mergedAmenities = publicAmenities.concat(amenities.filter((amenity) => listing.amenities.includes(amenity.value)));
-  mergedAmenities[0].count = availRooms;
-  mergedAmenities[1].count = bathrooms;
+  
+  if (availRooms) mergedAmenities[0].count = availRooms;
+  else mergedAmenities.shift();
+
+  if (bathrooms) mergedAmenities[1].count = bathrooms;
+  else mergedAmenities.shift();
 
   return (
     <div>
@@ -176,10 +180,12 @@ const Listing = ({ listing }) => {
                   <SVGContainer><CalendarSVG /></SVGContainer>
                   <Body muted sm>{getDateString(listing)}</Body>
                 </Row>
-                <Row icon>
-                  <SVGContainer><WalkSVG /></SVGContainer>
-                  <Body muted sm>{toCampus} km to campus</Body>
-                </Row>
+                {toCampus && (
+                  <Row icon>
+                    <SVGContainer><WalkSVG /></SVGContainer>
+                    <Body muted sm>{toCampus} km to campus</Body>
+                  </Row>
+                )}
               </Section>
               <Section>
                 <Row marginBottom><Subheading bold>Description</Subheading></Row>

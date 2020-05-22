@@ -26,17 +26,11 @@ const StyledPicker = styled(DatePicker)`
   background-color: inherit;
   color: rgba(0, 0, 0, .7);
   border: 1px solid rgba(0, 0, 0, .2);
-  
-  // value set
-  ${'' /* width: ${(props) => (!props.value ? '6rem' : '')};
-  background-color: ${(props) => (!props.value ? props.theme.primary : '')};
-  color: ${(props) => (!props.value ? 'white' : '')};
-  border: ${(props) => (!props.value ? 'none' : '')}; */}
 `;
 
 const CalendarSVG = styled(CalendarRaw)`
-  height: 1.2rem;
-  width: 1.2rem;
+  height: 1.4rem;
+  width: 1.4rem;
   position: absolute;
   right: .5rem;
   top: 0;

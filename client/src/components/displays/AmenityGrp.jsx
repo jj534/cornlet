@@ -43,7 +43,7 @@ const AmenityGrp = ({ icon, label, count, active, onClick }) => (
   <AmenityGrpContainer 
     active={active} 
     onClick={onClick}
-    count={count}
+    count={count == 0 ? true : count}
   >
     <Row count={count}>
       <Subheading>{count}</Subheading>{icon}
