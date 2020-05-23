@@ -46,7 +46,7 @@ const FilterContents = () => {
         max={2000}
         step={50}
       />
-      <Name>Distance to Campus</Name>
+      <Name>Distance to Campus (km)</Name>
       <SliderFilter
         startName='minToCampus'
         endName='maxToCampus'

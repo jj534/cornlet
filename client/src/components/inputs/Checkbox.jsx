@@ -3,6 +3,19 @@ import styled from 'styled-components';
 import Label from 'src/components/fonts/Label';
 import ErrMsg from 'src/components/fonts/ErrMsg';
 import Body from 'src/components/fonts/Body';
+import MaterialCheckbox from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
+import theme from 'src/theme';
+
+const StyledCheckbox = withStyles({
+  root: {
+    color: theme.primary,
+    '&$checked': {
+      color: theme.primary,
+    },
+  },
+  checked: {},
+})((props) => <MaterialCheckbox color="default" {...props} />);
 
 const Wrapper = styled.div`
   // hasSublabel
@@ -47,8 +60,7 @@ const Checkbox = ({
   return (
     <Wrapper hasSublabel={sublabel} {...rest}>
       <InputArea hasSublabel={sublabel}>
-        <input
-          type="checkbox"
+        <StyledCheckbox
           checked={formik.values[name]}
           onChange={handleChange}
         />
