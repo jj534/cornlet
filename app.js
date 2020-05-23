@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // MONGODB
-const forceProdDB = true;
+const forceProdDB = false;
 const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD;
 const dbType = isProdDb ? 'prod' : 'dev';
 const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;

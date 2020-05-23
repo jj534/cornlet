@@ -5,6 +5,8 @@ import { ReactComponent as GymSVG } from 'src/assets/svgs/gym.svg';
 import { ReactComponent as HeaterSVG } from 'src/assets/svgs/heater.svg';
 import { ReactComponent as AirconSVG } from 'src/assets/svgs/snowflake.svg';
 import { ReactComponent as SofaSVG } from 'src/assets/svgs/sofa.svg';
+import { ReactComponent as UtilitiesSVG } from 'src/assets/svgs/utilities.svg';
+import { ReactComponent as BusSVG } from 'src/assets/svgs/bus.svg';
 
 const amenities = [
 	{
@@ -36,6 +38,16 @@ const amenities = [
 		icon: <SofaSVG />,
 		label: 'Furnished',
 		value: 'furnished'
+	},
+	{
+		icon: <UtilitiesSVG />,
+		label: 'Utilities Included',
+		value: 'utilities'
+	},
+	{
+		icon: <BusSVG />,
+		label: 'TCAT Accessible',
+		value: 'tcat'
 	},
 ]
 
