@@ -16,6 +16,7 @@ import Heading from 'src/components/fonts/Heading';
 import AmenitiesList from 'src/containers/AmenitiesList';
 import amenities from 'src/constants/amenities';
 import AmenityGrp from 'src/components/displays/AmenityGrp';
+import Map from 'src/components/displays/Map';
 
 import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
 import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
@@ -115,6 +116,12 @@ const Row = styled.div`
   justify-content: ${props => props.icon ? 'flex-start' : ''};
 `;
 
+export const MapContainer = styled.div`
+  @media (min-width: ${props => props.theme.md}px) {
+    padding: 0 1rem;
+  }
+`;
+
 const SVGContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -162,7 +169,7 @@ const TextSection = styled.div`
 
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus, maleRoommates, femaleRoommates
+    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus, maleRoommates, femaleRoommates, lat, lng
   } = listing;
 
   const signedInUser = useSelector((state) => state.user);
@@ -189,20 +196,30 @@ const Listing = ({ listing }) => {
                   <Heading>{totalRooms || 1}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
                   <BmBtn listing={listing} />
                 </Row>
-                <Row marginTop icon>
-                  <SVGContainer><PlaceSVG /></SVGContainer>
-                  <Body muted sm>{addr}</Body>
-                </Row>
                 <Row icon>
                   <SVGContainer><CalendarSVG /></SVGContainer>
                   <Body muted sm>{getDateString(listing)}</Body>
                 </Row>
-                {toCampus && (
+              </Section>
+              <Section>
+                <Row marginBottom><Subheading bold>Location</Subheading></Row>
                   <Row icon>
-                    <SVGContainer><WalkSVG /></SVGContainer>
-                    <Body muted sm>{toCampus} km to campus</Body>
+                    <SVGContainer><PlaceSVG /></SVGContainer>
+                    <Body muted sm>{addr}</Body>
                   </Row>
-                )}
+                  {toCampus && (
+                    <Row icon>
+                      <SVGContainer><WalkSVG /></SVGContainer>
+                      <Body muted sm>{toCampus} km to campus</Body>
+                    </Row>
+                  )}
+                  <Row marginBottom />
+                <MapContainer>
+                  <Map
+                    lat={lat}
+                    lng={lng}
+                  />
+                </MapContainer>
               </Section>
               <Section>
                 <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
@@ -245,7 +262,7 @@ const Listing = ({ listing }) => {
                 </Row>
               </Section>
               <Section>
-                <Row marginTop><Subheading bold>Contact</Subheading></Row>
+                <Row marginBottom><Subheading bold>Contact</Subheading></Row>
                 {sold  
                   ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
                   :(

@@ -7,9 +7,13 @@ const AmenityGrpContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 4.5rem;
+  width: 5rem;
   margin: 1rem 1rem 0 0;
   cursor: pointer;
+
+  @media (min-width: ${props => props.theme.md}px) {
+    width: 4.5rem;
+  }
 
   // active
   opacity: ${props => props.active ? '1' : ''};
@@ -28,14 +32,6 @@ const Row = styled.div`
     height: 1.7rem;
     width: 1.7rem;
     opacity: ${props => props.active ? .7 : .3};
-  }
-
-  & > h2 {
-    font-weight: bold;
-    opacity: .9;
-    margin-right: .4rem;
-    font-size: 1.3rem;
-    line-height: 1;
   }
 `
 

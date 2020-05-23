@@ -29,7 +29,7 @@ export const Suggestion = styled.div`
 `;
  
 const AddrInput = ({ formik, name, label }) => { 
-  const [loaded, error] = useScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBNzB0_auwxJb4jpXqMWz2Hc2aOxcs21vw&libraries=places");
+  const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAP_KEY}&libraries=places`);
   
   const handleChange = address => {
     formik.setFieldValue(name, address);
