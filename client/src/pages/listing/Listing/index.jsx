@@ -227,6 +227,9 @@ const Listing = ({ listing }) => {
                 <Row marginTopLarge marginBottom>
                   <Body lineHeight={1.5}>{desc}</Body>
                 </Row>
+              </Section>
+              <Section>
+                <Row><Subheading bold>Amenities</Subheading></Row>
                 <Row>
                   <AmenitiesList>
                     {availAmenities.map((amenity) => (
