@@ -214,12 +214,14 @@ const Listing = ({ listing }) => {
                     </Row>
                   )}
                   <Row marginBottom />
-                <MapContainer>
-                  <Map
-                    lat={lat}
-                    lng={lng}
-                  />
-                </MapContainer>
+                {(lat && lng) && 
+                  <MapContainer>
+                    <Map
+                      lat={lat}
+                      lng={lng}
+                    />
+                  </MapContainer>
+                }
               </Section>
               <Section>
                 <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
@@ -245,22 +247,24 @@ const Listing = ({ listing }) => {
                   <Body lineHeight={1.5}>{desc}</Body>
                 </Row>
               </Section>
-              <Section>
-                <Row><Subheading bold>Amenities</Subheading></Row>
-                <Row>
-                  <AmenitiesList>
-                    {availAmenities.map((amenity) => (
-                      <AmenityGrp
-                        key={amenity.value} 
-                        count={amenity.count}
-                        icon={amenity.icon}
-                        label={amenity.label}
-                        active={true} 
-                      />
-                    ))}
-                  </AmenitiesList>
-                </Row>
-              </Section>
+              {availAmenities.length > 0 && 
+                <Section>
+                  <Row><Subheading bold>Amenities</Subheading></Row>
+                  <Row>
+                    <AmenitiesList>
+                      {availAmenities.map((amenity) => (
+                        <AmenityGrp
+                          key={amenity.value} 
+                          count={amenity.count}
+                          icon={amenity.icon}
+                          label={amenity.label}
+                          active={true} 
+                        />
+                      ))}
+                    </AmenitiesList>
+                  </Row>
+                </Section>
+              }
               <Section>
                 <Row marginBottom><Subheading bold>Contact</Subheading></Row>
                 {sold  
