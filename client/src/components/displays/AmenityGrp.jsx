@@ -16,22 +16,17 @@ const AmenityGrpContainer = styled.div`
   }
 
   // active
-  opacity: ${props => props.active ? '1' : ''};
-
-  // count
-  width: ${props => props.count ? '5rem' : ''};
+  opacity: ${props => props.active ? '.9' : '.3'};
 `
 
 const Row = styled.div`
   display: flex;
-  align-items: ${props => props.count ? 'flex-end' : 'center'};
+  align-items: center;
   margin-bottom: .5rem;
-  margin-top: ${props => props.count ? '.3rem' : ''};
 
   & > svg {
     height: 1.7rem;
     width: 1.7rem;
-    opacity: ${props => props.active ? .7 : .3};
   }
 `
 
@@ -47,8 +42,9 @@ const AmenityGrp = ({ icon, label, active, onClick }) => {
   return (
     <AmenityGrpContainer 
       onClick={onClick}
+      active={active}
     >
-      <Row active={active}>
+      <Row>
         {icon}
       </Row>
       <Body sm>{lineTwo ? lineOne : label}</Body>
