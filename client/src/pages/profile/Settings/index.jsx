@@ -17,8 +17,8 @@ const Content = styled.div`
 const Settings = () => {
   const history = useHistory();
   const handleSignOut = async () => {
-    await signOut();
     history.push('/');
+    signOut();
   };
 
   return (

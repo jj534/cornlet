@@ -7,6 +7,7 @@ import Logo from 'src/components/displays/Logo';
 import { useSelector } from 'react-redux';
 import Bookmarks from './Bookmarks';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
+import { ReactComponent as ChatRaw } from 'src/assets/svgs/chat-square.svg';
 
 const Container = styled.div`
   display: flex;
@@ -29,6 +30,13 @@ const Right = styled.div`
   }
 `;
 
+export const ChatSVG = styled(ChatRaw)`
+  height: 1.6rem;
+  width: 1.6rem;
+  opacity: .7;
+  cursor: pointer;
+`;
+
 const MainHeader = () => {
   const authing = useSelector((state) => state.authing);
   const isDesktop = useIsDesktop();
@@ -39,6 +47,11 @@ const MainHeader = () => {
         <Logo />
       </Link>
       <Right>
+        {!authing && (
+          <Link to="/profile/chat">
+            <ChatSVG />
+          </Link>
+        )}
         {!authing && <Bookmarks />}
         {!authing && (
           <Link to="/new">

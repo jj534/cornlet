@@ -108,8 +108,8 @@ const FormComponent = ({ user, initialValues }) => {
             .then(() => {
               history.push('/profile/listings');
             })
-            .catch((e) => {
-              log('ERROR new listing submit form', e);
+            .catch(({ response }) => {
+              log('ERROR new listing submit form', response);
             });
         }
         else {
