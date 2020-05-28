@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Btn from 'src/components/buttons/Btn';
-import { Link } from 'react-router-dom';
 import Heading from 'src/components/fonts/Heading';
 import Body from 'src/components/fonts/Body';
 import { useSelector } from 'react-redux';

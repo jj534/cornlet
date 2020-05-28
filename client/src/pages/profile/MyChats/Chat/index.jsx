@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import MainHeader from 'src/components/headers/MainHeader';
 import Navbar from 'src/components/headers/Navbar';
+import ChatroomList from '../ChatroomList';
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
+
 `;
 
-const MyBookmarks = () => (
-  <div>
-    <MainHeader />
-    <Navbar />
+const Chat = () => {
+  return (
     <Container>
-        Coming Soon!
+      <MainHeader />
+      <Navbar />
+      <ChatroomList />
     </Container>
-  </div>
-);
+  )
+};
 
-export default MyBookmarks;
+export default Chat;

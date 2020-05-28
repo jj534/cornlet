@@ -6,6 +6,7 @@ import Auth from 'src/components/buttons/Auth';
 import Logo from 'src/components/displays/Logo';
 import { useSelector } from 'react-redux';
 import Bookmarks from './Bookmarks';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const Right = styled.div`
 
 const MainHeader = () => {
   const authing = useSelector((state) => state.authing);
+  const isDesktop = useIsDesktop();
 
   return (
     <Container>
@@ -44,7 +46,7 @@ const MainHeader = () => {
               color="primary"
               inverted
             >
-New Listing
+New {isDesktop && ' Listing'}
             </Btn>
           </Link>
         )}

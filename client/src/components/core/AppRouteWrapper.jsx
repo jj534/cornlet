@@ -10,7 +10,8 @@ import Env from 'src/pages/env';
 
 import Profile from 'src/pages/profile';
 import MyListings from 'src/pages/profile/MyListings';
-import MyBookmarks from 'src/pages/profile/MyBookmarks';
+import Chat from 'src/pages/profile/MyChats/Chat';
+import Chatroom from 'src/pages/profile/MyChats/Chatroom';
 import Settings from 'src/pages/profile/Settings';
 
 const AppRouter = () => (
@@ -21,7 +22,8 @@ const AppRouter = () => (
       <Route exact path="/env" component={Env} />
       <Route exact path="/new" component={New} />
       <Route exact path="/profile/settings" component={Settings} />
-      <Route exact path="/profile/bookmarks" component={MyBookmarks} />
+      <Route exact path="/profile/chat/:cid" component={Chatroom} />
+      <Route exact path="/profile/chat" component={Chat} />
       <Route exact path="/profile/listings" component={MyListings} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/" component={Home} />
