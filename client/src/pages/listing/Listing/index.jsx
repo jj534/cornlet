@@ -17,6 +17,7 @@ import AmenitiesList from 'src/containers/AmenitiesList';
 import amenities from 'src/constants/amenities';
 import AmenityGrp from 'src/components/displays/AmenityGrp';
 import Map from 'src/components/displays/Map';
+import getShortAddr from 'src/util/helpers/getShortAddr';
 
 import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
 import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
@@ -205,7 +206,7 @@ const Listing = ({ listing }) => {
                 <Row marginBottom><Subheading bold>Location</Subheading></Row>
                   <Row icon>
                     <SVGContainer><PlaceSVG /></SVGContainer>
-                    <Body muted sm>{addr}</Body>
+                    <Body muted sm>{getShortAddr(addr)}</Body>
                   </Row>
                   {toCampus && (
                     <Row icon>

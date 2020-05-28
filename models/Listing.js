@@ -9,9 +9,6 @@ const listingSchema = Schema({
     type: String,
     required: true,
   },
-  addrShort: {
-    type: String,
-  },
   lat: {
     type: Number,
   },
