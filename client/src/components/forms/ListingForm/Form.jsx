@@ -75,6 +75,8 @@ const FormComponent = ({ user, initialValues }) => {
     validationSchema: Yup.object({
       addr: Yup.string()
         .required('Required'),
+      toCampus: Yup.number()
+        .required('Please select an address from the address options dropdown'),
       price: Yup.number()
         .required('Required'),
       start: Yup.object()

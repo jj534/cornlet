@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -10,6 +10,7 @@ import LoadingDots from '../displays/LoadingDots';
 import Dropdown from '../views/Dropdown';
 import calcDistance from 'src/util/helpers/calcDistance';
 import Body from '../fonts/Body';
+import ErrMsg from '../fonts/ErrMsg';
 
 export const Container = styled.div`
   width: 100%;
@@ -17,7 +18,7 @@ export const Container = styled.div`
 
 export const DropdownContainer = styled.div`
   position: relative;
-  margin-top: 4px;
+  margin-top: 6px;
 `;
 
 export const Suggestion = styled.div`
@@ -33,6 +34,13 @@ const AddrInput = ({ formik, name, label }) => {
   
   const handleChange = address => {
     formik.setFieldValue(name, address);
+    formik.setFieldTouched('toCampus', true);
+
+    // reset values on addr change
+    const { lat, lng, toCampus } = formik.values;
+    if (lat !== '') formik.setFieldValue('lat', '')
+    if (lng !== '') formik.setFieldValue('lng', '')
+    if (toCampus !== '') formik.setFieldValue('toCampus', '')
   };
  
   const handleSelect = address => {
@@ -65,6 +73,10 @@ const AddrInput = ({ formik, name, label }) => {
             {...getInputProps({})}
           />
           {formik.values.toCampus && <Body muted>{formik.values.toCampus} km to campus</Body>}
+          <ErrMsg
+            formik={formik}
+            name='toCampus'
+          />
           <DropdownContainer>
             <Dropdown 
               show={suggestions.length}
