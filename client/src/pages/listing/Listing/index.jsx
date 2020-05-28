@@ -185,7 +185,10 @@ const Listing = ({ listing }) => {
           <RenderOn mobile>
             <BackHeader fullwidth />
           </RenderOn>
-          <ListingSection>
+          {(!listing.active || listing.deleted)
+            ? <Body>This listing is inactive or has been deleted by the owner.</Body>
+            : (
+            <ListingSection>
             <ImgInnerContainer>
               <ImgCarousel imgs={imgs} />
               <PriceBadge alignTop lg>${price}</PriceBadge>
@@ -297,6 +300,7 @@ const Listing = ({ listing }) => {
               </Section>
             </Content>
           </ListingSection>
+          )}
         </Container>
       </Wrapper>
     </div>
