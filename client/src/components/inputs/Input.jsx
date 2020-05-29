@@ -1,7 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import theme from 'src/theme';
+
+const StyledTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: theme.primary,
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: theme.primary,
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: theme.primary,
+      },
+    },
+  },
+})(TextField);
 
 const Container = styled.div`
   width: 100%;
@@ -20,8 +38,8 @@ const Container = styled.div`
   width: ${props => props.width ? `${props.width}px` : ''};
 `;
 
-const FormikInput = ({
-  formik, name, label, adornment, multiline, width, margin, ...rest
+const Input = ({
+  formik, name, label, adornment, multiline, width, margin, rows, ...rest
 }) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
@@ -32,13 +50,13 @@ const FormikInput = ({
   const multilineProps = {
     multiline,
     variant: 'outlined',
-    rows: 20,
+    rows: rows || 20,
   };
   const conditionalMultiline = multiline ? multilineProps : {};
 
   return (
     <Container width={width}>
-      <TextField
+      <StyledTextField
         {...formikProps}
         label={label}
         error={!!error}
@@ -53,4 +71,4 @@ const FormikInput = ({
   );
 };
 
-export default FormikInput;
+export default Input;

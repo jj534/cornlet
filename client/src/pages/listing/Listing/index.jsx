@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MainHeader from 'src/components/headers/MainHeader';
 import BackHeader from 'src/components/headers/BackHeader';
@@ -18,6 +18,9 @@ import amenities from 'src/constants/amenities';
 import AmenityGrp from 'src/components/displays/AmenityGrp';
 import Map from 'src/components/displays/Map';
 import getShortAddr from 'src/util/helpers/getShortAddr';
+import Btn from 'src/components/buttons/Btn';
+import Modal from 'src/components/views/Modal';
+import Input from 'src/components/inputs/Input';
 
 import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
 import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
@@ -26,6 +29,8 @@ import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
 import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
 import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
 import { ReactComponent as ProfileSVG } from 'src/assets/svgs/profile.svg';
+import { ReactComponent as ChatSVG } from 'src/assets/svgs/chat.svg';
+import HoriCenter from 'src/containers/HoriCenter';
 
 const Wrapper = styled.div`
   display: flex;
@@ -168,6 +173,40 @@ const TextSection = styled.div`
   max-width: 270px;
 `
 
+export const Fullwidth = styled.div`
+  width: 100%;
+`;
+
+export const MsgBtn = styled.button`
+  width: 100%;
+  max-width: 400px;
+  padding: .8rem 0;
+  margin-top: 1rem;
+  font-size: 1rem;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  background: ${props => props.theme.primary};
+  color: white;
+
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+
+  & svg {
+    height: 1.2rem;
+    width: 1.2rem;
+    fill: white;
+    margin-right: 1rem;
+  }
+`;
+
+export const ModalContents = styled.div`
+
+`;
+
+
 const Listing = ({ listing }) => {
   const {
     imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus, maleRoommates, femaleRoommates, lat, lng
@@ -175,6 +214,24 @@ const Listing = ({ listing }) => {
 
   const signedInUser = useSelector((state) => state.user);
   let availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
+
+  const [open, setOpen] = useState(false);
+  const [msg, setMsg] = useState('');
+  const handleMsgBtnClick = () => {
+    // TODO: check if chat for the listing already exists
+
+    setOpen(true);
+  }
+  const handleClose = () => {
+    setOpen(false)
+  };
+  const createMsg = () => {
+    handleClose();
+
+    // DB create
+
+    // add chatroom to redux
+  }
 
   return (
     <div>
@@ -274,11 +331,13 @@ const Listing = ({ listing }) => {
                     <Row>
                       {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
                         ? (
+                          <Fullwidth>
                             <DetailedAvatar
                               name={displayName || user.name}
-                              email={displayEmail || user.email}
                               src={displayName ? undefined : user.photo}
                             />
+                            <MsgBtn onClick={handleMsgBtnClick}><ChatSVG />Message {user.name.split(' ')[0]}</MsgBtn>
+                          </Fullwidth>
                           )
                         : (
                           <LockSection>
@@ -287,7 +346,7 @@ const Listing = ({ listing }) => {
                             </LockAvatar>
                             <TextSection>
                               <Subheading bold>Restricted to Cornell</Subheading>
-                              <Body muted>Sign in with a @cornell.edu account to view contact details</Body>
+                              <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
                             </TextSection>
                           </LockSection>
                           )
@@ -300,6 +359,30 @@ const Listing = ({ listing }) => {
           </ListingSection>
         </Container>
       </Wrapper>
+      <Modal
+        open={open}
+        handleClose={handleClose}
+        heading={`Message ${user.name.split(' ')[0]}`}
+      >
+        <ModalContents>
+          <Body>Ask any questions that you want to clarify!</Body>
+          <Input 
+            multiline
+            rows={5}
+            value={msg}
+            onChange={(e) => setMsg(e.target.value)}
+          />
+          <HoriCenter>
+            <Btn
+              color='primary'
+              inverted
+              onClick={createMsg}
+            >
+              Send Message
+            </Btn>
+          </HoriCenter>
+        </ModalContents>
+      </Modal>
     </div>
   );
 };

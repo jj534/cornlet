@@ -1,6 +1,25 @@
 const userRouter = require('express').Router();
 const User = require('./../models/User');
 
+userRouter.post('/save', async (req, res) => {
+  try {
+    const { uid, displayName: name, photoURL, email } = req.body;
+    const data = {
+      uid,
+      name,
+      photoURL,
+      email,
+    }
+    const user = await User.findOne({ uid, });
+    if (!user) {
+      await new User(data).save();
+    }
+    res.send(true)
+  } catch (e) {
+    res.status(500).send(e);
+  }
+})
+
 let defaultBm = { notif: false, listings: [] };
 
 // get uid's bookmark data
@@ -14,15 +33,6 @@ userRouter.get('/:uid/bm', async (req, res) => {
     else res.send(defaultBm);
   } catch (e) {
     console.log('e :>> ', e);
-    res.status(500).send(e);
-  }
-});
-
-userRouter.get('/error', async (req, res) => {
-  try {
-    const foo = bob.the.builder;
-    res.send({})
-  } catch (e) {
     res.status(500).send(e);
   }
 });

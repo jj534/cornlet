@@ -4,20 +4,10 @@ const chatroomsReducer = (state = [], action) => {
       return action.payload;
 
     case 'CHATROOMS_ADD':
-      if (state.length === 0) {
-        return [action.payload];
-      }
-      else {
-        return [...state, action.payload];
-      }
+      return [...state, action.payload];
 
     case 'CHATROOMS_REMOVE':
-      if (state.length === 0) {
-        return [];
-      }
-      else {
-        return state.filter((chatroom) => chatroom._id !== action.payload._id);
-      }
+      return state.filter((chatroom) => chatroom._id !== action.payload._id);
       
     default:
       return state

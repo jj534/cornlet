@@ -14,7 +14,7 @@ const chatroomSchema = Schema({
         type: String,
         required: true,
       },
-      photo: {
+      photoURL: {
         type: String,
         required: true,
       },
@@ -38,7 +38,7 @@ const chatroomSchema = Schema({
     type: [{
       type: {  // txt || img
         type: String,
-        required: true,
+        default: 'txt',
       },
       content: {
         type: String,

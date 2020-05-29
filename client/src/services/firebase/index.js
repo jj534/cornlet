@@ -39,13 +39,15 @@ const signIn = () => {
 }
 
 firebase.auth().onAuthStateChanged((user) => {
-  console.log('authing state changed')
 
   if (user) {
     store.dispatch({
       type: 'USER_SET',
       payload: user,
     });
+
+    api.post('/user/save', user)
+      .catch(({ response }) => log('firebase', response));
 
     api.get(`/user/${user.uid}/bm`)
       .then(({ data }) => {
@@ -59,7 +61,7 @@ firebase.auth().onAuthStateChanged((user) => {
         });
       })
       .catch(({ response }) => {
-        log('HomeIndex', response);
+        log('firebase', response);
         store.dispatch({
           type: 'AUTHING_SET',
           payload: false,

@@ -24,7 +24,7 @@ const UserData = ({ name, email, src }) => (
       src={src}
     />
     <Data>
-      <Name sm>{name}</Name>
+      <Name sm={email ? 1 : 0}>{name}</Name>
       <Body sm muted>{email}</Body>
     </Data>
   </Container>
