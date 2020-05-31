@@ -4,7 +4,6 @@ import NavElt from './NavElt';
 
 const Container = styled.div`
   overflow: hidden;
-  margin-bottom: 2rem;
 `;
 
 const NavRow = styled.div`

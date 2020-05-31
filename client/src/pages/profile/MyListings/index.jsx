@@ -8,11 +8,10 @@ import Navbar from 'src/components/headers/Navbar';
 import Listings from './Listings';
 
 const Container = styled.div`
-
 `;
 
 const Section = styled.div`
-  margin: 1rem 0 3rem 0;
+  margin: 3rem 0;
 `;
 
 const Row = styled.div`

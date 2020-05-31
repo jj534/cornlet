@@ -5,6 +5,7 @@ import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
   margin-top: 2rem;
+  background: white;
 `;
 
 const HrLine = styled.div`
