@@ -8,8 +8,11 @@ const StyledBody = styled.p`
   white-space: pre-line;
   line-height: 1.2;
   word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+  // ellipsis
+  text-overflow: ${props => props.ellipsis ? 'ellipsis' : ''};
+  overflow: ${props => props.ellipsis ? 'hidden' : ''};
+  white-space: ${props => props.ellipsis ? 'nowrap' : ''};
   
   // muted
   opacity: ${(props) => (props.muted ? '.8' : '')};
@@ -24,6 +27,9 @@ const StyledBody = styled.p`
 
   // lineHeight
   line-height: ${props => props.lineHeight ? props.lineHeight : ''};
+
+  // bold
+  font-weight: ${props => props.bold ? 'bold' : ''};
 `;
 
 const Body = (props) => (
