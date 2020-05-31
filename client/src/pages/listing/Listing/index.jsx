@@ -10,7 +10,7 @@ import getDateString from 'src/util/helpers/getDateString';
 import RenderOn from 'src/containers/RenderOn';
 import Badge from 'src/components/displays/Badge';
 import BmBtn from 'src/components/buttons/BmBtn';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PriceBadge from 'src/components/displays/PriceBadge';
 import Heading from 'src/components/fonts/Heading';
 import AmenitiesList from 'src/containers/AmenitiesList';
@@ -31,6 +31,9 @@ import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
 import { ReactComponent as ProfileSVG } from 'src/assets/svgs/profile.svg';
 import { ReactComponent as ChatSVG } from 'src/assets/svgs/chat.svg';
 import HoriCenter from 'src/containers/HoriCenter';
+import api from 'src/util/api';
+import log from 'src/util/log';
+import useRouter from 'src/util/hooks/useRouter';
 
 const Wrapper = styled.div`
   display: flex;
@@ -217,10 +220,17 @@ const Listing = ({ listing }) => {
 
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const chatrooms = useSelector((state) => state.chatrooms);
   const handleMsgBtnClick = () => {
-    // TODO: check if chat for the listing already exists
-
-    setOpen(true);
+    const existing = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
+    if (existing.length !== 0) {
+      router.push(`/profile/chat/${existing[0]._id}`);
+    }
+    else {
+      setOpen(true);
+    }
   }
   const handleClose = () => {
     setOpen(false)
@@ -229,8 +239,25 @@ const Listing = ({ listing }) => {
     handleClose();
 
     // DB create
+    // DB must be created first to get the data schema
+    const reqData = {
+      lid: listing._id,
+      msgContent: msg,
+      searcherUid: signedInUser.uid,
+      ownerUid: user.uid,
+    }
+    api.post('/chatroom/create', reqData)
+      .then(({ data }) => {
+        // add chatroom to redux
+        dispatch({
+          type: 'CHATROOMS_ADD',
+          payload: data,
+        })
 
-    // add chatroom to redux
+        // redirect
+        router.push(`/profile/chat/${data._id}`);
+      })
+      .catch(({ response }) => log('Listing', response));
   }
 
   return (

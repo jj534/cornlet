@@ -12,7 +12,16 @@ userRouter.post('/save', async (req, res) => {
     }
     const user = await User.findOne({ uid, });
     if (!user) {
+      // create new user
       await new User(data).save();
+    }
+    else {
+      // update user data
+      user.uid = uid;
+      user.name = name;
+      user.photoURL = photoURL;
+      user.email = email;
+      await user.save();
     }
     res.send(true)
   } catch (e) {

@@ -55,10 +55,24 @@ firebase.auth().onAuthStateChanged((user) => {
           type: 'BM_SET',
           payload: data,
         })
-        store.dispatch({
-          type: 'AUTHING_SET',
-          payload: false,
-        });
+        api.get(`/chatroom/user/${user.uid}`)
+          .then(({ data }) => {
+            store.dispatch({
+              type: 'CHATROOMS_SET',
+              payload: data,
+            })
+            store.dispatch({
+              type: 'AUTHING_SET',
+              payload: false,
+            })
+          })
+          .catch(({ response }) => {
+            log('firebase', response);
+            store.dispatch({
+              type: 'AUTHING_SET',
+              payload: false,
+            });
+          })
       })
       .catch(({ response }) => {
         log('firebase', response);

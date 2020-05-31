@@ -39,6 +39,7 @@ export const CloseSVG = styled(CloseRaw)`
   height: 1rem;
   width: 1rem;
   opacity: .7;
+  cursor: pointer;
 `;
 
 const Modal = ({ heading, open, handleClose, children, ...rest }) => {
@@ -60,7 +61,7 @@ const Modal = ({ heading, open, handleClose, children, ...rest }) => {
         <Container>
           <TopRow>
             <Heading>{heading}</Heading>
-            <CloseSVG />
+            <CloseSVG onClick={handleClose}/>
           </TopRow>
           {children}
         </Container>

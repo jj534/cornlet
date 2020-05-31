@@ -4,29 +4,13 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const { Schema } = mongoose;
 
 const chatroomSchema = Schema({
-  users: {
-    type: [{
-      uid: {
-        type: String,
-        requried: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      photoURL: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-      },
-      seen: {
-        type: Boolean,
-        default: false,
-      },
-    }],
+  uids: {
+    type: [String],
+    required: true,
+  },
+  searcher: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   listing: {
