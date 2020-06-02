@@ -5,8 +5,7 @@ import ListElt from './ListElt';
 
 const Container = styled.div`
   @media (min-width: ${props => props.theme.md}px) {
-    max-width: 400px;
-    padding-right: 1rem;
+    width: 400px;
     height: 100%;
     border-right: 1px solid rgba(0, 0, 0, .1);
   }

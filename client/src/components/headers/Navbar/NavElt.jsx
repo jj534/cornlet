@@ -19,7 +19,7 @@ const Label = styled.p`
 
 const NavElt = ({ label, to }) => {
   const { pathname } = useLocation();
-  const selected = pathname === to;
+  const selected = pathname.includes(to);
 
   return (
     <Link to={to}>

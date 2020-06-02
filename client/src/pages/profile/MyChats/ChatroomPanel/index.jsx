@@ -5,7 +5,8 @@ const Container = styled.div`
 
 `;
 
-const ChatroomPanel = () => {
+const ChatroomPanel = ({ cid }) => {
+  console.log('cid', cid)
   return (
     <Container>
         ChatroomPanel

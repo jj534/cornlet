@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
-
 `;
 
 export const Center = styled.div`
