@@ -10,6 +10,7 @@ const Container = styled.div`
 `;
 
 export const Center = styled.div`
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
 `;

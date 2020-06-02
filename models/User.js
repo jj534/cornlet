@@ -12,7 +12,7 @@ const userSchema = Schema({
     type: String,
     required: true,
   },
-  photoURL: {
+  photo: {
     type: String,
     required: true,
   },

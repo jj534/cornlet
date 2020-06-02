@@ -30,6 +30,9 @@ const StyledBody = styled.p`
 
   // bold
   font-weight: ${props => props.bold ? 'bold' : ''};
+
+  // maxWidth
+  max-width: ${props => props.maxWidth ? `${props.maxWidth}px` : ''};
 `;
 
 const Body = (props) => (

@@ -7,7 +7,7 @@ userRouter.post('/save', async (req, res) => {
     const data = {
       uid,
       name,
-      photoURL,
+      photo: photoURL,
       email,
     }
     const user = await User.findOne({ uid, });
@@ -19,12 +19,13 @@ userRouter.post('/save', async (req, res) => {
       // update user data
       user.uid = uid;
       user.name = name;
-      user.photoURL = photoURL;
+      user.photo = photoURL;
       user.email = email;
       await user.save();
     }
     res.send(true)
   } catch (e) {
+    console.log('e', e)
     res.status(500).send(e);
   }
 })
