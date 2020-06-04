@@ -14,6 +14,7 @@ import Chat from 'src/pages/profile/MyChats/Chat';
 import Chatroom from 'src/pages/profile/MyChats/Chatroom';
 import Settings from 'src/pages/profile/Settings';
 import PrivateRoute from './PrivateRoute';
+import MainFooter from '../footers/MainFooter';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -30,6 +31,7 @@ const AppRouter = () => (
       <Route exact path="/" component={Home} />
     </Switch>
     <ScrollToTop />
+    <MainFooter />
   </BrowserRouter>
 );
 

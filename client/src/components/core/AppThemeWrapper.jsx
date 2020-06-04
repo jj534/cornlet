@@ -30,7 +30,6 @@ const AppThemeWrapper = () => {
       <Wrapper>
         <Container>
           <AppReduxWrapper />
-          <MainFooter />
         </Container>
       </Wrapper>
     </ThemeProvider>
