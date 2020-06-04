@@ -7,6 +7,7 @@ import useChatOtherUser from 'src/util/hooks/useChatOtherUser';
 import Body from 'src/components/fonts/Body';
 import getShortAddr from 'src/util/helpers/getShortAddr';
 import { Link } from 'react-router-dom';
+import RenderOn from 'src/containers/RenderOn';
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +16,10 @@ const Container = styled.div`
   padding: 1rem 0;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+  @media (min-width: ${props => props.theme.md}px) {
+    padding: 1rem 2rem;
+  }
 `;
 
 const LeftSection = styled.div`
@@ -53,9 +58,11 @@ const Header = ({ chatroom }) => {
   return (
     <Container>
       <LeftSection>
-        <Link to='/profile/chat'>
-          <LeftSVG />
-        </Link>
+        <RenderOn mobile>
+          <Link to='/profile/chat'>
+            <LeftSVG />
+          </Link>
+        </RenderOn>
         <ContactSection>
           <Avatar src={otherUser.photo} />
           <ContactText>

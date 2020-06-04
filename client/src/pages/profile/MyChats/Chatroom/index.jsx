@@ -6,25 +6,32 @@ import RenderOn from 'src/containers/RenderOn';
 import ChatroomList from '../ChatroomList';
 import ChatroomPanel from '../ChatroomPanel';
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex: 1;
 `;
 
 const Chatroom = ({ match }) => {
 
   return (
-    <div>
+    <Container>
       <MainHeader />
       <RenderOn desktop>
         <Navbar />
       </RenderOn>
-      <Container>
+      <Content>
         <RenderOn desktop>
           <ChatroomList />
         </RenderOn>
         <ChatroomPanel cid={match.params.cid} />
-      </Container>
-    </div>
+      </Content>
+    </Container>
   )
 };
 

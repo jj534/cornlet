@@ -7,12 +7,19 @@ import { useSelector } from 'react-redux';
 import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const Center = styled.div`
   margin-top: 2rem;
   display: flex;
   justify-content: center;
+`;
+
+export const Content = styled.div`
+  flex: 1;
 `;
 
 const Chat = () => {
@@ -22,10 +29,12 @@ const Chat = () => {
     <Container>
       <MainHeader />
       <Navbar />
-      {chatrooms.length === 0
-        ? <Center><Body>No chats yet!</Body></Center>
-        : <ChatroomList />
-      }
+      <Content>
+        {chatrooms.length === 0
+          ? <Center><Body>No chats yet!</Body></Center>
+          : <ChatroomList />
+        }
+      </Content>
     </Container>
   )
 };

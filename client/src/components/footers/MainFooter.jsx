@@ -4,7 +4,6 @@ import Logo from 'src/components/displays/Logo';
 import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
-  margin-top: 2rem;
   background: white;
 `;
 

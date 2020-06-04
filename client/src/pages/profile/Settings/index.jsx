@@ -12,6 +12,7 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   justify-content: center;
+  padding-top: 2rem;
 `;
 
 const Settings = () => {
