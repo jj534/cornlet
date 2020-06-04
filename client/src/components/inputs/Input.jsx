@@ -18,6 +18,9 @@ const StyledTextField = withStyles({
         borderColor: theme.primary,
       },
     },
+    '& .MuiOutlinedInput-multiline': {
+      padding: '.5rem 1rem',
+    },
   },
 })(TextField);
 
@@ -28,6 +31,14 @@ const Container = styled.div`
 
   & textarea {
     line-height: 1.5;
+    word-break: break-word;
+    white-space: pre-line;
+
+    // lineHeight
+    line-height: ${props => props.lineHeight ? `${props.lineHeight}px` : ''};
+
+    // height based on rows
+    height: ${props => props.rows && props.lineHeight ? `${props.rows * props.lineHeight}px}` : ''};
   }
   
   & > * {
@@ -39,7 +50,7 @@ const Container = styled.div`
 `;
 
 const Input = ({
-  formik, name, label, adornment, multiline, width, margin, rows, ...rest
+  formik, name, label, adornment, multiline, width, margin, rows, lineHeight, ...rest
 }) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
@@ -55,7 +66,11 @@ const Input = ({
   const conditionalMultiline = multiline ? multilineProps : {};
 
   return (
-    <Container width={width}>
+    <Container 
+      width={width} 
+      lineHeight={lineHeight}
+      rows={rows}
+    >
       <StyledTextField
         {...formikProps}
         label={label}

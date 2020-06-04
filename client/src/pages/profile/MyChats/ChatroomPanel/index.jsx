@@ -8,6 +8,12 @@ import InputSection from './InputSection';
 
 const Container = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Fill = styled.div`
+  flex: 1;
 `;
 
 const ChatroomPanel = ({ cid }) => {
@@ -16,7 +22,9 @@ const ChatroomPanel = ({ cid }) => {
   return (
     <Container>
       <Header chatroom={chatroom} />
-      <ChatContents chatroom={chatroom} />
+      <Fill>
+        <ChatContents chatroom={chatroom} />
+      </Fill>
       <InputSection chatroom={chatroom} />
     </Container>
   )
