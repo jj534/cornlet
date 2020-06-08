@@ -22,9 +22,21 @@ db.once('open', () => {
 // PORT
 const PORT = process.env.PORT || 8081;
 const app = express();
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`listening at ${PORT}`)
 })
+
+// SOCKET IO
+var io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  const { id } = socket.client;
+  console.log(`User connected: ${id}`);
+
+  socket.on('disconnect', (data) => {
+    console.log(data);
+  });
+});
 
 // VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));
