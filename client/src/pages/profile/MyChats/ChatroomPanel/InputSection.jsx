@@ -4,17 +4,25 @@ import Input from 'src/components/inputs/Input';
 import Btn from 'src/components/buttons/Btn';
 import Body from 'src/components/fonts/Body';
 import RenderOn from 'src/containers/RenderOn';
+import socket from 'src/util/socket';
+import { useSelector } from 'react-redux';
+
+const HEIGHT = 84;
 
 const Container = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1rem;
+  padding: .5rem 1rem 1rem 1rem;
+  height: ${HEIGHT}px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  border-top: 1px solid rgba(0, 0, 0, .05);
+  background: white;
 
   & > button {
     margin-left: 1rem;
@@ -23,7 +31,12 @@ const Container = styled.div`
 
   @media (min-width: ${props => props.theme.md}px) {
     position: static;
+    height: auto;
   }
+`;
+
+export const Placeholder = styled.div`
+  height: ${HEIGHT}px;
 `;
 
 export const InputContainer = styled.div`
@@ -37,12 +50,13 @@ export const HelpText = styled(Body)`
   left: 1rem;
 `;
 
-const InputSection = () => {
+const InputSection = ({ chatroom }) => {
   const [msg, setMsg] = useState('');
   const minRows = 1;
   const maxRows = 6;
   const lineHeight = 24;
   const [rows, setRows] = useState(minRows);
+  const user = useSelector(state => state.user);
 
   const handleChange = (event) => {
     // reset number of rows in textarea 
@@ -80,29 +94,41 @@ const InputSection = () => {
     setMsg('');
     setRows(minRows);
 
-    // TODO: handle send message
+    const data = { 
+      cid: chatroom._id, 
+      type: 'txt',
+      content: msg,
+      uid: user.uid,
+      createdAt: new Date(),
+    }
+    socket.emit('msg', data)
   }
 
   return (
-    <Container>
-    <InputContainer>
-      <Input
-        value={msg}
-        onChange={handleChange}
-        multiline
-        rows={rows}
-        onKeyDown={handleKeyDown}
-        lineHeight={lineHeight}
-      />
-    </InputContainer>
-      <Btn
-        color='primary'
-        inverted
-        onClick={handleSendMsg}
-      >
-        Send
-      </Btn>
-    </Container>
+    <div>
+      <Container>
+        <InputContainer>
+          <Input
+            value={msg}
+            onChange={handleChange}
+            multiline
+            rows={rows}
+            onKeyDown={handleKeyDown}
+            lineHeight={lineHeight}
+          />
+        </InputContainer>
+        <Btn
+          color='primary'
+          inverted
+          onClick={handleSendMsg}
+        >
+          Send
+        </Btn>
+      </Container>
+      <RenderOn mobile>
+        <Placeholder />
+      </RenderOn>
+    </div>
   )
 };
 

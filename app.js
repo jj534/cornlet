@@ -27,16 +27,7 @@ const server = app.listen(PORT, () => {
 })
 
 // SOCKET IO
-var io = require('socket.io')(server);
-
-io.on('connection', (socket) => {
-  const { id } = socket.client;
-  console.log(`User connected: ${id}`);
-
-  socket.on('disconnect', (data) => {
-    console.log(data);
-  });
-});
+var io = require('./socket').listen(server);
 
 // VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));

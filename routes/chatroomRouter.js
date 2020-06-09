@@ -26,7 +26,7 @@ chatroomRouter.post('/create', async (req, res) => {
 
 chatroomRouter.get('/user/:uid', async (req, res) => {
   try {
-    const chatrooms = await Chatroom.find({ uids: req.params.uid }).populate('searcher listing');
+    const chatrooms = await Chatroom.find({ uids: req.params.uid }).populate('searcher listing').sort({ updatedAt: -1 });
     res.send(chatrooms);
   } catch (e) {
     res.status(500).send(e);

@@ -14,6 +14,11 @@ const Container = styled.div`
 
 export const Fill = styled.div`
   flex: 1;
+
+  @media (min-width: ${props => props.theme.md}px) {
+    max-height: 45vh;
+    overflow-y: scroll;
+  }
 `;
 
 const ChatroomPanel = ({ cid }) => {

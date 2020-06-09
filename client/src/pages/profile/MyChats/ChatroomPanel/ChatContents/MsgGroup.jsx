@@ -6,6 +6,7 @@ import formatDate from 'src/util/helpers/formatDate';
 
 const Container = styled.div`
   display: flex;
+  margin: 1rem 0;
 `;
 
 export const PhotoSection = styled.div`
@@ -46,7 +47,9 @@ const MsgGroup = ({ user, msgs, isOwner }) => {
           <Body muted sm>{formatDate(lastMsg.createdAt, true)}</Body>
         </UserSection>
         <MsgSection>
-          <Body>{lastMsg.content}</Body>
+          {msgs.map((msg) => (
+            <Body>{msg.content}</Body>
+          ))}
         </MsgSection>
       </TextSection>
     </Container>

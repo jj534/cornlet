@@ -41,7 +41,7 @@ export const Row = styled.div`
 `;
 
 export const TextContainer = styled.div`
-  max-width: 140px;
+  max-width: ${props => props.maxWidth ? `${props.maxWidth}px` : '140px'};
 `;
 
 const ListElt = ({ chatroom }) => {
@@ -68,8 +68,8 @@ const ListElt = ({ chatroom }) => {
             </TextContainer>
           </Row>
           <Row>
-            <TextContainer>
-              <Body muted>{chatroom.msgs[chatroom.msgs.length-1].content}</Body>
+            <TextContainer maxWidth={200}>
+              <Body muted ellipsis>{chatroom.msgs[chatroom.msgs.length-1].content}</Body>
             </TextContainer>
             <Body muted>{formatDate(chatroom.updatedAt, true)}</Body>
           </Row>
