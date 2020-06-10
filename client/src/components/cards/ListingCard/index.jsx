@@ -15,6 +15,8 @@ import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import PriceBadge from 'src/components/displays/PriceBadge';
 import getShortAddr from 'src/util/helpers/getShortAddr';
+import Modal from 'src/components/views/Modal';
+import Btn from 'src/components/buttons/Btn';
 
 const Container = styled.div`
   width: 90vw;
@@ -116,6 +118,27 @@ const Bin = styled(BinRaw)`
   }
 `;
 
+export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  & p:nth-child(2n-1) {
+    margin-top: 1rem;
+  }
+`;
+
+export const ModalBtnSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 2rem 0 1rem 0;
+
+  & button {
+    margin: 0 .8rem;
+  }
+`;
+
 const ListingCard = ({ listing, edit, reload }) => {
   const {
     _id, addr, price, imgs, sold, active,
@@ -137,9 +160,22 @@ const ListingCard = ({ listing, edit, reload }) => {
   };
 
   // handle delete
+  const [deleteModal, setDeleteModal] = useState(false);
+  const handleClose = () => {
+    setDeleteModal(false);
+  }
   const handleDelete = () => {
     api.put(`/listing/${_id}/update`, { active: false, deleted: true })
-      .then(() => reload())
+      .then(() => {
+        handleClose();
+        reload();
+      })
+      .catch((e) => log('ERROR ListingCard', e));
+  };
+  const handleDeactivate = () => {
+    setActiveLocal(false);
+    handleClose();
+    api.put(`/listing/${_id}/update`, { active: false })
       .catch((e) => log('ERROR ListingCard', e));
   };
 
@@ -183,10 +219,26 @@ const ListingCard = ({ listing, edit, reload }) => {
             <Link to={editPath}>
               <Pen />
             </Link>
-            <Bin onClick={handleDelete} />
+            <Bin onClick={() => setDeleteModal(true)} />
           </RightSection>
         </EditTools>
       )}
+      <Modal
+        open={deleteModal}
+        handleClose={handleClose}
+        heading='Delete Listing'
+      >
+        <ModalContainer>
+          <Body>Are you sure you wish to delete your listing?</Body>
+          <Body>Deleted data cannot be recovered.</Body>
+          <Body>You can temporarily deactivate the listing</Body>
+          <Body>if you wish to use it again in the future.</Body>
+          <ModalBtnSection>
+            <Btn color='primary' onClick={handleDelete}>Delete</Btn>
+            <Btn color='primary' inverted onClick={handleDeactivate}>Deactivate</Btn>
+          </ModalBtnSection>
+        </ModalContainer>
+      </Modal>
     </Container>
   );
 };
