@@ -8,6 +8,10 @@ const chatroomSchema = Schema({
     type: [String],
     required: true,
   },
+  notifUids: {
+    type: [String],
+    required: true,
+  },
   searcher: {
     type: Schema.Types.ObjectId,
     ref: 'User',

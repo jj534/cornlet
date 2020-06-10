@@ -1,15 +1,31 @@
 import React from 'react';
 import socket from 'src/util/socket';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SocketIO = () => {
   const dispatch = useDispatch();
-  // listen for chat
+  const user = useSelector(state => state.user);
+
   socket.on('msg', (data) => {
-    console.log('socket event: msg', data);
     dispatch({
-      type: 'CHATROOMS_SOCKET',
+      type: 'CHATROOMS_MSG',
       payload: data,
+    });
+  })
+
+  socket.on('new chatroom', (chatroom) => {
+    if (user && chatroom.uids.includes(user.uid)) {
+      dispatch({
+        type: 'CHATROOMS_ADD',
+        payload: chatroom,
+      });
+    }
+  })
+
+  socket.on('chatroom seen', ({ cid, uid }) => {
+    dispatch({
+      type: 'CHATROOMS_SEEN',
+      payload: { cid, uid },
     });
   })
 

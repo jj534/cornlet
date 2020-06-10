@@ -12,6 +12,7 @@ chatroomRouter.post('/create', async (req, res) => {
     const searcher = await User.findOne({ uid: searcherUid });
     const chatroomData = {
       uids: [searcherUid, ownerUid],
+      notifUids: [searcherUid, ownerUid],
       searcher: searcher._id,
       listing: lid,
       msgs: [firstMsg],

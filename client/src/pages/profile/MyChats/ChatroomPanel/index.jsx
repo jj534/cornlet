@@ -5,6 +5,8 @@ import useChatroom from 'src/util/hooks/useChatroom';
 import Header from './Header';
 import ChatContents from './ChatContents';
 import InputSection from './InputSection';
+import { useSelector } from 'react-redux';
+import socket from 'src/util/socket';
 
 const Container = styled.div`
   width: 100%;
@@ -23,6 +25,12 @@ export const Fill = styled.div`
 
 const ChatroomPanel = ({ cid }) => {
   const chatroom = useChatroom(cid);
+  const user = useSelector(state => state.user);
+  if (chatroom && user && chatroom.notifUids.includes(user.uid)) {
+    socket.emit('chatroom seen', { cid, uid: user.uid });
+  }
+
+  if (!chatroom) return <div />;
 
   return (
     <Container>

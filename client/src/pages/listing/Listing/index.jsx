@@ -34,6 +34,8 @@ import HoriCenter from 'src/containers/HoriCenter';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import useRouter from 'src/util/hooks/useRouter';
+import { signIn } from 'src/services/firebase';
+import socket from 'src/util/socket';
 
 const Wrapper = styled.div`
   display: flex;
@@ -223,6 +225,7 @@ const Listing = ({ listing }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const chatrooms = useSelector((state) => state.chatrooms);
+
   const handleMsgBtnClick = () => {
     const existing = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
     if (existing.length !== 0) {
@@ -232,32 +235,60 @@ const Listing = ({ listing }) => {
       setOpen(true);
     }
   }
+
   const handleClose = () => {
     setOpen(false)
   };
-  const createMsg = () => {
+
+  const handleCreateMsg = () => {
     handleClose();
 
+    // if not signed in, redir to signin
+    if (!signedInUser) {
+      signIn();
+      dispatch({
+        type: 'AUTHING_SET',
+        payload: true,
+      });
+      dispatch({
+        type: 'TEMP_VALUES_SET',
+        payload: msg,
+      })
+    }
+    else {
+      createMsg();
+    }
+  }
+
+  const createMsg = () => {
     // DB create
     // DB must be created first to get the data schema
     const reqData = {
       lid: listing._id,
-      msgContent: msg,
+      msgContent: tempValues ? tempValues : msg,
       searcherUid: signedInUser.uid,
       ownerUid: user.uid,
     }
     api.post('/chatroom/create', reqData)
       .then(({ data }) => {
-        // add chatroom to redux
-        dispatch({
-          type: 'CHATROOMS_ADD',
-          payload: data,
-        })
+        // emit socket event
+        socket.emit('new chatroom', data);
 
         // redirect
         router.push(`/profile/chat/${data._id}`);
       })
       .catch(({ response }) => log('Listing', response));
+  }
+
+  const authing = useSelector(state => state.authing);
+  const tempValues = useSelector(state => state.tempValues);
+  
+  if (tempValues && !authing) {
+    handleCreateMsg();
+    dispatch({
+      type: 'TEMP_VALUES_SET',
+      payload: null,
+    })
   }
 
   return (
@@ -270,120 +301,125 @@ const Listing = ({ listing }) => {
           <RenderOn mobile>
             <BackHeader fullwidth />
           </RenderOn>
-          <ListingSection>
-            <ImgInnerContainer>
-              <ImgCarousel imgs={imgs} />
-              <PriceBadge alignTop lg>${price}</PriceBadge>
-            </ImgInnerContainer>
-            <Content>
-              <Section>
-                <Row>
-                  <Heading>{totalRooms || 1}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
-                  <BmBtn listing={listing} />
-                </Row>
-                <Row icon>
-                  <SVGContainer><CalendarSVG /></SVGContainer>
-                  <Body muted sm>{getDateString(listing)}</Body>
-                </Row>
-              </Section>
-              <Section>
-                <Row marginBottom><Subheading bold>Location</Subheading></Row>
-                  <Row icon>
-                    <SVGContainer><PlaceSVG /></SVGContainer>
-                    <Body muted sm>{getShortAddr(addr)}</Body>
-                  </Row>
-                  {toCampus && (
-                    <Row icon>
-                      <SVGContainer><WalkSVG /></SVGContainer>
-                      <Body muted sm>{toCampus} km to campus</Body>
-                    </Row>
-                  )}
-                  <Row marginBottom />
-                {(lat && lng) && 
-                  <MapContainer>
-                    <Map
-                      lat={lat}
-                      lng={lng}
-                    />
-                  </MapContainer>
-                }
-              </Section>
-              <Section>
-                <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
-                  {availRooms !== 0 && (
-                    <Row icon>
-                      <SVGContainer><BedroomSVG /></SVGContainer>
-                      <Body muted sm>{availRooms} room(s) available</Body>
-                    </Row>
-                  )}
-                  {bathrooms !== 0 && (
-                    <Row icon>
-                      <SVGContainer><BathroomSVG /></SVGContainer>
-                      <Body muted sm>{bathrooms} bathrooms</Body>
-                    </Row>
-                  )}
-                  {(maleRoommates !== 0 || femaleRoommates !== 0) && (
-                    <Row icon>
-                      <SVGContainer><ProfileSVG /></SVGContainer>
-                      <Body muted sm>{maleRoommates + femaleRoommates} roommate(s) during sublet</Body>
-                    </Row>
-                  )}
-                <Row marginTopLarge marginBottom>
-                  <Body lineHeight={1.5}>{desc}</Body>
-                </Row>
-              </Section>
-              {availAmenities.length > 0 && 
-                <Section>
-                  <Row><Subheading bold>Amenities</Subheading></Row>
-                  <Row>
-                    <AmenitiesList>
-                      {availAmenities.map((amenity) => (
-                        <AmenityGrp
-                          key={amenity.value} 
-                          count={amenity.count}
-                          icon={amenity.icon}
-                          label={amenity.label}
-                          active={true} 
-                        />
-                      ))}
-                    </AmenitiesList>
-                  </Row>
-                </Section>
-              }
-              <Section>
-                <Row marginBottom><Subheading bold>Contact</Subheading></Row>
-                {sold  
-                  ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
-                  :(
+          {authing 
+            ? <div>handling authentication</div>
+            : (
+              <ListingSection>
+                <ImgInnerContainer>
+                  <ImgCarousel imgs={imgs} />
+                  <PriceBadge alignTop lg>${price}</PriceBadge>
+                </ImgInnerContainer>
+                <Content>
+                  <Section>
                     <Row>
-                      {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
-                        ? (
-                          <Fullwidth>
-                            <DetailedAvatar
-                              name={displayName || user.name}
-                              src={displayName ? undefined : user.photo}
-                            />
-                            <MsgBtn onClick={handleMsgBtnClick}><ChatSVG />Message {user.name.split(' ')[0]}</MsgBtn>
-                          </Fullwidth>
-                          )
-                        : (
-                          <LockSection>
-                            <LockAvatar>
-                              <LockSVG />
-                            </LockAvatar>
-                            <TextSection>
-                              <Subheading bold>Restricted to Cornell</Subheading>
-                              <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
-                            </TextSection>
-                          </LockSection>
-                          )
-                      }
+                      <Heading>{totalRooms || 1}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
+                      <BmBtn listing={listing} />
                     </Row>
-                  )
-                }
-              </Section>
-            </Content>
-          </ListingSection>
+                    <Row icon>
+                      <SVGContainer><CalendarSVG /></SVGContainer>
+                      <Body muted sm>{getDateString(listing)}</Body>
+                    </Row>
+                  </Section>
+                  <Section>
+                    <Row marginBottom><Subheading bold>Location</Subheading></Row>
+                      <Row icon>
+                        <SVGContainer><PlaceSVG /></SVGContainer>
+                        <Body muted sm>{getShortAddr(addr)}</Body>
+                      </Row>
+                      {toCampus && (
+                        <Row icon>
+                          <SVGContainer><WalkSVG /></SVGContainer>
+                          <Body muted sm>{toCampus} km to campus</Body>
+                        </Row>
+                      )}
+                      <Row marginBottom />
+                    {(lat && lng) && 
+                      <MapContainer>
+                        <Map
+                          lat={lat}
+                          lng={lng}
+                        />
+                      </MapContainer>
+                    }
+                  </Section>
+                  <Section>
+                    <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
+                      {availRooms !== 0 && (
+                        <Row icon>
+                          <SVGContainer><BedroomSVG /></SVGContainer>
+                          <Body muted sm>{availRooms} room(s) available</Body>
+                        </Row>
+                      )}
+                      {bathrooms !== 0 && (
+                        <Row icon>
+                          <SVGContainer><BathroomSVG /></SVGContainer>
+                          <Body muted sm>{bathrooms} bathrooms</Body>
+                        </Row>
+                      )}
+                      {(maleRoommates !== 0 || femaleRoommates !== 0) && (
+                        <Row icon>
+                          <SVGContainer><ProfileSVG /></SVGContainer>
+                          <Body muted sm>{maleRoommates + femaleRoommates} roommate(s) during sublet</Body>
+                        </Row>
+                      )}
+                    <Row marginTopLarge marginBottom>
+                      <Body lineHeight={1.5}>{desc}</Body>
+                    </Row>
+                  </Section>
+                  {availAmenities.length > 0 && 
+                    <Section>
+                      <Row><Subheading bold>Amenities</Subheading></Row>
+                      <Row>
+                        <AmenitiesList>
+                          {availAmenities.map((amenity) => (
+                            <AmenityGrp
+                              key={amenity.value} 
+                              count={amenity.count}
+                              icon={amenity.icon}
+                              label={amenity.label}
+                              active={true} 
+                            />
+                          ))}
+                        </AmenitiesList>
+                      </Row>
+                    </Section>
+                  }
+                  <Section>
+                    <Row marginBottom><Subheading bold>Contact</Subheading></Row>
+                    {sold  
+                      ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
+                      :(
+                        <Row>
+                          {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
+                            ? (
+                              <Fullwidth>
+                                <DetailedAvatar
+                                  name={displayName || user.name}
+                                  src={displayName ? undefined : user.photo}
+                                />
+                                <MsgBtn onClick={handleMsgBtnClick}><ChatSVG />Message {user.name.split(' ')[0]}</MsgBtn>
+                              </Fullwidth>
+                              )
+                            : (
+                              <LockSection>
+                                <LockAvatar>
+                                  <LockSVG />
+                                </LockAvatar>
+                                <TextSection>
+                                  <Subheading bold>Restricted to Cornell</Subheading>
+                                  <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
+                                </TextSection>
+                              </LockSection>
+                              )
+                          }
+                        </Row>
+                      )
+                    }
+                  </Section>
+                </Content>
+              </ListingSection>
+            )
+          }
         </Container>
       </Wrapper>
       <Modal
@@ -403,7 +439,7 @@ const Listing = ({ listing }) => {
             <Btn
               color='primary'
               inverted
-              onClick={createMsg}
+              onClick={handleCreateMsg}
             >
               Send Message
             </Btn>

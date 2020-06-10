@@ -7,6 +7,8 @@ import getShortAddr from 'src/util/helpers/getShortAddr';
 import { Link } from 'react-router-dom';
 import formatDate from 'src/util/helpers/formatDate';
 import useRouter from 'src/util/hooks/useRouter';
+import { useSelector } from 'react-redux';
+import CornerRedDot from 'src/components/displays/CornerRedDot';
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +25,7 @@ const Container = styled.div`
 
 export const PhotoSection = styled.div`
   margin-right: 1rem;
+  position: relative;
 `;
 
 export const TextSection = styled.div`
@@ -50,6 +53,8 @@ const ListElt = ({ chatroom }) => {
   const chatroomPath = `/profile/chat/${chatroom._id}`;
   const selected = router.pathname === chatroomPath;
   const nextPath = selected ? '/profile/chat' : chatroomPath;
+  const user = useSelector(state => state.user);
+  const hasNotif = chatroom.notifUids && chatroom.notifUids.includes(user.uid);
 
   return (
     <Link to={nextPath}>
@@ -59,6 +64,7 @@ const ListElt = ({ chatroom }) => {
             src={otherUser.photoURL || otherUser.photo}
             lg
           />
+          {hasNotif && <CornerRedDot lg />}
         </PhotoSection>
         <TextSection>
           <Row>
@@ -69,7 +75,7 @@ const ListElt = ({ chatroom }) => {
           </Row>
           <Row>
             <TextContainer maxWidth={200}>
-              <Body muted ellipsis>{chatroom.msgs[chatroom.msgs.length-1].content}</Body>
+              <Body muted={hasNotif ? 0 : 1} ellipsis>{chatroom.msgs[chatroom.msgs.length-1].content}</Body>
             </TextContainer>
             <Body muted>{formatDate(chatroom.updatedAt, true)}</Body>
           </Row>
