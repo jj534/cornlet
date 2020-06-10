@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import Auth from 'src/components/buttons/Auth';
 import Logo from 'src/components/displays/Logo';
 import { useSelector } from 'react-redux';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
+
 import Bookmarks from './Bookmarks';
+import Chat from './Chat';
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +33,7 @@ const Right = styled.div`
 
 const MainHeader = () => {
   const authing = useSelector((state) => state.authing);
+  const isDesktop = useIsDesktop();
 
   return (
     <Container>
@@ -37,6 +41,7 @@ const MainHeader = () => {
         <Logo />
       </Link>
       <Right>
+        <Chat />
         {!authing && <Bookmarks />}
         {!authing && (
           <Link to="/new">
@@ -44,7 +49,7 @@ const MainHeader = () => {
               color="primary"
               inverted
             >
-New Listing
+New {isDesktop && ' Listing'}
             </Btn>
           </Link>
         )}

@@ -1,7 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import theme from 'src/theme';
+
+const StyledTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: theme.primary,
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: theme.primary,
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: theme.primary,
+      },
+    },
+    '& .MuiOutlinedInput-multiline': {
+      padding: '.5rem 1rem',
+    },
+  },
+})(TextField);
 
 const Container = styled.div`
   width: 100%;
@@ -10,6 +31,14 @@ const Container = styled.div`
 
   & textarea {
     line-height: 1.5;
+    word-break: break-word;
+    white-space: pre-line;
+
+    // lineHeight
+    line-height: ${props => props.lineHeight ? `${props.lineHeight}px` : ''};
+
+    // height based on rows
+    height: ${props => props.rows && props.lineHeight ? `${props.rows * props.lineHeight}px}` : ''};
   }
   
   & > * {
@@ -20,8 +49,8 @@ const Container = styled.div`
   width: ${props => props.width ? `${props.width}px` : ''};
 `;
 
-const FormikInput = ({
-  formik, name, label, adornment, multiline, width, margin, ...rest
+const Input = ({
+  formik, name, label, adornment, multiline, width, margin, rows, lineHeight, ...rest
 }) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
@@ -32,13 +61,17 @@ const FormikInput = ({
   const multilineProps = {
     multiline,
     variant: 'outlined',
-    rows: 20,
+    rows: rows || 20,
   };
   const conditionalMultiline = multiline ? multilineProps : {};
 
   return (
-    <Container width={width}>
-      <TextField
+    <Container 
+      width={width} 
+      lineHeight={lineHeight}
+      rows={rows}
+    >
+      <StyledTextField
         {...formikProps}
         label={label}
         error={!!error}
@@ -53,4 +86,4 @@ const FormikInput = ({
   );
 };
 
-export default FormikInput;
+export default Input;

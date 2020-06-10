@@ -14,6 +14,7 @@ import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import PriceBadge from 'src/components/displays/PriceBadge';
+import getShortAddr from 'src/util/helpers/getShortAddr';
 
 const Container = styled.div`
   width: 90vw;
@@ -156,7 +157,7 @@ const ListingCard = ({ listing, edit, reload }) => {
           <PriceBadge>${price}</PriceBadge>
         </ImgContainer>
         <TextArea>
-          <Addr>{addr}</Addr>
+          <Addr>{getShortAddr(addr)}</Addr>
           <Row>
             {sold
               ? <Badge color="primary" size="sm" inverted>Sold</Badge>

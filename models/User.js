@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 
 const { Schema } = mongoose;
 
@@ -8,6 +7,18 @@ const userSchema = Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  photo: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
   },
   bm: {
     listings: {
@@ -22,6 +33,13 @@ const userSchema = Schema({
       default: false,
     },
   },
+  chatrooms: {  // add only
+    type: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Chatroom',
+    }],
+    default: []
+  },
   createdAt: {
     type: Date,
     required: true,
@@ -29,5 +47,4 @@ const userSchema = Schema({
   },
 });
 
-userSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('User', userSchema);

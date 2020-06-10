@@ -18,11 +18,12 @@ const Button = styled.button`
 `;
 
 const Btn = ({
-  children, color, inverted, ...rest
+  children, color, inverted, type, ...rest
 }) => (
   <Button
     color={color}
     inverted={inverted}
+    type={type || 'button'}
     {...rest}
   >
     {children}

@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // MONGODB
-const forceProdDB = true;
+const forceProdDB = false;
 const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD;
 const dbType = isProdDb ? 'prod' : 'dev';
 const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;
@@ -22,9 +22,12 @@ db.once('open', () => {
 // PORT
 const PORT = process.env.PORT || 8081;
 const app = express();
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`listening at ${PORT}`)
 })
+
+// SOCKET IO
+var io = require('./socket').listen(server);
 
 // VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));

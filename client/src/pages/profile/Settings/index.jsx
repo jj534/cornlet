@@ -12,13 +12,14 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   justify-content: center;
+  padding-top: 2rem;
 `;
 
 const Settings = () => {
   const history = useHistory();
   const handleSignOut = async () => {
-    await signOut();
     history.push('/');
+    signOut();
   };
 
   return (

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Btn from 'src/components/buttons/Btn';
-import { Link } from 'react-router-dom';
 import Heading from 'src/components/fonts/Heading';
 import Body from 'src/components/fonts/Body';
 import { useSelector } from 'react-redux';
@@ -10,11 +8,10 @@ import Navbar from 'src/components/headers/Navbar';
 import Listings from './Listings';
 
 const Container = styled.div`
-
 `;
 
 const Section = styled.div`
-  margin: 1rem 0 3rem 0;
+  margin: 3rem 0;
 `;
 
 const Row = styled.div`

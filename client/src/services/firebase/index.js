@@ -39,7 +39,6 @@ const signIn = () => {
 }
 
 firebase.auth().onAuthStateChanged((user) => {
-  console.log('authing state changed')
 
   if (user) {
     store.dispatch({
@@ -47,19 +46,36 @@ firebase.auth().onAuthStateChanged((user) => {
       payload: user,
     });
 
+    api.post('/user/save', user)
+      .catch(({ response }) => log('firebase', response));
+
     api.get(`/user/${user.uid}/bm`)
       .then(({ data }) => {
         store.dispatch({
           type: 'BM_SET',
           payload: data,
         })
-        store.dispatch({
-          type: 'AUTHING_SET',
-          payload: false,
-        });
+        api.get(`/chatroom/user/${user.uid}`)
+          .then(({ data }) => {
+            store.dispatch({
+              type: 'CHATROOMS_SET',
+              payload: data,
+            })
+            store.dispatch({
+              type: 'AUTHING_SET',
+              payload: false,
+            })
+          })
+          .catch(({ response }) => {
+            log('firebase', response);
+            store.dispatch({
+              type: 'AUTHING_SET',
+              payload: false,
+            });
+          })
       })
       .catch(({ response }) => {
-        log('HomeIndex', response);
+        log('firebase', response);
         store.dispatch({
           type: 'AUTHING_SET',
           payload: false,

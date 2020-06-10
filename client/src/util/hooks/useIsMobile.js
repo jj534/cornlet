@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import theme from 'src/theme';
+import useWindowSize from './useWindowSize';
 
 const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState();
+  const [width] = useWindowSize();
+  const [isMobile, setIsMobile] = useState(width < theme.md);
+
   useEffect(() => {
-    if (window.innerWidth < theme.desktopContentWidth) {
-      setIsMobile(true)
-    }
-    else {
-      setIsMobile(false)
-    }
-  }, [window.innerWidth])
+    setIsMobile(width < theme.md);
+  }, [width]);
+
   return isMobile;
 }
 

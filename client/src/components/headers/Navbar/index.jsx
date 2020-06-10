@@ -4,7 +4,6 @@ import NavElt from './NavElt';
 
 const Container = styled.div`
   overflow: hidden;
-  margin-bottom: 2rem;
 `;
 
 const NavRow = styled.div`
@@ -20,19 +19,16 @@ const HrLine = styled.div`
 `;
 
 const Navbar = () => {
-  const BookmarksElt = (
-    <NavElt
-      label="Bookmarks"
-      to="/profile/bookmarks"
-    />
-  );
-
   return (
     <Container>
       <NavRow>
         <NavElt
           label="Listings"
           to="/profile/listings"
+        />
+        <NavElt
+          label="Chat"
+          to="/profile/chat"
         />
         <NavElt
           label="Settings"

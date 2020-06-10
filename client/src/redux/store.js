@@ -10,7 +10,7 @@ const blacklist = process.env.NODE_ENV === 'development' ? [] : [];
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: [...blacklist]
+  blacklist,
 }
 
 const middleware = process.env.NODE_ENV === 'development' ? [thunk, logger] : [thunk];
