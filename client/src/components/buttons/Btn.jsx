@@ -9,7 +9,7 @@ const Button = styled.button`
   color: ${(props) => (props.inverted ? 'white' : '')};
   display: inline-block;
   font-size: .9rem;
-  border-radius: 15px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
   @media (min-width: ${(props) => props.theme.md}px) {
