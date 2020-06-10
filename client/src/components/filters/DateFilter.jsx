@@ -29,8 +29,8 @@ const StyledPicker = styled(DatePicker)`
 `;
 
 const CalendarSVG = styled(CalendarRaw)`
-  height: 1.4rem;
-  width: 1.4rem;
+  height: 1.6rem;
+  width: 1.6rem;
   position: absolute;
   right: .5rem;
   top: 0;
