@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const Container = styled.div`
   background: white;
-  // box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
   padding: 1rem;
   width: 90vw;
@@ -42,7 +41,18 @@ export const CloseSVG = styled(CloseRaw)`
   cursor: pointer;
 `;
 
-const Modal = ({ heading, open, handleClose, children, ...rest }) => {
+export const Content = styled.div`
+  text-align: center;
+
+  & > button {
+    margin-top: 1rem;
+  }
+
+  // contentPadding
+  padding: ${props => props.contentPadding ? '1rem 0' : ''};
+`;
+
+const Modal = ({ heading, open, handleClose, children, contentPadding, ...rest }) => {
   const classes = useStyles();
   
   return (
@@ -63,7 +73,9 @@ const Modal = ({ heading, open, handleClose, children, ...rest }) => {
             <Heading>{heading}</Heading>
             <CloseSVG onClick={handleClose}/>
           </TopRow>
-          {children}
+          <Content contentPadding={contentPadding}>
+            {children}
+          </Content>
         </Container>
       </Fade>
     </MaterialModal>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -10,6 +10,8 @@ import FormContents from './FormContents';
 import { signIn } from 'src/services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import useRouter from 'src/util/hooks/useRouter';
+import Modal from 'src/components/views/Modal';
+import Body from 'src/components/fonts/Body';
 
 const Form = styled.form`
   @media (min-width: ${props => props.theme.md}px) {
@@ -69,6 +71,12 @@ const FormComponent = ({ user, initialValues }) => {
   }
   const dynInitValues = initialValues || tempValues || (process.env.NODE_ENV === 'development' && devValues) || defaultValues;
 
+  // error modal
+  const [modal, setModal] = useState(false);
+  const handleClose = () => {
+    setModal(false);
+  }
+
   // define form
   const formik = useFormik({
     initialValues: dynInitValues,
@@ -98,6 +106,7 @@ const FormComponent = ({ user, initialValues }) => {
         .required('Required'),
     }),
     onSubmit: (values) => {
+      console.log('on submit');
       if (initialValues) {
         api.put(`/listing/${initialValues._id}/update`, values)
           .then(() => {
@@ -156,6 +165,13 @@ const FormComponent = ({ user, initialValues }) => {
     return <div>processing signin</div>
   }
 
+  // error on submit
+  const handleSubmitAttempt = () => {
+    if (Object.keys(formik.errors).length !== 0) {
+      setModal(true);
+    }
+  }
+
   return (
     <Form onSubmit={formik.handleSubmit}>
       <FormContents
@@ -167,10 +183,21 @@ const FormComponent = ({ user, initialValues }) => {
           color="primary"
           inverted
           type="submit"
+          onClick={handleSubmitAttempt}
         >
 Save
         </Btn>
       </Center>
+      <Modal
+        open={modal}
+        handleClose={handleClose}
+        heading='Oops!'
+        contentPadding
+      >
+        <Body>There were errors in the form.</Body>
+        <Body>Please fix the errors before saving the listing.</Body>
+        <Btn color='primary' inverted onClick={handleClose}>Go back</Btn>
+      </Modal>
     </Form>
   );
 };
