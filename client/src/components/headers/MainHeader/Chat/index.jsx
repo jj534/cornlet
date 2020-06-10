@@ -22,11 +22,13 @@ const Chat = () => {
   const chatrooms = useSelector(state => state.chatrooms);
   const user = useSelector(state => state.user);
   let hasNotif = false;
-  chatrooms.forEach((chatroom) => {
-    if (chatroom.notifUids.includes(user.uid)) {
-      hasNotif = true;
-    }
-  })
+  if (user) {
+    chatrooms.forEach((chatroom) => {
+      if (chatroom.notifUids.includes(user.uid)) {
+        hasNotif = true;
+      }
+    })
+  }
 
   return (
     <Link to='/profile/chat'>
