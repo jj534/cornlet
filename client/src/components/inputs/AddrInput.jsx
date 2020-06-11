@@ -48,7 +48,7 @@ const AddrInput = ({ formik, name, label }) => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        const minDistance = Math.min(calcDistance(42.443147, -76.485249, latLng.lat, latLng.lng), calcDistance(42.447549, -76.487739, latLng.lat, latLng.lng))
+        const minDistance = Math.min(calcDistance(42.443147, -76.485249, latLng.lat, latLng.lng), calcDistance(42.447549, -76.487739, latLng.lat, latLng.lng), calcDistance(42.451288, -76.482072, latLng.lat, latLng.lng))
         formik.setFieldValue('toCampus', Math.round(minDistance * 10) / 10);
         formik.setFieldValue('lat', latLng.lat);
         formik.setFieldValue('lng', latLng.lng);
