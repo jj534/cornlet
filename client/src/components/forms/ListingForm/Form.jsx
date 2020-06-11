@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Btn from 'src/components/buttons/Btn';
 import api from 'src/util/api';
 import log from 'src/util/log';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Prompt } from 'react-router-dom';
 import FormContents from './FormContents';
 import { signIn } from 'src/services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,6 +76,7 @@ const FormComponent = ({ user, initialValues }) => {
   const handleClose = () => {
     setModal(false);
   }
+  const [showPrompt, setShowPrompt] = useState(true);
 
   // define form
   const formik = useFormik({
@@ -88,9 +89,9 @@ const FormComponent = ({ user, initialValues }) => {
       price: Yup.number()
         .required('Required'),
       start: Yup.object()
-        .required('Required'),
+        .nullable(),
       end: Yup.object()
-        .required('Required'),
+        .nullable(),
       type: Yup.string()
         .required('Required'),
       imgs: Yup.array()
@@ -166,14 +167,22 @@ const FormComponent = ({ user, initialValues }) => {
   }
 
   // error on submit
+  const hasErrors = Object.keys(formik.errors).length !== 0;
   const handleSubmitAttempt = () => {
-    if (Object.keys(formik.errors).length !== 0) {
+    if (hasErrors) {
       setModal(true);
+    }
+    else {
+      setShowPrompt(false);
     }
   }
 
   return (
     <Form onSubmit={formik.handleSubmit}>
+      <Prompt
+        when={showPrompt}
+        message={() => 'Are you sure you wish to leave without saving?\nChanges will not be saved!\nClick the "Save" button at the bottom of the page to save.'}
+      />
       <FormContents
         formik={formik}
         user={user}
