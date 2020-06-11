@@ -144,6 +144,9 @@ const SVGContainer = styled.div`
     height: 1.5rem;
     opacity: .6;
   }
+
+  // mr
+  margin-right: ${props => props.mr ? '.5rem' : ''};
 `
 
 export const CalendarSVG = styled(CalendarRaw)`
@@ -180,6 +183,9 @@ const TextSection = styled.div`
 
 export const Fullwidth = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const MsgBtn = styled.button`
@@ -208,7 +214,7 @@ export const MsgBtn = styled.button`
 `;
 
 export const ModalContents = styled.div`
-
+  text-align: start;
 `;
 
 
@@ -323,6 +329,62 @@ const Listing = ({ listing }) => {
                     </Row>
                   </Section>
                   <Section>
+                    <Row marginBottom><Subheading bold>Contact</Subheading></Row>
+                    {sold  
+                      ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
+                      :(
+                        <Row>
+                          {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
+                            ? (
+                              <Fullwidth>
+                                <DetailedAvatar
+                                  name={displayName || user.name}
+                                  src={displayName ? undefined : user.photo}
+                                />
+                                <Btn color='primary' inverted onClick={handleMsgBtnClick}>Message</Btn>
+                              </Fullwidth>
+                              )
+                            : (
+                              <LockSection>
+                                <LockAvatar>
+                                  <LockSVG />
+                                </LockAvatar>
+                                <TextSection>
+                                  <Subheading bold>Restricted to Cornell</Subheading>
+                                  <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
+                                </TextSection>
+                              </LockSection>
+                              )
+                          }
+                        </Row>
+                      )
+                    }
+                  </Section>
+                  <Section>
+                    <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
+                      {availRooms !== 0 && (
+                        <Row icon>
+                          <SVGContainer mr><BedroomSVG /></SVGContainer>
+                          <Body muted sm>{availRooms} room(s) available</Body>
+                        </Row>
+                      )}
+                      {bathrooms !== 0 && (
+                        <Row icon>
+                          <SVGContainer mr><BathroomSVG /></SVGContainer>
+                          <Body muted sm>{bathrooms} bathrooms</Body>
+                        </Row>
+                      )}
+                      {(maleRoommates !== 0 || femaleRoommates !== 0) && (
+                        <Row icon>
+                          <SVGContainer mr><ProfileSVG /></SVGContainer>
+                          <Body muted sm>{maleRoommates + femaleRoommates} roommate(s) during sublet</Body>
+                        </Row>
+                      )}
+                    <Row marginTopLarge marginBottom>
+                      <Body lineHeight={1.5}>{desc}</Body>
+                    </Row>
+                  </Section>
+                  <Section>
                     <Row marginBottom><Subheading bold>Location</Subheading></Row>
                       <Row icon>
                         <SVGContainer><PlaceSVG /></SVGContainer>
@@ -344,30 +406,6 @@ const Listing = ({ listing }) => {
                       </MapContainer>
                     }
                   </Section>
-                  <Section>
-                    <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
-                      {availRooms !== 0 && (
-                        <Row icon>
-                          <SVGContainer><BedroomSVG /></SVGContainer>
-                          <Body muted sm>{availRooms} room(s) available</Body>
-                        </Row>
-                      )}
-                      {bathrooms !== 0 && (
-                        <Row icon>
-                          <SVGContainer><BathroomSVG /></SVGContainer>
-                          <Body muted sm>{bathrooms} bathrooms</Body>
-                        </Row>
-                      )}
-                      {(maleRoommates !== 0 || femaleRoommates !== 0) && (
-                        <Row icon>
-                          <SVGContainer><ProfileSVG /></SVGContainer>
-                          <Body muted sm>{maleRoommates + femaleRoommates} roommate(s) during sublet</Body>
-                        </Row>
-                      )}
-                    <Row marginTopLarge marginBottom>
-                      <Body lineHeight={1.5}>{desc}</Body>
-                    </Row>
-                  </Section>
                   {availAmenities.length > 0 && 
                     <Section>
                       <Row><Subheading bold>Amenities</Subheading></Row>
@@ -386,38 +424,6 @@ const Listing = ({ listing }) => {
                       </Row>
                     </Section>
                   }
-                  <Section>
-                    <Row marginBottom><Subheading bold>Contact</Subheading></Row>
-                    {sold  
-                      ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
-                      :(
-                        <Row>
-                          {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
-                            ? (
-                              <Fullwidth>
-                                <DetailedAvatar
-                                  name={displayName || user.name}
-                                  src={displayName ? undefined : user.photo}
-                                />
-                                <MsgBtn onClick={handleMsgBtnClick}><ChatSVG />Message {user.name.split(' ')[0]}</MsgBtn>
-                              </Fullwidth>
-                              )
-                            : (
-                              <LockSection>
-                                <LockAvatar>
-                                  <LockSVG />
-                                </LockAvatar>
-                                <TextSection>
-                                  <Subheading bold>Restricted to Cornell</Subheading>
-                                  <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
-                                </TextSection>
-                              </LockSection>
-                              )
-                          }
-                        </Row>
-                      )
-                    }
-                  </Section>
                 </Content>
               </ListingSection>
             )
