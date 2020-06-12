@@ -8,6 +8,7 @@ import New from 'src/pages/new';
 import Edit from 'src/pages/edit';
 import Env from 'src/pages/env';
 import PrivacyPolicy from 'src/pages/privacy-policy';
+import CookiePolicy from 'src/pages/cookie-policy';
 
 import Profile from 'src/pages/profile';
 import MyListings from 'src/pages/profile/MyListings';
@@ -26,6 +27,7 @@ const AppRouter = () => (
       <Route exact path="/env" component={Env} />
       <Route exact path="/new" component={New} />
       <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+      <Route exact path="/cookie-policy" component={CookiePolicy} />
       <PrivateRoute exact path="/profile/settings" component={Settings} />
       <PrivateRoute exact path="/profile/chat/:cid" component={Chatroom} />
       <PrivateRoute exact path="/profile/chat" component={Chat} />
