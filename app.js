@@ -12,11 +12,20 @@ const forceProdDB = false;
 const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD;
 const dbType = isProdDb ? 'prod' : 'dev';
 const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(URI, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true, 
+  auto_reconnect: true,
+  reconnectTries: 30,
+  reconnectInterval: 1000,
+  socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 },
+});
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, '*** DB connection error ***'));
+db.on('disconnected', console.error.bind(console, '*** DB disconnected ***'));
+db.on('reconnected', console.error.bind(console, '*** DB reconnected ***'));
 db.once('open', () => {
-  console.log('db connection:', dbType)
+  console.log('db connection:', dbType);
 });
 
 // PORT
