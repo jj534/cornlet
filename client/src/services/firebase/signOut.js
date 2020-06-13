@@ -8,7 +8,11 @@ const signOut = () => {
         store.dispatch({
           type: 'USER_SET',
           payload: null
-        })
+        });
+        store.dispatch({
+          type: 'CHATROOMS_SET',
+          payload: [],
+        });
         resolve()
       })
       .catch((e) => {

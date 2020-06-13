@@ -91,6 +91,10 @@ firebase.auth().onAuthStateChanged((user) => {
       type: 'AUTHING_SET',
       payload: false,
     });
+    store.dispatch({
+      type: 'CHATROOMS_SET',
+      payload: [],
+    });
   }
 });
 

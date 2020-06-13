@@ -249,8 +249,8 @@ const Listing = ({ listing }) => {
   const handleCreateMsg = () => {
     handleClose();
 
-    // if not signed in, redir to signin
     if (!signedInUser) {
+      // not signed in, redirect to signin
       signIn();
       dispatch({
         type: 'AUTHING_SET',
@@ -262,7 +262,23 @@ const Listing = ({ listing }) => {
       })
     }
     else {
-      createMsg();
+      const sameListingChatrooms = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
+      if (sameListingChatrooms.length >= 1) {
+        // chatroom already exists
+        // append msg to existing chatroom
+        const data = { 
+          cid: sameListingChatrooms[0]._id, 
+          type: 'txt',
+          content: tempValues ? tempValues : msg,
+          uid: signedInUser.uid,
+          createdAt: new Date(),
+        }
+        socket.emit('msg', data);
+        router.push(`/profile/chat/${sameListingChatrooms[0]._id}`);
+      }
+      else {
+        createMsg();
+      }
     }
   }
 
