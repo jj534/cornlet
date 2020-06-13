@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { ReactComponent as CloseRaw } from 'src/assets/svgs/close.svg';
 import Heading from 'src/components/fonts/Heading';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -22,7 +22,7 @@ export const Container = styled.div`
   width: 90vw;
   min-height: 150px;
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     width: 500px;
   }
 `;
@@ -49,12 +49,14 @@ export const Content = styled.div`
   }
 
   // contentPadding
-  padding: ${props => props.contentPadding ? '1rem 0' : ''};
+  padding: ${(props) => (props.contentPadding ? '1rem 0' : '')};
 `;
 
-const Modal = ({ heading, open, handleClose, children, contentPadding, ...rest }) => {
+const Modal = ({
+  heading, open, handleClose, children, contentPadding, ...rest
+}) => {
   const classes = useStyles();
-  
+
   return (
     <MaterialModal
       open={open}
@@ -71,7 +73,7 @@ const Modal = ({ heading, open, handleClose, children, contentPadding, ...rest }
         <Container>
           <TopRow>
             <Heading>{heading}</Heading>
-            <CloseSVG onClick={handleClose}/>
+            <CloseSVG onClick={handleClose} />
           </TopRow>
           <Content contentPadding={contentPadding}>
             {children}
@@ -79,7 +81,7 @@ const Modal = ({ heading, open, handleClose, children, contentPadding, ...rest }
         </Container>
       </Fade>
     </MaterialModal>
-  )
+  );
 };
 
 export default Modal;

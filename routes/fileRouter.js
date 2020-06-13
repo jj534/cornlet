@@ -7,7 +7,8 @@ fileRouter.post('/create', async (req, res) => {
     const doc = new File(req.body);
     const result = await doc.save();
     res.send(result);
-  } catch (e) {
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });
@@ -17,7 +18,8 @@ fileRouter.delete('/delete', async (req, res) => {
   try {
     const result = await File.findOneAndDelete(req.body);
     res.send(result);
-  } catch (e) {
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });

@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import useChatroom from 'src/util/hooks/useChatroom';
 
+import { useSelector } from 'react-redux';
+import socket from 'src/util/socket';
 import Header from './Header';
 import ChatContents from './ChatContents';
 import InputSection from './InputSection';
-import { useSelector } from 'react-redux';
-import socket from 'src/util/socket';
 
 const Container = styled.div`
   width: 100%;
@@ -17,7 +17,7 @@ const Container = styled.div`
 export const Fill = styled.div`
   flex: 1;
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     max-height: 45vh;
     overflow-y: scroll;
   }
@@ -25,7 +25,7 @@ export const Fill = styled.div`
 
 const ChatroomPanel = ({ cid }) => {
   const chatroom = useChatroom(cid);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   if (chatroom && user && chatroom.notifUids.includes(user.uid)) {
     socket.emit('chatroom seen', { cid, uid: user.uid });
   }
@@ -40,7 +40,7 @@ const ChatroomPanel = ({ cid }) => {
       </Fill>
       <InputSection chatroom={chatroom} />
     </Container>
-  )
+  );
 };
 
 export default ChatroomPanel;

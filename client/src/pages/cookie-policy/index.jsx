@@ -59,17 +59,15 @@ word-break: break-word !important;
     }
   </style>
     </div>
-`
+`;
 
-const CookiePolicy = () => {
-  return (
-    <div>
-      <MainHeader />
-      <Container>
-        <div dangerouslySetInnerHTML={{__html: html}}/>
-      </Container>
-    </div>
-  )
-};
+const CookiePolicy = () => (
+  <div>
+    <MainHeader />
+    <Container>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </Container>
+  </div>
+);
 
 export default CookiePolicy;

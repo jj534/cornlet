@@ -18,7 +18,7 @@ const Img = styled.img`
   width: 30%;
   height: 100%;
   object-fit: cover;
-`
+`;
 
 const Data = styled.div`
   width: 70%;
@@ -28,30 +28,30 @@ const Data = styled.div`
   display: flex
   flex-direction: column;
   justify-content: space-between;
-`
+`;
 
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
 
   // justify='end'
-  justify-content: ${props => props.justify === 'end' ? 'flex-end' : ''};
-`
+  justify-content: ${(props) => (props.justify === 'end' ? 'flex-end' : '')};
+`;
 
 const Addr = styled(Body)`
   white-space: nowrap;
   flex-grow: 0;
   width: 90%;
-`
+`;
 
 const DeleteBtn = styled(Body)`
   cursor: pointer;
-`
+`;
 
 const Price = styled(Body)`
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
 
-`
+`;
 
 const BmListing = ({ listing }) => {
   const user = useSelector((state) => state.user);
@@ -63,38 +63,41 @@ const BmListing = ({ listing }) => {
       dispatch({
         type: 'BM_REMOVE',
         payload: listing,
-      })
-      if(!user) return;
+      });
+      if (!user) return;
 
       // db
       await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
     }
-    catch (e) {
-      log('BmListing', e);
+    catch (error) {
+      log('BmListing', error);
     }
-  }
+  };
 
   return (
     <Link to={`/listing/${listing._id}`}>
       <Container>
         <Img src={listing.imgs[0]} />
         <Data>
-        <div>
-          <Row>
-            <Addr>{listing.addr}</Addr>
-            <DeleteBtn onClick={handleRemove}>x</DeleteBtn>
-          </Row>
-          <Row>
-            <Body muted sm>{listingDatestring(listing)}</Body>
-          </Row>
-        </div>
-          <Row justify='end'>
-            <Price>${listing.price}</Price>
+          <div>
+            <Row>
+              <Addr>{listing.addr}</Addr>
+              <DeleteBtn onClick={handleRemove}>x</DeleteBtn>
+            </Row>
+            <Row>
+              <Body muted sm>{listingDatestring(listing)}</Body>
+            </Row>
+          </div>
+          <Row justify="end">
+            <Price>
+$
+              {listing.price}
+            </Price>
           </Row>
         </Data>
       </Container>
     </Link>
-  )
+  );
 };
 
 export default BmListing;

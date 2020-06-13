@@ -14,4 +14,3 @@ router.use('/file', require('./fileRouter'));
 router.use('/chatroom', require('./chatroomRouter'));
 
 module.exports = router;
-

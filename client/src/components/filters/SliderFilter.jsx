@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useRouter from 'src/util/hooks/useRouter';
 import Slider from '@material-ui/core/Slider';
@@ -9,11 +9,13 @@ const Container = styled.div`
   justify-content: center;
 
   & > .MuiSlider-colorPrimary {
-    color: ${props => props.theme.primary};
+    color: ${(props) => props.theme.primary};
   }
 `;
 
-const SliderFilter = ({ startName, endName, max, step }) => {
+const SliderFilter = ({
+  startName, endName, max, step,
+}) => {
   const router = useRouter();
   const [value, setValue] = React.useState([0, max]);
 
@@ -23,19 +25,22 @@ const SliderFilter = ({ startName, endName, max, step }) => {
 
   const handleChangeCommitted = (event, newValue) => {
     const query = {};
+    // eslint-disable-next-line prefer-destructuring
     query[startName] = newValue[0];
+    // eslint-disable-next-line prefer-destructuring
     query[endName] = newValue[1];
     router.updateQuery(query);
-  }
+  };
 
   function valuetext(val) {
-    return '$' + val;
+    return `$${val}`;
   }
 
   useEffect(() => {
     if (router.query[startName] && router.query[endName]) {
       setValue([Number(router.query[startName]), Number(router.query[endName])]);
-    } else {
+    }
+    else {
       setValue([0, max]);
     }
   }, [router.query[startName], router.query[endName]]);

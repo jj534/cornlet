@@ -18,11 +18,11 @@ const IncrementorSection = styled.div`
     font-weight: bold;
     text-align: center;
   }
-`
+`;
 
 const IncrementBtn = styled.button`
   background: inherit;
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
   cursor: pointer;
   
   font-size: 1.5rem;
@@ -33,29 +33,31 @@ const IncrementBtn = styled.button`
   padding: 0;
   
   border-radius: 50%;
-  border: 1px solid ${props => props.theme.primary};
-`
+  border: 1px solid ${(props) => props.theme.primary};
+`;
 
-const Incrementor = ({ formik, label, name, increment }) => {
-  const dynIncrement = increment || 1
+const Incrementor = ({
+  formik, label, name, increment,
+}) => {
+  const dynIncrement = increment || 1;
   const handleIncrement = () => {
     formik.setFieldValue(name, Number(formik.values[name]) + dynIncrement, false);
-  }
+  };
   const handleDecrement = () => {
     const val = Number(formik.values[name]) - dynIncrement;
     formik.setFieldValue(name, val < 0 ? 0 : val, false);
-  }
+  };
 
   return (
     <Container>
       <Body>{label}</Body>
       <IncrementorSection>
-        <IncrementBtn type='button' onClick={handleDecrement}>-</IncrementBtn>
+        <IncrementBtn type="button" onClick={handleDecrement}>-</IncrementBtn>
         <Body>{formik.values[name]}</Body>
-        <IncrementBtn type='button' onClick={handleIncrement}>+</IncrementBtn>
+        <IncrementBtn type="button" onClick={handleIncrement}>+</IncrementBtn>
       </IncrementorSection>
     </Container>
-  )
+  );
 };
 
 export default Incrementor;

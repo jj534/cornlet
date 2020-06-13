@@ -20,9 +20,9 @@ const BmFilled = styled(BmFilledRaw)`
   cursor: pointer;
 
   // highlighted
-  fill: ${props => props.highlighted ? props.theme.primary : ''};
-  opacity: ${props => props.highlighted ? '.9' : ''};
-`
+  fill: ${(props) => (props.highlighted ? props.theme.primary : '')};
+  opacity: ${(props) => (props.highlighted ? '.9' : '')};
+`;
 
 const BmBtn = ({ listing }) => {
   const bm = useSelector((state) => state.bm);
@@ -39,28 +39,28 @@ const BmBtn = ({ listing }) => {
       const type = newState ? 'BM_ADD' : 'BM_REMOVE';
       dispatch({
         type,
-        payload: listing
-      })
+        payload: listing,
+      });
       if (!user) return;
-      
+
       // DB
       if (newState) {
-        await api.put(`/user/${user.uid}/bm/add/${listing._id}`)
+        await api.put(`/user/${user.uid}/bm/add/${listing._id}`);
       }
       else {
-        await api.put(`/user/${user.uid}/bm/remove/${listing._id}`)
+        await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
       }
     }
     catch (e) {
-      log('ListingCard', e)
+      log('ListingCard', e);
     }
-  }
+  };
 
   return (
     <Container>
       <BmFilled onClick={toggleBm} highlighted={isBmed ? 1 : 0} />
     </Container>
-  )
+  );
 };
 
 export default BmBtn;

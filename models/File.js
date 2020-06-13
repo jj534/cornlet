@@ -1,24 +1,25 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var mongoosePaginate = require('mongoose-paginate-v2');
 
-var itemSchema = Schema({
+const { Schema } = mongoose;
+const mongoosePaginate = require('mongoose-paginate-v2');
+
+const itemSchema = Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   src: {
     type: String,
-    required: true
+    required: true,
   },
   path: {
     type: String,
-    requied: true
+    requied: true,
   },
   createdAt: {
     type: Date,
-    default: new Date()
-  }
+    default: new Date(),
+  },
 });
 
 itemSchema.plugin(mongoosePaginate);

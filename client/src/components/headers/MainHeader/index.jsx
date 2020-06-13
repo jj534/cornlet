@@ -49,7 +49,9 @@ const MainHeader = () => {
               color="primary"
               inverted
             >
-New {isDesktop && ' Listing'}
+New
+              {' '}
+              {isDesktop && ' Listing'}
             </Btn>
           </Link>
         )}

@@ -17,7 +17,8 @@ listingRouter.post('/create', async (req, res) => {
     // query
     const result = await new Listing(data).save();
     res.send(result);
-  } catch (e) {
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });
@@ -26,14 +27,18 @@ listingRouter.get('/', async (req, res) => {
   try {
     // format query
     const {
-      uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus
+      uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus,
     } = req.query;
     const uidQuery = uid ? { 'user.uid': uid } : {};
     const activeQuery = active ? { active } : {};
     const startQuery = start ? { start: { $lt: moment(new Date(start)).endOf('day').toDate() } } : {};
     const endQuery = end ? { end: { $gte: new Date(end) } } : {};
-    const priceQuery = minPrice && maxPrice ? { price: { $lte: Number(maxPrice), $gte: Number(minPrice) } } : {};
-    const toCampusQuery = minToCampus && maxToCampus ? { toCampus: { $lte: Number(maxToCampus), $gte: Number(minToCampus) } } : {};
+    const priceQuery = minPrice && maxPrice
+      ? { price: { $lte: Number(maxPrice), $gte: Number(minPrice) } }
+      : {};
+    const toCampusQuery = minToCampus && maxToCampus
+      ? { toCampus: { $lte: Number(maxToCampus), $gte: Number(minToCampus) } }
+      : {};
     const query = {
       ...activeQuery,
       ...uidQuery,
@@ -54,7 +59,8 @@ listingRouter.get('/', async (req, res) => {
     const docs = await Listing.find(query, null, sortQuery);
     const notDeletedDocs = docs.filter((doc) => !doc.deleted);
     res.send(notDeletedDocs);
-  } catch (e) {
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });
@@ -63,7 +69,8 @@ listingRouter.get('/:id', async (req, res) => {
   try {
     const doc = await Listing.findById(req.params.id);
     res.send(doc.toObject({ virtuals: true }));
-  } catch (e) {
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });
@@ -76,7 +83,8 @@ listingRouter.put('/:id/update', async (req, res) => {
     };
     const doc = await Listing.findByIdAndUpdate(req.params.id, data, { new: true });
     res.send(doc);
-  } catch (e) {
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });

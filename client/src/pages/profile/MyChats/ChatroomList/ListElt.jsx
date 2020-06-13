@@ -15,12 +15,12 @@ const Container = styled.div`
   padding: 1rem 0;
   border-radius: 2px;
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     padding: 1rem;
   }
 
   // selected
-  background: ${props => props.selected ? 'rgba(0, 0, 0, .1)' : ''};
+  background: ${(props) => (props.selected ? 'rgba(0, 0, 0, .1)' : '')};
 `;
 
 export const PhotoSection = styled.div`
@@ -44,7 +44,7 @@ export const Row = styled.div`
 `;
 
 export const TextContainer = styled.div`
-  max-width: ${props => props.maxWidth ? `${props.maxWidth}px` : '140px'};
+  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : '140px')};
 `;
 
 const ListElt = ({ chatroom }) => {
@@ -53,7 +53,7 @@ const ListElt = ({ chatroom }) => {
   const chatroomPath = `/profile/chat/${chatroom._id}`;
   const selected = router.pathname === chatroomPath;
   const nextPath = selected ? '/profile/chat' : chatroomPath;
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const hasNotif = chatroom.notifUids && chatroom.notifUids.includes(user.uid);
 
   return (
@@ -70,19 +70,24 @@ const ListElt = ({ chatroom }) => {
           <Row>
             <Body bold>{otherUser.name}</Body>
             <TextContainer>
-              <Body color='primary' ellipsis>{getShortAddr(chatroom.listing.addr)}</Body>
+              <Body color="primary" ellipsis>{getShortAddr(chatroom.listing.addr)}</Body>
             </TextContainer>
           </Row>
           <Row>
             <TextContainer maxWidth={200}>
-              <Body muted={hasNotif ? 0 : 1} ellipsis>{chatroom.msgs[chatroom.msgs.length-1].content}</Body>
+              <Body
+                muted={hasNotif ? 0 : 1}
+                ellipsis
+              >
+                {chatroom.msgs[chatroom.msgs.length - 1].content}
+              </Body>
             </TextContainer>
             <Body muted>{formatDate(chatroom.updatedAt, true)}</Body>
           </Row>
         </TextSection>
       </Container>
     </Link>
-  )
+  );
 };
 
 export default ListElt;

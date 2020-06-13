@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ListingCard from 'src/components/cards/ListingCard';
 
 const Wrapper = styled.div`
   display: flex;

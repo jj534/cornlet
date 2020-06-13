@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from 'src/components/inputs/Input';
 import Btn from 'src/components/buttons/Btn';
@@ -29,7 +29,7 @@ const Container = styled.div`
     margin-top: .5rem;
   }
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     position: static;
     height: auto;
   }
@@ -56,31 +56,45 @@ const InputSection = ({ chatroom }) => {
   const maxRows = 6;
   const lineHeight = 24;
   const [rows, setRows] = useState(minRows);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   const handleChange = (event) => {
-    // reset number of rows in textarea 
+    // reset number of rows in textarea
     const previousRows = rows;
-  	setRows(minRows);
-		
-		// calculate number of rows
+    setRows(minRows);
+
+    // calculate number of rows
     const currentRows = Math.floor(event.target.scrollHeight / lineHeight);
-    
-		// if rows didn't change
+
+    // if rows didn't change
     if (currentRows === previousRows) {
       setRows(currentRows);
     }
-    
+
     // if rows increased
-		if (currentRows >= maxRows) {
+    if (currentRows >= maxRows) {
       // increase rows
       setRows(maxRows);
-			event.target.scrollTop = event.target.scrollHeight;
+      event.target.scrollTop = event.target.scrollHeight;
     }
-    
+
     setMsg(event.target.value);
-    setRows(currentRows < maxRows ? currentRows : maxRows)
-  }
+    setRows(currentRows < maxRows ? currentRows : maxRows);
+  };
+
+  const handleSendMsg = () => {
+    setMsg('');
+    setRows(minRows);
+
+    const data = {
+      cid: chatroom._id,
+      type: 'txt',
+      content: msg,
+      uid: user.uid,
+      createdAt: new Date(),
+    };
+    socket.emit('msg', data);
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.altKey) {
@@ -88,21 +102,7 @@ const InputSection = ({ chatroom }) => {
       e.stopPropagation();
       handleSendMsg();
     }
-  }
-
-  const handleSendMsg = () => {
-    setMsg('');
-    setRows(minRows);
-
-    const data = { 
-      cid: chatroom._id, 
-      type: 'txt',
-      content: msg,
-      uid: user.uid,
-      createdAt: new Date(),
-    }
-    socket.emit('msg', data)
-  }
+  };
 
   return (
     <div>
@@ -118,7 +118,7 @@ const InputSection = ({ chatroom }) => {
           />
         </InputContainer>
         <Btn
-          color='primary'
+          color="primary"
           inverted
           onClick={handleSendMsg}
         >
@@ -129,7 +129,7 @@ const InputSection = ({ chatroom }) => {
         <Placeholder />
       </RenderOn>
     </div>
-  )
+  );
 };
 
 export default InputSection;

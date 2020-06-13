@@ -15,7 +15,7 @@ const Edit = ({ user, initialValues }) => (
       <MainHeader />
     </RenderOn>
     <RenderOn mobile>
-      <BackHeader to='/profile'/>
+      <BackHeader to="/profile" />
     </RenderOn>
     <ListingForm
       user={user}

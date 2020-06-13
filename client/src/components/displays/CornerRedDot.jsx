@@ -13,12 +13,10 @@ const Container = styled.div`
   z-index: 10;
 
   // lg
-  padding: ${props => props.lg ? '6px' : ''};
-  // border-width: ${props => props.lg ? '3px' : ''};
+  padding: ${(props) => (props.lg ? '6px' : '')};
+  // border-width: ${(props) => (props.lg ? '3px' : '')};
 `;
 
-const CornerRedDot = (props) => {
-  return <Container {...props} />;
-};
+const CornerRedDot = (props) => <Container {...props} />;
 
 export default CornerRedDot;

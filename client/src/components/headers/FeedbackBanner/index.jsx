@@ -6,7 +6,7 @@ const Container = styled.div`
   left: 0;
   right: 0;
   padding: .3rem 0;
-  background: ${props => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   color: white;
   font-size: .8rem;
   text-align: center;
@@ -20,19 +20,19 @@ const FeedbackBanner = () => {
     'Would you be able to change this?',
     'Can this be a new part of the website?',
     'Is is possible to change this part?',
-  ]
+  ];
 
   useEffect(() => {
     setDispText(texts[Math.floor(Math.random() * texts.length)]);
-  }, [window.location, texts])
-  
+  }, [window.location, texts]);
+
   return (
     <a target="_blank" rel="noopener noreferrer" href="https://forms.gle/7Vu1Jp4druPKzghM7">
       <Container>
         {dispText}
       </Container>
     </a>
-  )
+  );
 };
 
 export default FeedbackBanner;

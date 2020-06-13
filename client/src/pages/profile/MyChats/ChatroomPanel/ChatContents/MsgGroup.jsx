@@ -31,8 +31,8 @@ export const MsgSection = styled.div`
 `;
 
 const MsgGroup = ({ user, msgs, isOwner }) => {
-  const lastMsg = msgs[msgs.length-1];
-  
+  const lastMsg = msgs[msgs.length - 1];
+
   return (
     <Container>
       <PhotoSection>
@@ -53,7 +53,7 @@ const MsgGroup = ({ user, msgs, isOwner }) => {
         </MsgSection>
       </TextSection>
     </Container>
-  )
+  );
 };
 
 export default MsgGroup;

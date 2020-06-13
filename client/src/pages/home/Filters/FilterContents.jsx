@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const Name = styled(Body)`
   margin: 1rem 0;
-`
+`;
 
 const Row = styled.div`
   display: flex;
@@ -21,40 +21,38 @@ const Row = styled.div`
   & > * {
     margin-right: .5rem;
   }
-`
+`;
 
-const FilterContents = () => {
-  return (
-    <Container>
-      <ClearFilters />
-      <Name>Date</Name>
-      <Row>
-        <DateFilter
-          name='start'
-          placeholder='Start'
-        />
-        <Body>to</Body>
-        <DateFilter
-          name='end'
-          placeholder='End'
-        />
-      </Row>
-      <Name>Price</Name>
-      <SliderFilter
-        startName='minPrice'
-        endName='maxPrice'
-        max={2000}
-        step={50}
+const FilterContents = () => (
+  <Container>
+    <ClearFilters />
+    <Name>Date</Name>
+    <Row>
+      <DateFilter
+        name="start"
+        placeholder="Start"
       />
-      <Name>Distance to Campus (km)</Name>
-      <SliderFilter
-        startName='minToCampus'
-        endName='maxToCampus'
-        max={5}
-        step={0.2}
+      <Body>to</Body>
+      <DateFilter
+        name="end"
+        placeholder="End"
       />
-    </Container>
-  )
-};
+    </Row>
+    <Name>Price</Name>
+    <SliderFilter
+      startName="minPrice"
+      endName="maxPrice"
+      max={2000}
+      step={50}
+    />
+    <Name>Distance to Campus (km)</Name>
+    <SliderFilter
+      startName="minToCampus"
+      endName="maxToCampus"
+      max={5}
+      step={0.2}
+    />
+  </Container>
+);
 
 export default FilterContents;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import useOnOutsideClick from 'src/util/hooks/useOnOutsideClick';
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
@@ -12,16 +12,16 @@ const Container = styled.div`
   right: 10px;
   z-index: 5;
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     position: absolute;
     top: 40px;
 
     // alignLeft
-    left: ${props => props.alignLeft ? 'initial' : '-200px'};
-    right: ${props => props.alignLeft ? 'initial' : 'initial'};
+    left: ${(props) => (props.alignLeft ? 'initial' : '-200px')};
+    right: ${(props) => (props.alignLeft ? 'initial' : 'initial')};
 
     // alignTop
-    top: ${props => props.alignTop ? '0' : ''};
+    top: ${(props) => (props.alignTop ? '0' : '')};
   }
   
   border-radius: 2px;
@@ -32,10 +32,10 @@ const Container = styled.div`
   white-space: nowrap;
 
   // show
-  display: ${props => props.show ? '' : 'none'};
+  display: ${(props) => (props.show ? '' : 'none')};
 
   // alignTop
-  margin-top: ${props => props.alignTop ? '0' : ''};
+  margin-top: ${(props) => (props.alignTop ? '0' : '')};
 `;
 
 const Dropdown = ({
@@ -43,32 +43,32 @@ const Dropdown = ({
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
-  }
+  };
   const DropdownRef = useRef();
   const closeDropdown = () => {
     setShow(false);
     clearAllBodyScrollLocks();
-  }
+  };
   useOnOutsideClick(DropdownRef, closeDropdown);
 
   // disable scroll on mobile
-  const [scWidth, height] = useWindowSize();
+  const [scWidth] = useWindowSize();
   useEffect(() => {
     if (show && scWidth < theme.md) disableBodyScroll(DropdownRef);
-  }, [show])
+  }, [show]);
 
   return (
-    <Container 
-    ref={DropdownRef} 
-    onClick={handleClick} 
-    show={show}
-    alignLeft={alignLeft}
-    alignTop={alignTop}
-    {...rest}
+    <Container
+      ref={DropdownRef}
+      onClick={handleClick}
+      show={show}
+      alignLeft={alignLeft}
+      alignTop={alignTop}
+      {...rest}
     >
       {children}
     </Container>
-  )
-}
+  );
+};
 
 export default Dropdown;

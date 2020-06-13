@@ -11,9 +11,9 @@ const Container = styled.div`
 
 const ClearBtn = styled.button`
   text-decoration: underline;
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
   background: inherit;
-`
+`;
 
 const ClearFilters = () => {
   const router = useRouter();
@@ -24,9 +24,9 @@ const ClearFilters = () => {
 
   return (
     <Container>
-      <ClearBtn type='button' onClick={handleClick}>Clear</ClearBtn>
+      <ClearBtn type="button" onClick={handleClick}>Clear</ClearBtn>
     </Container>
-  )
+  );
 };
 
 export default ClearFilters;

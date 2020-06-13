@@ -17,26 +17,26 @@ const Amenities = ({ formik }) => {
       formik.setFieldValue('amenities', newAmenities);
     }
     else {
-      formik.setFieldValue('amenities', [...formik.values.amenities, value])
+      formik.setFieldValue('amenities', [...formik.values.amenities, value]);
     }
-  }
+  };
 
   return (
     <Container>
       <Body muted>Click on amenity icons to activate them</Body>
       <AmenitiesList>
-        {amenities.map(amenity => (
+        {amenities.map((amenity) => (
           <AmenityGrp
-            key={amenity.value} 
+            key={amenity.value}
             icon={amenity.icon}
             label={amenity.label}
-            active={formik.values.amenities.includes(amenity.value)} 
+            active={formik.values.amenities.includes(amenity.value)}
             onClick={() => toggle(amenity.value)}
           />
         ))}
       </AmenitiesList>
     </Container>
-  )
+  );
 };
 
 export default Amenities;

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import MainHeader from 'src/components/headers/MainHeader';
 import Navbar from 'src/components/headers/Navbar';
-import ChatroomList from '../ChatroomList';
 import { useSelector } from 'react-redux';
 import Body from 'src/components/fonts/Body';
+import ChatroomList from '../ChatroomList';
 
 const Container = styled.div`
   display: flex;
@@ -32,11 +32,10 @@ const Chat = () => {
       <Content>
         {chatrooms.length === 0
           ? <Center><Body>No chats yet!</Body></Center>
-          : <ChatroomList />
-        }
+          : <ChatroomList />}
       </Content>
     </Container>
-  )
+  );
 };
 
 export default Chat;

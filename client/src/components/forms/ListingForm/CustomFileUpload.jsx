@@ -41,10 +41,10 @@ const CustomFileUpload = ({
   formik, name, user,
 }) => {
   const [newSrc, setNewSrc] = useState();
-  var random = generator.generate({
+  const random = generator.generate({
     length: 16,
-    numbers: true
-});
+    numbers: true,
+  });
 
   useEffect(() => {
     if (newSrc) {
@@ -67,7 +67,7 @@ const CustomFileUpload = ({
   return (
     <Container>
       <FileUpload
-        path={user ?`/user/${user.uid}` : `/temp/${random}`}
+        path={user ? `/user/${user.uid}` : `/temp/${random}`}
         setSrc={setNewSrc}
       />
       <ErrMsg

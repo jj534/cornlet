@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -6,9 +6,10 @@ import PlacesAutocomplete, {
 import useScript from 'src/util/hooks/useScript';
 import Input from 'src/components/inputs/Input';
 import styled from 'styled-components';
+import calcDistance from 'src/util/helpers/calcDistance';
+import log from 'src/util/log';
 import LoadingDots from '../displays/LoadingDots';
 import Dropdown from '../views/Dropdown';
-import calcDistance from 'src/util/helpers/calcDistance';
 import Body from '../fonts/Body';
 import ErrMsg from '../fonts/ErrMsg';
 
@@ -26,45 +27,51 @@ export const Suggestion = styled.div`
   cursor: pointer;
 
   // active
-  background: ${props => props.active ? 'rgba(0, 0, 0, .1)' : ''};
+  background: ${(props) => (props.active ? 'rgba(0, 0, 0, .1)' : '')};
 `;
- 
-const AddrInput = ({ formik, name, label }) => { 
+
+const AddrInput = ({ formik, name, label }) => {
   const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAP_KEY}&libraries=places`);
-  
-  const handleChange = address => {
+
+  const handleChange = (address) => {
     formik.setFieldValue(name, address);
     formik.setFieldTouched('toCampus', true);
 
     // reset values on addr change
     const { lat, lng, toCampus } = formik.values;
-    if (lat !== '') formik.setFieldValue('lat', '')
-    if (lng !== '') formik.setFieldValue('lng', '')
-    if (toCampus !== '') formik.setFieldValue('toCampus', '')
+    if (lat !== '') formik.setFieldValue('lat', '');
+    if (lng !== '') formik.setFieldValue('lng', '');
+    if (toCampus !== '') formik.setFieldValue('toCampus', '');
   };
- 
-  const handleSelect = address => {
+
+  const handleSelect = (address) => {
     handleChange(address);
     geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        const minDistance = Math.min(calcDistance(42.443147, -76.485249, latLng.lat, latLng.lng), calcDistance(42.447549, -76.487739, latLng.lat, latLng.lng), calcDistance(42.451288, -76.482072, latLng.lat, latLng.lng))
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => {
+        const minDistance = Math.min(
+          calcDistance(42.443147, -76.485249, latLng.lat, latLng.lng),
+          calcDistance(42.447549, -76.487739, latLng.lat, latLng.lng),
+          calcDistance(42.451288, -76.482072, latLng.lat, latLng.lng),
+        );
         formik.setFieldValue('toCampus', Math.round(minDistance * 10) / 10);
         formik.setFieldValue('lat', latLng.lat);
         formik.setFieldValue('lng', latLng.lng);
       })
-      .catch(error => console.error('Error', error));
+      .catch((e) => log('AddrInput', e));
   };
 
   if (!loaded || error) return <div />;
- 
+
   return (
     <PlacesAutocomplete
       value={formik.values[name]}
       onChange={handleChange}
       onSelect={handleSelect}
     >
-      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+      {({
+        getInputProps, suggestions, getSuggestionItemProps, loading,
+      }) => (
         <Container>
           <Input
             formik={formik}
@@ -72,26 +79,34 @@ const AddrInput = ({ formik, name, label }) => {
             label={label}
             {...getInputProps({})}
           />
-          {formik.values.toCampus && <Body muted>{formik.values.toCampus} km to campus</Body>}
+          {formik.values.toCampus && (
+          <Body muted>
+            {formik.values.toCampus}
+            {' '}
+km to campus
+          </Body>
+          )}
           <ErrMsg
             formik={formik}
-            name='toCampus'
+            name="toCampus"
           />
           <DropdownContainer>
-            <Dropdown 
+            <Dropdown
               show={suggestions.length}
-              setShow={(bool) => {if (!bool) suggestions = []}}
+              setShow={(bool) => {
+                if (!bool) suggestions = [];
+              }}
               alignLeft
               alignTop
             >
               {loading && <LoadingDots />}
-              {suggestions.map(suggestion => (
-                  <Suggestion
-                    {...getSuggestionItemProps(suggestion)}
-                    active={suggestion.active}
-                  >
-                    <span>{suggestion.description}</span>
-                  </Suggestion>
+              {suggestions.map((suggestion) => (
+                <Suggestion
+                  {...getSuggestionItemProps(suggestion)}
+                  active={suggestion.active}
+                >
+                  <span>{suggestion.description}</span>
+                </Suggestion>
               ))}
             </Dropdown>
           </DropdownContainer>
@@ -99,6 +114,6 @@ const AddrInput = ({ formik, name, label }) => {
       )}
     </PlacesAutocomplete>
   );
-}
+};
 
 export default AddrInput;

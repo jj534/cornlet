@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import 'src/theme/Normalise.scss';
 import theme from 'src/theme';
-import MainFooter from 'src/components/footers/MainFooter';
 import AppReduxWrapper from './AppReduxWrapper';
 
 const Wrapper = styled.div`
@@ -24,16 +23,14 @@ const Container = styled.div`
   }
 `;
 
-const AppThemeWrapper = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Wrapper>
-        <Container>
-          <AppReduxWrapper />
-        </Container>
-      </Wrapper>
-    </ThemeProvider>
-  );
-};
+const AppThemeWrapper = () => (
+  <ThemeProvider theme={theme}>
+    <Wrapper>
+      <Container>
+        <AppReduxWrapper />
+      </Container>
+    </Wrapper>
+  </ThemeProvider>
+);
 
 export default AppThemeWrapper;

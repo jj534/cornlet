@@ -31,12 +31,12 @@ const Nav = styled.nav`
 
 const MadeWithLove = styled(Body)`
   line-height: 1.5;
-`
+`;
 
 const MainFooter = () => {
   const router = useRouter();
   const pathArr = router.pathname.split('/');
-  const isChatroomPath  = pathArr.length === 4 && pathArr[1] === 'profile' && pathArr[2] === 'chat';
+  const isChatroomPath = pathArr.length === 4 && pathArr[1] === 'profile' && pathArr[2] === 'chat';
   const isMobile = useIsMobile();
 
   if (isChatroomPath && isMobile) return <div />;
@@ -45,15 +45,22 @@ const MainFooter = () => {
     <Container>
       <HrLine />
       <Content>
-        <Link to='/'>
+        <Link to="/">
           <Logo />
         </Link>
         <Nav>
-          <MadeWithLove>Made with ❤️ by 🐻</MadeWithLove>
+          <MadeWithLove>
+Made with
+            {' '}
+            <span role="img" aria-label="heart">❤️</span>
+            {' '}
+by
+            <span role="img" aria-label="Cornell Bear">🐻</span>
+          </MadeWithLove>
         </Nav>
       </Content>
     </Container>
-  )
+  );
 };
 
 export default MainFooter;

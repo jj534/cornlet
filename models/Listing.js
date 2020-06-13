@@ -122,18 +122,16 @@ const listingSchema = Schema({
   updatedAt: {
     type: Date,
     required: true,
-    default: new Date,
+    default: new Date(),
   },
   createdAt: {
     type: Date,
     required: true,
-    default: new Date,
+    default: new Date(),
   },
 });
 
-listingSchema.virtual('dateString').get(function () {
-  return formatDate(this.start) + ' ~ ' + formatDate(this.end);
-});
+listingSchema.virtual('dateString').get(() => `${formatDate(this.start)} ~ ${formatDate(this.end)}`);
 
 listingSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Listing', listingSchema);

@@ -12,11 +12,11 @@ const StyledBody = styled.h2`
   text-overflow: ellipsis;
 
   // bold
-  font-weight: ${props => props.bold ? 'bold' : ''};
+  font-weight: ${(props) => (props.bold ? 'bold' : '')};
 `;
 
 const Subheading = ({ children, bold, ...rest }) => (
-  <StyledBody bold={bold}>
+  <StyledBody bold={bold} {...rest}>
     {children}
   </StyledBody>
 );

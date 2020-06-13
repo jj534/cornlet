@@ -29,7 +29,6 @@ import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
 import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
 import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
 import { ReactComponent as ProfileSVG } from 'src/assets/svgs/profile.svg';
-import { ReactComponent as ChatSVG } from 'src/assets/svgs/chat.svg';
 import HoriCenter from 'src/containers/HoriCenter';
 import api from 'src/util/api';
 import log from 'src/util/log';
@@ -96,39 +95,39 @@ const Row = styled.div`
   }
 
   // marginTop
-  margin-top: ${props => props.marginTop ? '1rem' : ''};
+  margin-top: ${(props) => (props.marginTop ? '1rem' : '')};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin-top: ${props => props.marginTop ? '1.2rem' : ''};
+    margin-top: ${(props) => (props.marginTop ? '1.2rem' : '')};
   }
 
   // marginTopLarge
-  margin-top: ${props => props.marginTopLarge ? '1.5rem' : ''};
+  margin-top: ${(props) => (props.marginTopLarge ? '1.5rem' : '')};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin-top: ${props => props.marginTopLarge ? '1.7rem' : ''};
+    margin-top: ${(props) => (props.marginTopLarge ? '1.7rem' : '')};
   }
 
   // marginBottom
-  margin-bottom: ${props => props.marginBottom ? '1rem' : ''};
+  margin-bottom: ${(props) => (props.marginBottom ? '1rem' : '')};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin-bottom: ${props => props.marginBottom ? '1.2rem' : ''};
+    margin-bottom: ${(props) => (props.marginBottom ? '1.2rem' : '')};
   }
 
   // marginBottomLarge
-  margin-bottom: ${props => props.marginBottomLarge ? '1.5rem' : ''};
+  margin-bottom: ${(props) => (props.marginBottomLarge ? '1.5rem' : '')};
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    margin-bottom: ${props => props.marginBottomLarge ? '1.7rem' : ''};
+    margin-bottom: ${(props) => (props.marginBottomLarge ? '1.7rem' : '')};
   }
 
   // icon
-  justify-content: ${props => props.icon ? 'flex-start' : ''};
+  justify-content: ${(props) => (props.icon ? 'flex-start' : '')};
 `;
 
 export const MapContainer = styled.div`
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     padding: 0 1rem;
   }
 `;
@@ -146,8 +145,8 @@ const SVGContainer = styled.div`
   }
 
   // mr
-  margin-right: ${props => props.mr ? '.5rem' : ''};
-`
+  margin-right: ${(props) => (props.mr ? '.5rem' : '')};
+`;
 
 export const CalendarSVG = styled(CalendarRaw)`
   width: 30px !important;
@@ -156,12 +155,12 @@ export const CalendarSVG = styled(CalendarRaw)`
 const LockSection = styled.div`
   display: flex;
   align-items: flex-start;
-`
+`;
 
 const LockSVG = styled(LockRaw)`
   height: 1rem;
   opacity: .6;
-`
+`;
 
 const LockAvatar = styled.div`
   height: 40px;
@@ -175,11 +174,11 @@ const LockAvatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const TextSection = styled.div`
   max-width: 270px;
-`
+`;
 
 export const Fullwidth = styled.div`
   width: 100%;
@@ -199,7 +198,7 @@ export const MsgBtn = styled.button`
   align-items: flex-start;
   justify-content: center;
 
-  background: ${props => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   color: white;
 
   border-radius: 10px;
@@ -220,17 +219,21 @@ export const ModalContents = styled.div`
 
 const Listing = ({ listing }) => {
   const {
-    imgs, addr, price, user, desc, sold, displayName, displayEmail, cornellOnly, totalRooms, availRooms, bathrooms, type, toCampus, maleRoommates, femaleRoommates, lat, lng
+    imgs, addr, price, user, desc, sold, displayName, cornellOnly,
+    totalRooms, availRooms, bathrooms, type, toCampus,
+    maleRoommates, femaleRoommates, lat, lng,
   } = listing;
 
   const signedInUser = useSelector((state) => state.user);
-  let availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
+  const chatrooms = useSelector((state) => state.chatrooms);
+  const authing = useSelector((state) => state.authing);
+  const tempValues = useSelector((state) => state.tempValues);
 
+  const availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
   const router = useRouter();
   const dispatch = useDispatch();
-  const chatrooms = useSelector((state) => state.chatrooms);
 
   const handleMsgBtnClick = () => {
     const existing = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
@@ -240,10 +243,30 @@ const Listing = ({ listing }) => {
     else {
       setOpen(true);
     }
-  }
+  };
 
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
+  };
+
+  const createMsg = () => {
+    // DB create
+    // DB must be created first to get the data schema
+    const reqData = {
+      lid: listing._id,
+      msgContent: tempValues || msg,
+      searcherUid: signedInUser.uid,
+      ownerUid: user.uid,
+    };
+    api.post('/chatroom/create', reqData)
+      .then(({ data }) => {
+        // emit socket event
+        socket.emit('new chatroom', data);
+
+        // redirect
+        router.push(`/profile/chat/${data._id}`);
+      })
+      .catch(({ response }) => log('Listing', response));
   };
 
   const handleCreateMsg = () => {
@@ -259,58 +282,35 @@ const Listing = ({ listing }) => {
       dispatch({
         type: 'TEMP_VALUES_SET',
         payload: msg,
-      })
+      });
     }
     else {
-      const sameListingChatrooms = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
-      if (sameListingChatrooms.length >= 1) {
+      const listingChatrooms = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
+      if (listingChatrooms.length >= 1) {
         // chatroom already exists
         // append msg to existing chatroom
-        const data = { 
-          cid: sameListingChatrooms[0]._id, 
+        const data = {
+          cid: listingChatrooms[0]._id,
           type: 'txt',
-          content: tempValues ? tempValues : msg,
+          content: tempValues || msg,
           uid: signedInUser.uid,
           createdAt: new Date(),
-        }
+        };
         socket.emit('msg', data);
-        router.push(`/profile/chat/${sameListingChatrooms[0]._id}`);
+        router.push(`/profile/chat/${listingChatrooms[0]._id}`);
       }
       else {
         createMsg();
       }
     }
-  }
+  };
 
-  const createMsg = () => {
-    // DB create
-    // DB must be created first to get the data schema
-    const reqData = {
-      lid: listing._id,
-      msgContent: tempValues ? tempValues : msg,
-      searcherUid: signedInUser.uid,
-      ownerUid: user.uid,
-    }
-    api.post('/chatroom/create', reqData)
-      .then(({ data }) => {
-        // emit socket event
-        socket.emit('new chatroom', data);
-
-        // redirect
-        router.push(`/profile/chat/${data._id}`);
-      })
-      .catch(({ response }) => log('Listing', response));
-  }
-
-  const authing = useSelector(state => state.authing);
-  const tempValues = useSelector(state => state.tempValues);
-  
   if (tempValues && !authing) {
     handleCreateMsg();
     dispatch({
       type: 'TEMP_VALUES_SET',
       payload: null,
-    })
+    });
   }
 
   return (
@@ -323,127 +323,150 @@ const Listing = ({ listing }) => {
           <RenderOn mobile>
             <BackHeader fullwidth />
           </RenderOn>
-          {authing 
+          {authing
             ? <div>handling authentication</div>
             : (!listing.active || listing.deleted)
-            ? <Body>This listing is inactive or has been deleted by the owner.</Body>
-            : (
-              <ListingSection>
-                <ImgInnerContainer>
-                  <ImgCarousel imgs={imgs} />
-                  <PriceBadge alignTop lg>${price}</PriceBadge>
-                </ImgInnerContainer>
-                <Content>
-                  <Section>
-                    <Row>
-                      <Heading>{totalRooms || 1}-Bedroom {type.charAt(0).toUpperCase() + type.slice(1)}</Heading>
-                      <BmBtn listing={listing} />
-                    </Row>
-                    <Row icon>
-                      <SVGContainer><CalendarSVG /></SVGContainer>
-                      <Body muted sm>{getDateString(listing)}</Body>
-                    </Row>
-                  </Section>
-                  <Section>
-                    <Row marginBottom><Subheading bold>Contact</Subheading></Row>
-                    {sold  
-                      ? <Row><Badge color='primary' inverted>Sold</Badge></Row>
-                      :(
-                        <Row>
-                          {(!cornellOnly || cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu')
-                            ? (
-                              <Fullwidth>
-                                <DetailedAvatar
-                                  name={displayName || user.name}
-                                  src={displayName ? undefined : user.photo}
-                                />
-                                <Btn color='primary' inverted onClick={handleMsgBtnClick}>Message</Btn>
-                              </Fullwidth>
+              ? <Body>This listing is inactive or has been deleted by the owner.</Body>
+              : (
+                <ListingSection>
+                  <ImgInnerContainer>
+                    <ImgCarousel imgs={imgs} />
+                    <PriceBadge alignTop lg>
+$
+                      {price}
+                    </PriceBadge>
+                  </ImgInnerContainer>
+                  <Content>
+                    <Section>
+                      <Row>
+                        <Heading>
+                          {totalRooms || 1}
+-Bedroom
+                          {' '}
+                          {type.charAt(0).toUpperCase() + type.slice(1)}
+                        </Heading>
+                        <BmBtn listing={listing} />
+                      </Row>
+                      <Row icon>
+                        <SVGContainer><CalendarSVG /></SVGContainer>
+                        <Body muted sm>{getDateString(listing)}</Body>
+                      </Row>
+                    </Section>
+                    <Section>
+                      <Row marginBottom><Subheading bold>Contact</Subheading></Row>
+                      {sold
+                        ? <Row><Badge color="primary" inverted>Sold</Badge></Row>
+                        : (
+                          <Row>
+                            {(!cornellOnly || (cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu'))
+                              ? (
+                                <Fullwidth>
+                                  <DetailedAvatar
+                                    name={displayName || user.name}
+                                    src={displayName ? undefined : user.photo}
+                                  />
+                                  <Btn color="primary" inverted onClick={handleMsgBtnClick}>Message</Btn>
+                                </Fullwidth>
                               )
-                            : (
-                              <LockSection>
-                                <LockAvatar>
-                                  <LockSVG />
-                                </LockAvatar>
-                                <TextSection>
-                                  <Subheading bold>Restricted to Cornell</Subheading>
-                                  <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
-                                </TextSection>
-                              </LockSection>
-                              )
-                          }
-                        </Row>
-                      )
-                    }
-                  </Section>
-                  <Section>
-                    <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
+                              : (
+                                <LockSection>
+                                  <LockAvatar>
+                                    <LockSVG />
+                                  </LockAvatar>
+                                  <TextSection>
+                                    <Subheading bold>Restricted to Cornell</Subheading>
+                                    <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
+                                  </TextSection>
+                                </LockSection>
+                              )}
+                          </Row>
+                        )}
+                    </Section>
+                    <Section>
+                      <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
                       {availRooms !== 0 && (
-                        <Row icon>
-                          <SVGContainer mr><BedroomSVG /></SVGContainer>
-                          <Body muted sm>{availRooms} room(s) available</Body>
-                        </Row>
+                      <Row icon>
+                        <SVGContainer mr><BedroomSVG /></SVGContainer>
+                        <Body muted sm>
+                          {availRooms}
+                          {' '}
+room(s) available
+                        </Body>
+                      </Row>
                       )}
                       {bathrooms !== 0 && (
-                        <Row icon>
-                          <SVGContainer mr><BathroomSVG /></SVGContainer>
-                          <Body muted sm>{bathrooms} bathrooms</Body>
-                        </Row>
+                      <Row icon>
+                        <SVGContainer mr><BathroomSVG /></SVGContainer>
+                        <Body muted sm>
+                          {bathrooms}
+                          {' '}
+bathrooms
+                        </Body>
+                      </Row>
                       )}
                       {(maleRoommates !== 0 || femaleRoommates !== 0) && (
-                        <Row icon>
-                          <SVGContainer mr><ProfileSVG /></SVGContainer>
-                          <Body muted sm>{maleRoommates + femaleRoommates} roommate(s) during sublet</Body>
-                        </Row>
+                      <Row icon>
+                        <SVGContainer mr><ProfileSVG /></SVGContainer>
+                        <Body muted sm>
+                          {maleRoommates + femaleRoommates}
+                          {' '}
+roommate(s) during sublet
+                        </Body>
+                      </Row>
                       )}
-                    <Row marginTopLarge marginBottom>
-                      <Body lineHeight={1.5}>{desc}</Body>
-                    </Row>
-                  </Section>
-                  <Section>
-                    <Row marginBottom><Subheading bold>Location</Subheading></Row>
+                      <Row marginTopLarge marginBottom>
+                        <Body lineHeight={1.5}>{desc}</Body>
+                      </Row>
+                    </Section>
+                    <Section>
+                      <Row marginBottom><Subheading bold>Location</Subheading></Row>
                       <Row icon>
                         <SVGContainer><PlaceSVG /></SVGContainer>
                         <Body muted sm>{getShortAddr(addr)}</Body>
                       </Row>
                       {toCampus && (
-                        <Row icon>
-                          <SVGContainer><WalkSVG /></SVGContainer>
-                          <Body muted sm>{toCampus} km to campus</Body>
-                        </Row>
+                      <Row icon>
+                        <SVGContainer><WalkSVG /></SVGContainer>
+                        <Body muted sm>
+                          {toCampus}
+                          {' '}
+km to campus
+                        </Body>
+                      </Row>
                       )}
                       <Row marginBottom />
-                    {(lat && lng) && 
+                      {(lat && lng)
+                      && (
                       <MapContainer>
                         <Map
                           lat={lat}
                           lng={lng}
                         />
                       </MapContainer>
-                    }
-                  </Section>
-                  {availAmenities.length > 0 && 
+                      )}
+                    </Section>
+                    {availAmenities.length > 0
+                    && (
                     <Section>
                       <Row><Subheading bold>Amenities</Subheading></Row>
                       <Row>
                         <AmenitiesList>
                           {availAmenities.map((amenity) => (
                             <AmenityGrp
-                              key={amenity.value} 
+                              key={amenity.value}
                               count={amenity.count}
                               icon={amenity.icon}
                               label={amenity.label}
-                              active={true} 
+                              active
                             />
                           ))}
                         </AmenitiesList>
                       </Row>
                     </Section>
-                  }
-                </Content>
-              </ListingSection>
-            )
-          }
+                    )}
+                  </Content>
+                </ListingSection>
+              )}
         </Container>
       </Wrapper>
       <Modal
@@ -453,7 +476,7 @@ const Listing = ({ listing }) => {
       >
         <ModalContents>
           <Body>Ask any questions that you want to clarify!</Body>
-          <Input 
+          <Input
             multiline
             rows={5}
             value={msg}
@@ -461,7 +484,7 @@ const Listing = ({ listing }) => {
           />
           <HoriCenter>
             <Btn
-              color='primary'
+              color="primary"
               inverted
               onClick={handleCreateMsg}
             >

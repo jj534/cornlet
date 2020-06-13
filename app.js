@@ -9,12 +9,12 @@ require('dotenv').config();
 
 // MONGODB
 const forceProdDB = false;
-const isProdDb = forceProdDB || process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD;
+const isProdDb = forceProdDB || (process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD);
 const dbType = isProdDb ? 'prod' : 'dev';
 const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;
-mongoose.connect(URI, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true, 
+mongoose.connect(URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
   auto_reconnect: true,
   reconnectTries: 30,
   reconnectInterval: 1000,
@@ -32,11 +32,11 @@ db.once('open', () => {
 const PORT = process.env.PORT || 8081;
 const app = express();
 const server = app.listen(PORT, () => {
-  console.log(`listening at ${PORT}`)
-})
+  console.log(`listening at ${PORT}`);
+});
 
 // SOCKET IO
-var io = require('./socket').listen(server);
+require('./socket').listen(server);
 
 // VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));
@@ -44,12 +44,12 @@ app.set('view engine', 'jade');
 
 // MIDDLEWARE
 const corsCfg = {
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204,
-  "credentials": true
-}
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  credentials: true,
+};
 app.use(cors(corsCfg));
 app.use(logger('dev'));
 app.use(express.json());
@@ -57,9 +57,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // FORCE HTTPS ON PROD
+// eslint-disable-next-line consistent-return
 app.use((req, res, next) => {
-  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
-    return res.redirect('https://' + req.get('host') + req.url);
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== 'development') {
+    return res.redirect(`https://${req.get('host')}${req.url}`);
   }
   next();
 });
@@ -81,12 +82,12 @@ else {
 }
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

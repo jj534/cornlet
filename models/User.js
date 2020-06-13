@@ -33,17 +33,17 @@ const userSchema = Schema({
       default: false,
     },
   },
-  chatrooms: {  // add only
+  chatrooms: { // add only
     type: [{
       type: Schema.Types.ObjectId,
       ref: 'Chatroom',
     }],
-    default: []
+    default: [],
   },
   createdAt: {
     type: Date,
     required: true,
-    default: new Date,
+    default: new Date(),
   },
 });
 

@@ -5,12 +5,10 @@ const Container = styled.div`
 
 `;
 
-const Env = () => {
-  return (
-    <Container>
-      {JSON.stringify(process.env)}
-    </Container>
-  )
-};
+const Env = () => (
+  <Container>
+    {JSON.stringify(process.env)}
+  </Container>
+);
 
 export default Env;

@@ -17,7 +17,7 @@ const Container = styled.div`
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, .1);
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     padding: 1rem 2rem;
   }
 `;
@@ -25,25 +25,25 @@ const Container = styled.div`
 const LeftSection = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const LeftSVG = styled(LeftRaw)`
   height: 1.2rem;
   width: 1.2rem;
-  fill: ${props => props.theme.primary};
+  fill: ${(props) => props.theme.primary};
   margin-right: 2rem;
-`
+`;
 
 const HouseSVG = styled(HouseRaw)`
   height: 1.5rem;
   width: 1.5rem;
-  fill: ${props => props.theme.primary};
+  fill: ${(props) => props.theme.primary};
   margin-right: 1rem;
-`
+`;
 
 const ContactSection = styled.div`
   display: flex;
-`
+`;
 
 const ContactText = styled.div`
   display: flex;
@@ -51,7 +51,7 @@ const ContactText = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin-left: 1rem;
-`
+`;
 
 const Header = ({ chatroom }) => {
   const otherUser = useChatOtherUser(chatroom);
@@ -59,7 +59,7 @@ const Header = ({ chatroom }) => {
     <Container>
       <LeftSection>
         <RenderOn mobile>
-          <Link to='/profile/chat'>
+          <Link to="/profile/chat">
             <LeftSVG />
           </Link>
         </RenderOn>
@@ -75,7 +75,7 @@ const Header = ({ chatroom }) => {
         <HouseSVG />
       </Link>
     </Container>
-  )
+  );
 };
 
 export default Header;

@@ -9,46 +9,46 @@ import { ReactComponent as UtilitiesSVG } from 'src/assets/svgs/utilities.svg';
 import { ReactComponent as BusSVG } from 'src/assets/svgs/bus.svg';
 
 const amenities = [
-	{
-		icon: <WifiSVG />,
-		label: 'Wifi',
-		value: 'wifi'
-	},
-	{
-		icon: <CarSVG />,
-		label: 'Parking',
-		value: 'parking'
-	},
-	{
-		icon: <GymSVG />,
-		label: 'Gym',
-		value: 'gym'
-	},
-	{
-		icon: <HeaterSVG />,
-		label: 'Heater',
-		value: 'heater'
-	},
-	{
-		icon: <AirconSVG />,
-		label: 'Aircon',
-		value: 'aircon'
-	},
-	{
-		icon: <SofaSVG />,
-		label: 'Furnished',
-		value: 'furnished'
-	},
-	{
-		icon: <UtilitiesSVG />,
-		label: 'Utilities Included',
-		value: 'utilities'
-	},
-	{
-		icon: <BusSVG />,
-		label: 'TCAT Accessible',
-		value: 'tcat'
-	},
-]
+  {
+    icon: <WifiSVG />,
+    label: 'Wifi',
+    value: 'wifi',
+  },
+  {
+    icon: <CarSVG />,
+    label: 'Parking',
+    value: 'parking',
+  },
+  {
+    icon: <GymSVG />,
+    label: 'Gym',
+    value: 'gym',
+  },
+  {
+    icon: <HeaterSVG />,
+    label: 'Heater',
+    value: 'heater',
+  },
+  {
+    icon: <AirconSVG />,
+    label: 'Aircon',
+    value: 'aircon',
+  },
+  {
+    icon: <SofaSVG />,
+    label: 'Furnished',
+    value: 'furnished',
+  },
+  {
+    icon: <UtilitiesSVG />,
+    label: 'Utilities Included',
+    value: 'utilities',
+  },
+  {
+    icon: <BusSVG />,
+    label: 'TCAT Accessible',
+    value: 'tcat',
+  },
+];
 
 export default amenities;

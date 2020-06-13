@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import MsgGroup from './MsgGroup';
 
@@ -14,10 +14,10 @@ const ChatContents = ({ chatroom }) => {
     chatroom.msgs.forEach((msg) => {
       const isOwner = msg.uid === chatroom.listing.user.uid;
 
-      if (msgGroups.length > 0 && msgGroups[msgGroups.length-1].isOwner === isOwner) {
+      if (msgGroups.length > 0 && msgGroups[msgGroups.length - 1].isOwner === isOwner) {
         // msg by same user as previous msgGroup
         // merge msg
-        msgGroups[msgGroups.length-1].msgs.push(msg);
+        msgGroups[msgGroups.length - 1].msgs.push(msg);
       }
       else {
         // msg by different user
@@ -29,30 +29,28 @@ const ChatContents = ({ chatroom }) => {
         };
         msgGroups.push(data);
       }
-    })
+    });
   }
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ block: 'nearest' });
-  }
+  };
 
   useLayoutEffect(() => {
     scrollToBottom();
-  }, [msgGroups])
+  }, [msgGroups]);
 
   return (
     <Container>
-      {msgGroups.map((msgGroup) => {
-        return (
-          <MsgGroup
-            {...msgGroup}
-          />
-        )
-      })}
+      {msgGroups.map((msgGroup) => (
+        <MsgGroup
+          {...msgGroup}
+        />
+      ))}
       <div ref={messagesEndRef} />
     </Container>
-  )
+  );
 };
 
 export default ChatContents;

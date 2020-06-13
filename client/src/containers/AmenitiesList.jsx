@@ -6,7 +6,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   align-items: center;
   max-width: 370px;
-`
+`;
 
 const AmenitiesList = ({ children, ...rest }) => (
   <Container {...rest}>

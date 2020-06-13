@@ -19,7 +19,7 @@ const StyledCheckbox = withStyles({
 
 const Wrapper = styled.div`
   // hasSublabel
-  margin-bottom: ${props => props.hasSublabel ? '1rem !important' : ''};
+  margin-bottom: ${(props) => (props.hasSublabel ? '1rem !important' : '')};
 `;
 
 const InputArea = styled.div`
@@ -27,21 +27,21 @@ const InputArea = styled.div`
   align-items: center;
 
   // hasSublabel
-  align-items: ${props => props.hasSublabel ? 'flex-start' : ''};
+  align-items: ${(props) => (props.hasSublabel ? 'flex-start' : '')};
 `;
 
 const LabelSection = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
-`
+`;
 
 const CheckboxLabel = styled(Label)`
   margin-bottom: .2rem;
 
   // hasSublabel
-  font-weight: ${props => props.hasSublabel ? 'bold' : ''};
-  opacity: ${props => props.hasSublabel ? '.8' : ''};
+  font-weight: ${(props) => (props.hasSublabel ? 'bold' : '')};
+  opacity: ${(props) => (props.hasSublabel ? '.8' : '')};
 `;
 
 const Checkbox = ({
@@ -52,7 +52,8 @@ const Checkbox = ({
   const handleChange = (e) => {
     if (e.target.checked) {
       formik.setFieldValue(name, true);
-    } else {
+    }
+    else {
       formik.setFieldValue(name, false);
     }
   };

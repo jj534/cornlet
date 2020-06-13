@@ -27,6 +27,7 @@
         "react/jsx-props-no-spreading": "off",
         "react/destructuring-assignment": "off",
         "no-underscore-dangle": "off",
-        "brace-style": "stroustrup",
+        "no-nested-ternary": "off",
+        "brace-style": ["error", "stroustrup"]
     }
 }

@@ -54,21 +54,19 @@ word-break: break-word !important;
       font-family: Arial ;
     }
   </style>
-    </div>`
+    </div>`;
 
 export const Container = styled.div`
   padding: 2rem 0;
 `;
 
-const PrivacyPolicy = () => {
-  return (
-    <div>
-      <MainHeader />
-      <Container>
-        <div dangerouslySetInnerHTML={{__html: html}} />
-      </Container>
-    </div>
-  )
-};
+const PrivacyPolicy = () => (
+  <div>
+    <MainHeader />
+    <Container>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </Container>
+  </div>
+);
 
 export default PrivacyPolicy;

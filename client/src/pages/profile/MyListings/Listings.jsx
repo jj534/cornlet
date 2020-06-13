@@ -9,10 +9,6 @@ const Container = styled.div`
   margin: 2rem 0;
 `;
 
-const CardContainer = styled.div`
-  margin: 1rem 0;
-`;
-
 const MyListings = ({ uid, setHasListings }) => {
   const [listings, setListings] = useState([]);
 

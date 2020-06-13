@@ -59,17 +59,15 @@ word-break: break-word !important;
     }
   </style>
     </div>
-`
+`;
 
-const TermsConditions = () => {
-  return (
-    <div>
-      <MainHeader />
-      <Container>
-        <div dangerouslySetInnerHTML={{__html: html}}/>
-      </Container>
-    </div>
-  )
-};
+const TermsConditions = () => (
+  <div>
+    <MainHeader />
+    <Container>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </Container>
+  </div>
+);
 
 export default TermsConditions;

@@ -5,7 +5,6 @@ import api from 'src/util/api';
 import log from 'src/util/log';
 import DynCardList from 'src/containers/DynCardList';
 import useRouter from 'src/util/hooks/useRouter';
-import { useSelector } from 'react-redux';
 import LoadingDots from 'src/components/displays/LoadingDots';
 
 export const Center = styled.div`

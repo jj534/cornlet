@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import ScrollToTop from './ScrollToTop';
 
 import Home from 'src/pages/home';
 import Listing from 'src/pages/listing';
@@ -16,6 +15,7 @@ import MyListings from 'src/pages/profile/MyListings';
 import Chat from 'src/pages/profile/MyChats/Chat';
 import Chatroom from 'src/pages/profile/MyChats/Chatroom';
 import Settings from 'src/pages/profile/Settings';
+import ScrollToTop from './ScrollToTop';
 import PrivateRoute from './PrivateRoute';
 import MainFooter from '../footers/MainFooter';
 import SocketIO from './SocketIO';

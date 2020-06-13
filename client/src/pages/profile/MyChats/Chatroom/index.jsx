@@ -17,22 +17,19 @@ const Content = styled.div`
   flex: 1;
 `;
 
-const Chatroom = ({ match }) => {
-
-  return (
-    <Container>
-      <MainHeader />
+const Chatroom = ({ match }) => (
+  <Container>
+    <MainHeader />
+    <RenderOn desktop>
+      <Navbar />
+    </RenderOn>
+    <Content>
       <RenderOn desktop>
-        <Navbar />
+        <ChatroomList />
       </RenderOn>
-      <Content>
-        <RenderOn desktop>
-          <ChatroomList />
-        </RenderOn>
-        <ChatroomPanel cid={match.params.cid} />
-      </Content>
-    </Container>
-  )
-};
+      <ChatroomPanel cid={match.params.cid} />
+    </Content>
+  </Container>
+);
 
 export default Chatroom;

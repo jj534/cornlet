@@ -6,15 +6,15 @@ import Btn from 'src/components/buttons/Btn';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory, Prompt } from 'react-router-dom';
-import FormContents from './FormContents';
 import { signIn } from 'src/services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import useRouter from 'src/util/hooks/useRouter';
 import Modal from 'src/components/views/Modal';
 import Body from 'src/components/fonts/Body';
+import FormContents from './FormContents';
 
 const Form = styled.form`
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     max-width: 700px;
   }
 `;
@@ -28,8 +28,8 @@ const Center = styled.div`
 const FormComponent = ({ user, initialValues }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const tempValues = useSelector(state => state.tempValues);
-  const authing = useSelector(state => state.authing);
+  const tempValues = useSelector((state) => state.tempValues);
+  const authing = useSelector((state) => state.authing);
   const router = useRouter();
 
   // configure inital values
@@ -63,19 +63,19 @@ const FormComponent = ({ user, initialValues }) => {
     femaleRoommates: 1,
     maleRoommates: 2,
     amenities: ['wifi'],
-    imgs: ["https://firebasestorage.googleapis.com/v0/b/cornlet-prod.appspot.com/o/temp%2Fforest.jpg?alt=media&token=967fa2f7-3730-4ebf-9b05-aa3c4cafeb59"],
+    imgs: ['https://firebasestorage.googleapis.com/v0/b/cornlet-prod.appspot.com/o/temp%2Fforest.jpg?alt=media&token=967fa2f7-3730-4ebf-9b05-aa3c4cafeb59'],
     desc: 'test description',
     active: true,
     sold: false,
     cornellOnly: false,
-  }
+  };
   const dynInitValues = initialValues || tempValues || (process.env.NODE_ENV === 'development' && devValues) || defaultValues;
 
   // error modal
   const [modal, setModal] = useState(false);
   const handleClose = () => {
     setModal(false);
-  }
+  };
   const [showPrompt, setShowPrompt] = useState(true);
 
   // define form
@@ -107,34 +107,32 @@ const FormComponent = ({ user, initialValues }) => {
         .required('Required'),
     }),
     onSubmit: (values) => {
-      console.log('on submit');
       if (initialValues) {
         api.put(`/listing/${initialValues._id}/update`, values)
           .then(() => {
             history.push('/profile');
           })
           .catch((e) => log('ERROR ListingForm update', e));
-      } else {
-        if (user) {
-          api.post('/listing/create', { ...values, user })
-            .then(() => {
-              history.push('/profile/listings');
-            })
-            .catch(({ response }) => {
-              log('ERROR new listing submit form', response);
-            });
-        }
-        else {
-          signIn();
-          dispatch({
-            type: 'AUTHING_SET',
-            payload: true,
+      }
+      else if (user) {
+        api.post('/listing/create', { ...values, user })
+          .then(() => {
+            history.push('/profile/listings');
           })
-          dispatch({
-            type: 'TEMP_VALUES_SET',
-            payload: values,
-          })
-        }
+          .catch(({ response }) => {
+            log('ERROR new listing submit form', response);
+          });
+      }
+      else {
+        signIn();
+        dispatch({
+          type: 'AUTHING_SET',
+          payload: true,
+        });
+        dispatch({
+          type: 'TEMP_VALUES_SET',
+          payload: values,
+        });
       }
     },
   });
@@ -142,13 +140,12 @@ const FormComponent = ({ user, initialValues }) => {
   if (tempValues) {
     if (!authing) {
       if (user) {
-        console.log('auto create new listing')
         api.post('/listing/create', { ...tempValues, user })
           .then(() => {
             dispatch({
               type: 'TEMP_VALUES_SET',
               payload: null,
-            })
+            });
             router.history.push('/profile/listings');
           })
           .catch((e) => {
@@ -156,14 +153,13 @@ const FormComponent = ({ user, initialValues }) => {
           });
       }
       else {
-        console.log('user failed signin, return to /new');
         dispatch({
           type: 'TEMP_VALUES_SET',
           payload: null,
-        })
+        });
       }
     }
-    return <div>processing signin</div>
+    return <div>processing signin</div>;
   }
 
   // error on submit
@@ -175,7 +171,7 @@ const FormComponent = ({ user, initialValues }) => {
     else {
       setShowPrompt(false);
     }
-  }
+  };
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -200,12 +196,12 @@ Save
       <Modal
         open={modal}
         handleClose={handleClose}
-        heading='Oops!'
+        heading="Oops!"
         contentPadding
       >
         <Body>There were errors in the form.</Body>
         <Body>Please fix the errors before saving the listing.</Body>
-        <Btn color='primary' inverted onClick={handleClose}>Go back</Btn>
+        <Btn color="primary" inverted onClick={handleClose}>Go back</Btn>
       </Modal>
     </Form>
   );

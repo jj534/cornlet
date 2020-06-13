@@ -3,14 +3,16 @@ const User = require('./../models/User');
 
 userRouter.post('/save', async (req, res) => {
   try {
-    const { uid, displayName: name, photoURL, email } = req.body;
+    const {
+      uid, displayName: name, photoURL, email,
+    } = req.body;
     const data = {
       uid,
       name,
       photo: photoURL,
       email,
-    }
-    const user = await User.findOne({ uid, });
+    };
+    const user = await User.findOne({ uid });
     if (!user) {
       // create new user
       await new User(data).save();
@@ -23,14 +25,14 @@ userRouter.post('/save', async (req, res) => {
       user.email = email;
       await user.save();
     }
-    res.send(true)
-  } catch (e) {
-    console.log('e', e)
+    res.send(true);
+  }
+  catch (e) {
     res.status(500).send(e);
   }
-})
+});
 
-let defaultBm = { notif: false, listings: [] };
+const defaultBm = { notif: false, listings: [] };
 
 // get uid's bookmark data
 userRouter.get('/:uid/bm', async (req, res) => {
@@ -41,8 +43,8 @@ userRouter.get('/:uid/bm', async (req, res) => {
       res.send(user.bm);
     }
     else res.send(defaultBm);
-  } catch (e) {
-    console.log('e :>> ', e);
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });
@@ -70,8 +72,8 @@ userRouter.put('/:uid/bm/:opr/:lid', async (req, res) => {
     const opts = { new: true, upsert: true };
     const updatedUser = await User.findOneAndUpdate({ uid }, { bm: newBm }, opts);
     res.send(updatedUser);
-  } catch (e) {
-    console.log(e);
+  }
+  catch (e) {
     res.status(500).send(e);
   }
 });

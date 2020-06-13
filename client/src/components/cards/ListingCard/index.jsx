@@ -24,7 +24,7 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     width: 25%;
   }
 `;
@@ -35,7 +35,7 @@ const BmContainer = styled.div`
   right: 1rem;
   z-index: 2;
   cursor: pointer;
-`
+`;
 
 const TextArea = styled.div`
   margin-top: .8rem;
@@ -55,7 +55,7 @@ const ImgContainer = styled.div`
   width: 100%;
   padding-bottom: 100%;
   position: relative;
-`
+`;
 
 const Img = styled.img`
   object-fit: cover;
@@ -163,7 +163,7 @@ const ListingCard = ({ listing, edit, reload }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const handleClose = () => {
     setDeleteModal(false);
-  }
+  };
   const handleDelete = () => {
     api.put(`/listing/${_id}/update`, { active: false, deleted: true })
       .then(() => {
@@ -180,7 +180,7 @@ const ListingCard = ({ listing, edit, reload }) => {
   };
 
   return (
-    <Container> 
+    <Container>
       <BmContainer>
         <BmBtn listing={listing} />
       </BmContainer>
@@ -190,15 +190,17 @@ const ListingCard = ({ listing, edit, reload }) => {
             src={imgs[0]}
             faded={sold}
           />
-          <PriceBadge>${price}</PriceBadge>
+          <PriceBadge>
+$
+            {price}
+          </PriceBadge>
         </ImgContainer>
         <TextArea>
           <Addr>{getShortAddr(addr)}</Addr>
           <Row>
             {sold
               ? <Badge color="primary" size="sm" inverted>Sold</Badge>
-              : <Body muted sm>{getDateString(listing)}</Body>
-            }
+              : <Body muted sm>{getDateString(listing)}</Body>}
           </Row>
         </TextArea>
       </Link>
@@ -226,7 +228,7 @@ const ListingCard = ({ listing, edit, reload }) => {
       <Modal
         open={deleteModal}
         handleClose={handleClose}
-        heading='Delete Listing'
+        heading="Delete Listing"
       >
         <ModalContainer>
           <Body>Are you sure you wish to delete your listing?</Body>
@@ -234,8 +236,8 @@ const ListingCard = ({ listing, edit, reload }) => {
           <Body>You can temporarily deactivate the listing</Body>
           <Body>if you wish to use it again in the future.</Body>
           <ModalBtnSection>
-            <Btn color='primary' onClick={handleDelete}>Delete</Btn>
-            <Btn color='primary' inverted onClick={handleDeactivate}>Deactivate</Btn>
+            <Btn color="primary" onClick={handleDelete}>Delete</Btn>
+            <Btn color="primary" inverted onClick={handleDeactivate}>Deactivate</Btn>
           </ModalBtnSection>
         </ModalContainer>
       </Modal>

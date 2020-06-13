@@ -10,15 +10,15 @@ const StyledBody = styled.p`
   word-break: break-word;
 
   // ellipsis
-  text-overflow: ${props => props.ellipsis ? 'ellipsis' : ''};
-  overflow: ${props => props.ellipsis ? 'hidden' : ''};
-  white-space: ${props => props.ellipsis ? 'nowrap' : ''};
+  text-overflow: ${(props) => (props.ellipsis ? 'ellipsis' : '')};
+  overflow: ${(props) => (props.ellipsis ? 'hidden' : '')};
+  white-space: ${(props) => (props.ellipsis ? 'nowrap' : '')};
   
   // muted
   opacity: ${(props) => (props.muted ? '.8' : '')};
   
   // sm
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     font-size: ${(props) => (props.sm ? '.9rem' : '')};
   }
   
@@ -26,13 +26,13 @@ const StyledBody = styled.p`
   color: ${(props) => (props.color ? props.theme[props.color] : '')};
 
   // lineHeight
-  line-height: ${props => props.lineHeight ? props.lineHeight : ''};
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : '')};
 
   // bold
-  font-weight: ${props => props.bold ? 'bold' : ''};
+  font-weight: ${(props) => (props.bold ? 'bold' : '')};
 
   // maxWidth
-  max-width: ${props => props.maxWidth ? `${props.maxWidth}px` : ''};
+  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : '')};
 `;
 
 const Body = (props) => (

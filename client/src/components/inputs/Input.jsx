@@ -35,10 +35,10 @@ const Container = styled.div`
     white-space: pre-line;
 
     // lineHeight
-    line-height: ${props => props.lineHeight ? `${props.lineHeight}px` : ''};
+    line-height: ${(props) => (props.lineHeight ? `${props.lineHeight}px` : '')};
 
     // height based on rows
-    height: ${props => props.rows && props.lineHeight ? `${props.rows * props.lineHeight}px}` : ''};
+    height: ${(props) => (props.rows && props.lineHeight ? `${props.rows * props.lineHeight}px}` : '')};
   }
   
   & > * {
@@ -46,7 +46,7 @@ const Container = styled.div`
   }
 
   // width
-  width: ${props => props.width ? `${props.width}px` : ''};
+  width: ${(props) => (props.width ? `${props.width}px` : '')};
 `;
 
 const Input = ({
@@ -66,8 +66,8 @@ const Input = ({
   const conditionalMultiline = multiline ? multilineProps : {};
 
   return (
-    <Container 
-      width={width} 
+    <Container
+      width={width}
       lineHeight={lineHeight}
       rows={rows}
     >

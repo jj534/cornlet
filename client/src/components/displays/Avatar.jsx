@@ -8,8 +8,8 @@ const SAvatar = styled(Avatar)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 
   // lg
-  width: ${props => props.lg ? '45px !important' : ''};
-  height: ${props => props.lg ? '45px !important' : ''};
+  width: ${(props) => (props.lg ? '45px !important' : '')};
+  height: ${(props) => (props.lg ? '45px !important' : '')};
 `;
 
 const AvatarIcon = styled(AvatarIconRaw)`

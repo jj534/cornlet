@@ -18,26 +18,24 @@ const HrLine = styled.div`
   right: 0;
 `;
 
-const Navbar = () => {
-  return (
-    <Container>
-      <NavRow>
-        <NavElt
-          label="Listings"
-          to="/profile/listings"
-        />
-        <NavElt
-          label="Chat"
-          to="/profile/chat"
-        />
-        <NavElt
-          label="Settings"
-          to="/profile/settings"
-        />
-      </NavRow>
-      <HrLine />
-    </Container>
-  );
-};
+const Navbar = () => (
+  <Container>
+    <NavRow>
+      <NavElt
+        label="Listings"
+        to="/profile/listings"
+      />
+      <NavElt
+        label="Chat"
+        to="/profile/chat"
+      />
+      <NavElt
+        label="Settings"
+        to="/profile/settings"
+      />
+    </NavRow>
+    <HrLine />
+  </Container>
+);
 
 export default Navbar;

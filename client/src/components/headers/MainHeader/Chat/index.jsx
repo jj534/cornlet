@@ -18,26 +18,26 @@ export const ChatSVG = styled(ChatRaw)`
 `;
 
 const Chat = () => {
-  const authing = useSelector(state => state.authing);
-  const chatrooms = useSelector(state => state.chatrooms);
-  const user = useSelector(state => state.user);
+  const authing = useSelector((state) => state.authing);
+  const chatrooms = useSelector((state) => state.chatrooms);
+  const user = useSelector((state) => state.user);
   let hasNotif = false;
   if (user) {
     chatrooms.forEach((chatroom) => {
       if (chatroom.notifUids.includes(user.uid)) {
         hasNotif = true;
       }
-    })
+    });
   }
 
   return (
-    <Link to='/profile/chat'>
+    <Link to="/profile/chat">
       <Container>
         {!authing && <ChatSVG />}
         {hasNotif && <CornerRedDot />}
       </Container>
     </Link>
-  )
+  );
 };
 
 export default Chat;

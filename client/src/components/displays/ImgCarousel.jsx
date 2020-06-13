@@ -30,10 +30,10 @@ export const NavSection = styled.div`
   padding-left: 1rem;
 
   & .slick-cloned {
-    display: ${props => props.hideClone ? 'none !important' : ''};
+    display: ${(props) => (props.hideClone ? 'none !important' : '')};
   }
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     padding: 0;
   }
 `;
@@ -44,7 +44,7 @@ export const NavWrapper = styled.div`
   height: 60px;
   width: 80px;
 
-  @media (min-width: ${props => props.theme.md}px) {
+  @media (min-width: ${(props) => props.theme.md}px) {
     height: 80px;
     width: 160px;
   }
@@ -68,10 +68,10 @@ const ImgCarousel = ({ imgs }) => {
   return (
     <Container>
       <Slider
-        accessibility={true}
+        accessibility
         speed={200}
         asNavFor={nav2}
-        ref={slider => setNav1(slider)}
+        ref={(slider) => setNav1(slider)}
       >
         {imgs.map((src) => (
           <ImgContainer key={src}>
@@ -82,10 +82,10 @@ const ImgCarousel = ({ imgs }) => {
       <NavSection hideClone={imgs.length < 4}>
         <Slider
           asNavFor={nav1}
-          ref={slider => setNav2(slider)}
+          ref={(slider) => setNav2(slider)}
           slidesToShow={4}
-          swipeToSlide={true}
-          focusOnSelect={true}
+          swipeToSlide
+          focusOnSelect
           arrows={false}
         >
           {imgs.map((src) => (

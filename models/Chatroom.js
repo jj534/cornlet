@@ -24,7 +24,7 @@ const chatroomSchema = Schema({
   },
   msgs: {
     type: [{
-      type: {  // txt || img
+      type: { // txt || img
         type: String,
         default: 'txt',
       },
@@ -38,11 +38,11 @@ const chatroomSchema = Schema({
       },
       createdAt: {
         type: Date,
-        default: new Date
-      }
+        default: new Date(),
+      },
     }],
     default: [],
-  }
+  },
 }, {
   timestamps: true,
 });

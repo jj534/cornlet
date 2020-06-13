@@ -37,7 +37,7 @@ const CalendarSVG = styled(CalendarRaw)`
   bottom: 0;
   margin: auto;
   opacity: .8;
-`
+`;
 
 const DateFilter = ({ name }) => {
   const router = useRouter();
@@ -47,7 +47,8 @@ const DateFilter = ({ name }) => {
     if (router.query[name]) {
       const newDate = new Date(router.query[name].replace(/-/g, '/'));
       setDate(newDate);
-    } else {
+    }
+    else {
       setDate(null);
     }
   }, [router.query[name]]);
