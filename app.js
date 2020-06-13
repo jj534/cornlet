@@ -16,9 +16,8 @@ mongoose.connect(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   auto_reconnect: true,
-  reconnectTries: 30,
+  reconnectTries: Number.MAX_SAFE_INTEGER,
   reconnectInterval: 1000,
-  socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 },
 });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '*** DB connection error ***'));

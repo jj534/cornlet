@@ -1,5 +1,6 @@
 const socketio = require('socket.io');
 const Chatroom = require('./models/Chatroom');
+const sendMsgNotifEmail = require('./util/sendMsgNotifEmail');
 
 module.exports.listen = (app) => {
   const io = socketio.listen(app);
@@ -10,7 +11,7 @@ module.exports.listen = (app) => {
         io.emit('msg', data);
 
         // save to DB
-        const chatroom = await Chatroom.findById(data.cid);
+        const chatroom = await Chatroom.findById(data.cid).populate('searcher listing');
         const newMsgs = [...chatroom.msgs];
 
         // set other user to unread
@@ -18,6 +19,13 @@ module.exports.listen = (app) => {
         if (!chatroom.notifUids.includes(otherUserUid)) {
           chatroom.notifUids.push(otherUserUid);
         }
+
+        // send email notif to other user
+        const isSearcher = otherUserUid === chatroom.searcher.uid;
+        const email = isSearcher ? chatroom.searcher.email : chatroom.listing.user.email;
+        const firstName = isSearcher ? chatroom.listing.user.name.split(' ')[0] : chatroom.searcher.name.split(' ')[0];
+
+        sendMsgNotifEmail(email, firstName, data.content);
 
         // add msg to chatroom
         const dataWithoutCid = {
@@ -34,9 +42,16 @@ module.exports.listen = (app) => {
       }
     });
 
-    socket.on('new chatroom', async (data) => {
+    socket.on('new chatroom', async (chatroom) => {
       try {
-        io.emit('new chatroom', data);
+        io.emit('new chatroom', chatroom);
+
+        // chatroom can only be created by searcher
+        // send email notif to listing owner
+        const { name } = chatroom.searcher;
+        const firstName = name.split(' ')[0];
+        const { email } = chatroom.listing.user;
+        sendMsgNotifEmail(email, firstName, chatroom.msgs[0].content);
       }
       catch (e) {
         console.log('socket error', e);
