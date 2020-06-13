@@ -1,15 +1,15 @@
 const sendEmail = require('./sendEmail');
 
 const sendMsgNotifEmail = (email, name, content) => {
-  const subject = `[cornlet] ${name} has sent you a message!`;
+  const subject = `[cornlet] ${name} sent you a message!`;
   const isDev = process.env.NODE_ENV === 'development';
   const devHtml = `<div>Intended recipent: ${email}</div>`;
   const url = 'https://www.cornlet.com/profile/chat';
   const html = `
     <div>
-      ${isDev && devHtml}
+      ${isDev ? devHtml : '<div></div>'}
       <div>
-        ${name} has sent you a message!
+        ${name} sent you a message!
       </div>
       <br />
       <div>
