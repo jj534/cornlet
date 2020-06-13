@@ -24,7 +24,7 @@ const sendEmail = (to, subject, html) => {
       console.log('ERROR sendEmail', error);
     } 
     else {
-      console.log('SUCCESS sendEmail');
+      console.log('SUCCESS sendEmail', info);
     }
   });
 };
