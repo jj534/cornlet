@@ -7,7 +7,6 @@ const Container = styled.div`
   right: -2px;
   background: ${(props) => props.theme.danger};
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   padding: 4px;
   border: 2px solid white;
   z-index: 10;
