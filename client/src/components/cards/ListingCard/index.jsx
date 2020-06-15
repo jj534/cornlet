@@ -29,12 +29,16 @@ const Container = styled.div`
   }
 `;
 
-const BmContainer = styled.div`
+const CornerBtn = styled.div`
   position: absolute;
   top: 1.5rem;
   right: 1rem;
   z-index: 2;
   cursor: pointer;
+
+  background: white;
+  padding: .5rem;
+  border-radius: 50%;
 `;
 
 const TextArea = styled.div`
@@ -183,9 +187,9 @@ const ListingCard = ({ listing, edit, reload }) => {
 
   return (
     <Container>
-      <BmContainer>
+      <CornerBtn>
         <BmBtn listing={listing} />
-      </BmContainer>
+      </CornerBtn>
       <Link to={listingPath}>
         <ImgContainer>
           <Img
