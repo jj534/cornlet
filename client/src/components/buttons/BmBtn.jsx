@@ -12,8 +12,8 @@ const Container = styled.div`
 const BmFilled = styled(BmFilledRaw)`
   display: block;
   fill: rgba(0, 0, 0, 0.5);
-  height: 20px;
-  width: 20px;
+  height: 1rem;
+  width: 1rem;
   stroke: #FFFFFF;
   stroke-width: 2;
   overflow: visible !important;

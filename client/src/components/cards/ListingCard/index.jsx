@@ -39,6 +39,7 @@ const CornerBtn = styled.div`
   background: white;
   padding: .5rem;
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 `;
 
 const TextArea = styled.div`
