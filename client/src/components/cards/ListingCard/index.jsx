@@ -25,7 +25,7 @@ const Container = styled.div`
   overflow: hidden;
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    width: 25%;
+    width: 33%;
   }
 `;
 
@@ -53,8 +53,11 @@ const Addr = styled(Body)`
 
 const ImgContainer = styled.div`
   width: 100%;
-  padding-bottom: 100%;
   position: relative;
+  padding-bottom: 70%;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  overflow: hidden;
 `;
 
 const Img = styled.img`
@@ -66,7 +69,6 @@ const Img = styled.img`
   right: 0;
   bottom: 0;
   left: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   
   // faded
   opacity: ${(props) => (props.faded ? '.5' : '')};
@@ -190,7 +192,7 @@ const ListingCard = ({ listing, edit, reload }) => {
             src={imgs[0]}
             faded={sold}
           />
-          <PriceBadge>
+          <PriceBadge alignLeft>
 $
             {price}
           </PriceBadge>
