@@ -81,7 +81,7 @@ const BmListing = ({ listing }) => {
         <Data>
           <div>
             <Row>
-              <Addr>{listing.addr}</Addr>
+              <Addr ellipsis>{listing.addr}</Addr>
               <DeleteBtn onClick={handleRemove}>x</DeleteBtn>
             </Row>
             <Row>
