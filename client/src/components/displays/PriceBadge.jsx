@@ -12,7 +12,7 @@ const Container = styled.div`
 
   font-weight: 400;
   font-size: 1.1rem;
-  padding: .3rem .5rem;
+  padding: .3rem .7rem;
 
   // alignTop
   bottom: ${(props) => (props.alignTop ? 'initial' : '')};
