@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import api from 'src/util/api';
 import log from 'src/util/log';
-import { ReactComponent as BmFilledRaw } from 'src/assets/svgs/bookmark-filled.svg';
+import { ReactComponent as BmFilledRaw } from 'src/assets/svgs/bookmark.svg';
 
 const Container = styled.div`
 
@@ -11,17 +11,18 @@ const Container = styled.div`
 
 const BmFilled = styled(BmFilledRaw)`
   display: block;
-  fill: rgba(0, 0, 0, 0.5);
+  fill: white;
   height: 1rem;
   width: 1rem;
-  stroke: #FFFFFF;
+  stroke: black;
   stroke-width: 2;
   overflow: visible !important;
   cursor: pointer;
+  opacity: .9;
 
   // highlighted
   fill: ${(props) => (props.highlighted ? props.theme.primary : '')};
-  opacity: ${(props) => (props.highlighted ? '.9' : '')};
+  stroke-width: ${(props) => (props.highlighted ? '0' : '')};
 `;
 
 const BmBtn = ({ listing }) => {

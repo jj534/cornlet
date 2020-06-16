@@ -35,6 +35,7 @@ import log from 'src/util/log';
 import useRouter from 'src/util/hooks/useRouter';
 import { signIn } from 'src/services/firebase';
 import socket from 'src/util/socket';
+import formatListingDesc from 'src/util/helpers/formatListingDesc';
 
 const Wrapper = styled.div`
   display: flex;
@@ -340,10 +341,7 @@ $
                     <Section>
                       <Row>
                         <Heading>
-                          {totalRooms || 1}
--Bedroom
-                          {' '}
-                          {type.charAt(0).toUpperCase() + type.slice(1)}
+                          {formatListingDesc(listing)}
                         </Heading>
                         <BmBtn listing={listing} />
                       </Row>

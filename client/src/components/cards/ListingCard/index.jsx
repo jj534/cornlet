@@ -14,9 +14,9 @@ import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import PriceBadge from 'src/components/displays/PriceBadge';
-import getShortAddr from 'src/util/helpers/getShortAddr';
 import Modal from 'src/components/views/Modal';
 import Btn from 'src/components/buttons/Btn';
+import formatListingDesc from 'src/util/helpers/formatListingDesc';
 
 const Container = styled.div`
   width: 90vw;
@@ -48,7 +48,7 @@ const TextArea = styled.div`
   width: 100%;
 `;
 
-const Addr = styled(Body)`
+const Title = styled(Body)`
   white-space: nowrap;
   flex-grow: 0;
   text-overflow: ellipsis;
@@ -63,6 +63,12 @@ const ImgContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   overflow: hidden;
+
+  @media (min-width: ${props => props.theme.md}px) {
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .8);
+    }
+  }
 `;
 
 const Img = styled.img`
@@ -74,6 +80,9 @@ const Img = styled.img`
   right: 0;
   bottom: 0;
   left: 0;
+
+  // hide alt text
+  color: rgba(0, 0, 0, 0) !important;
   
   // faded
   opacity: ${(props) => (props.faded ? '.5' : '')};
@@ -196,6 +205,7 @@ const ListingCard = ({ listing, edit, reload }) => {
           <Img
             src={imgs[0]}
             faded={sold}
+            alt='cornlet listing property photos for cornell'
           />
           <PriceBadge alignLeft>
 $
@@ -203,7 +213,7 @@ $
           </PriceBadge>
         </ImgContainer>
         <TextArea>
-          <Addr>{getShortAddr(addr)}</Addr>
+          <Title>{formatListingDesc(listing)}</Title>
           <Row>
             {sold
               ? <Badge color="primary" size="sm" inverted>Sold</Badge>
