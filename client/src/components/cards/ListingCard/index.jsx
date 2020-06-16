@@ -65,6 +65,7 @@ const ImgContainer = styled.div`
   overflow: hidden;
 
   @media (min-width: ${props => props.theme.md}px) {
+    transition: box-shadow .2s ease-in-out;
     &:hover {
       box-shadow: 0 2px 8px rgba(0, 0, 0, .8);
     }
