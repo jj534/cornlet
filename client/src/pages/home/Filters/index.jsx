@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as FilterRaw } from 'src/assets/svgs/filter.svg';
 import Dropdown from 'src/components/views/Dropdown';
-import useIsDesktop from 'src/util/hooks/useIsDesktop';
 import FilterContents from './FilterContents';
 
 const Container = styled.div`
@@ -28,9 +27,7 @@ const FilterSVG = styled(FilterRaw)`
 
 const Filters = () => {
   const [show, setShow] = useState(false);
-  const isDesktop = useIsDesktop();
   const handleClick = () => {
-    if (!isDesktop) window.scrollTo(0, 0);
     setShow(true);
   };
 

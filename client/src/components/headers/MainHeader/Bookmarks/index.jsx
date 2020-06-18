@@ -6,6 +6,12 @@ import CornerRedDot from 'src/components/displays/CornerRedDot';
 import BmDropdown from './BmDropdown';
 
 const Container = styled.div`
+  @media (min-width: ${props => props.theme.md}px) {
+    position: relative;
+  }
+`;
+
+export const BMIconContainer = styled.div`
   position: relative;
 `;
 
@@ -30,8 +36,10 @@ const Bookmarks = () => {
 
   return (
     <Container>
-      {bm.notif && <CornerRedDot />}
-      <BMIcon onClick={toggleDropdown} />
+      <BMIconContainer>
+        {bm.notif && <CornerRedDot />}
+        <BMIcon onClick={toggleDropdown} />
+      </BMIconContainer>
       {dropdown && (
       <BmDropdown
         listings={bm.listings}
