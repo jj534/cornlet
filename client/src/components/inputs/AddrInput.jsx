@@ -105,7 +105,7 @@ km to campus
                   {...getSuggestionItemProps(suggestion)}
                   active={suggestion.active}
                 >
-                  <span>{suggestion.description}</span>
+                  <Body ellipsis>{suggestion.description}</Body>
                 </Suggestion>
               ))}
             </Dropdown>
