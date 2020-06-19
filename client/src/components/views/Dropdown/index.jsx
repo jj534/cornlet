@@ -26,8 +26,6 @@ const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   border: 1px solid rgba(0, 0, 0, .05);
 
-  overflow: hidden;
-
   & div {
     white-space: nowrap;
     flex-shrink: 0;

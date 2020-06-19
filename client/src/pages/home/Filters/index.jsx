@@ -3,10 +3,25 @@ import styled from 'styled-components';
 import { ReactComponent as FilterRaw } from 'src/assets/svgs/filter.svg';
 import Dropdown from 'src/components/views/Dropdown';
 import FilterContents from './FilterContents';
+import FilterStatus from './FilterStatus';
 
 const Container = styled.div`
   margin: 2rem 0 4rem 0;
   position: relative;
+`;
+
+export const Row = styled.div`
+  padding: .2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const FilterBtn = styled.button`
@@ -33,11 +48,14 @@ const Filters = () => {
 
   return (
     <Container>
-      <FilterBtn type="button" onClick={handleClick}>
-        <FilterSVG />
-        {' '}
-Filters
-      </FilterBtn>
+      <Row>
+        <FilterBtn type="button" onClick={handleClick}>
+          <FilterSVG />
+          {' '}
+  Filters
+        </FilterBtn>
+        <FilterStatus />
+      </Row>
       <Dropdown
         show={show}
         setShow={setShow}
