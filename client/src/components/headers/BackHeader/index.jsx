@@ -18,7 +18,7 @@ const BackHeader = ({ to, fullwidth }) => {
   const history = useHistory();
   const handleClick = () => {
     if (to) history.push(to);
-    else history.push('/');
+    else history.goBack();
   };
 
   return (

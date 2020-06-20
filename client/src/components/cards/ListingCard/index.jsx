@@ -17,6 +17,7 @@ import PriceBadge from 'src/components/displays/PriceBadge';
 import Modal from 'src/components/views/Modal';
 import Btn from 'src/components/buttons/Btn';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
 
 const Container = styled.div`
   width: 90vw;
@@ -162,6 +163,7 @@ const ListingCard = ({ listing, edit, reload }) => {
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
+  const isDesktop = useIsDesktop();
 
   // active toggling
   const [activeLocal, setActiveLocal] = useState(true);
@@ -201,7 +203,7 @@ const ListingCard = ({ listing, edit, reload }) => {
       <CornerBtn>
         <BmBtn listing={listing} />
       </CornerBtn>
-      <Link to={listingPath}>
+      <Link to={listingPath} target={isDesktop && '_blank'}>
         <ImgContainer>
           <Img
             src={imgs[0]}
