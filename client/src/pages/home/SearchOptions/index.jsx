@@ -14,16 +14,17 @@ const Container = styled.div`
   }
 
   @media (min-width: ${props => props.theme.md}px) {
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
+    justify-content: flex-end;
   }
 `;
 
 const SearchOptions = () => {
   return (
     <Container>
-      <SortBy />
       <Filters />
+      <SortBy />
     </Container>
   )
 };
