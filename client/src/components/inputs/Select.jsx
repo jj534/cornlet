@@ -10,7 +10,8 @@ const Container = styled.div`
 
 const useStyles = makeStyles(() => ({
   textField: {
-    'min-width': 150,
+    'min-width': 100,
+    'text-align': 'center',
   },
 }));
 

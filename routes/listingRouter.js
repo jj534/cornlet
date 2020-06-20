@@ -52,7 +52,8 @@ listingRouter.get('/', async (req, res) => {
     const sortTypeToQuery = {
       recent: { sort: { updatedAt: -1 } },
       'price-asc': { sort: { price: 1 } },
-      'price-desc': { sort: { price: -1 } },
+      'price-dec': { sort: { price: -1 } },
+      'to-campus': { sort: { toCampus: 1 } },
     };
     const sortQuery = sortTypeToQuery[sort] || { sort: { updatedAt: -1 } };
 

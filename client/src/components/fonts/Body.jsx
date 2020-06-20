@@ -13,6 +13,9 @@ const StyledBody = styled.p`
   text-overflow: ${(props) => (props.ellipsis ? 'ellipsis' : '')};
   overflow: ${(props) => (props.ellipsis ? 'hidden' : '')};
   white-space: ${(props) => (props.ellipsis ? 'nowrap' : '')};
+
+  // nowrap
+  white-space: ${(props) => (props.nowrap ? 'nowrap' : '')};
   
   // muted
   opacity: ${(props) => (props.muted ? '.8' : '')};

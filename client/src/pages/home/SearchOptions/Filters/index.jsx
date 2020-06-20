@@ -6,8 +6,6 @@ import FilterContents from './FilterContents';
 import FilterStatus from './FilterStatus';
 
 const Container = styled.div`
-  margin: 2rem 0 4rem 0;
-  position: relative;
 `;
 
 export const Row = styled.div`
