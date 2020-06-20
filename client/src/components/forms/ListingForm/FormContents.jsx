@@ -62,6 +62,7 @@ const FormContents = ({ formik, user }) => (
           name="type"
           label="Property Type"
           opts={[{ label: 'Apartment', value: 'apt' }, { label: 'House', value: 'house' }, { label: 'Studio', value: 'studio' }]}
+          width={150}
         />
       </Row>
     </InputContainer>

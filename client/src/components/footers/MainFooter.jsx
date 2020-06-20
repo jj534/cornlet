@@ -26,8 +26,6 @@ const StyledLink = styled(Link)`
 `
 
 const MainFooter = () => {
-
-
   // dont render footer in chatroom, mobile
   const router = useRouter();
   const pathArr = router.pathname.split('/');

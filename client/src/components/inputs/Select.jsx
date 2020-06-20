@@ -5,18 +5,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Container = styled.div`
+  min-width: 100px;
 
+  // width
+  min-width: ${props => props.width ? `${props.width}px` : ''};
 `;
 
 const useStyles = makeStyles(() => ({
   textField: {
-    'min-width': 100,
+    'width': '100%',
     'text-align': 'center',
   },
 }));
 
 const Select = ({
-  formik, name, opts, label, ...rest
+  formik, name, opts, label, width, ...rest
 }) => {
   const hasError = formik ? formik.touched[name] && formik.errors[name] : false;
   const error = hasError ? formik.errors[name] : undefined;
@@ -24,7 +27,7 @@ const Select = ({
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container width={width}>
       <TextField
         select
         {...rest}
