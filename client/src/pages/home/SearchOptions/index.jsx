@@ -6,17 +6,21 @@ import Filters from './Filters';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 2rem 0 2rem 0;
   position: relative;
 
-  & > div {
-    margin-bottom: 1rem;
+  & > div:first-child {
+    margin: 2rem 0 4rem 0;
   }
 
   @media (min-width: ${props => props.theme.md}px) {
     flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-end;
+    margin: 2rem 0 2rem 0;
+
+    & > div:first-child {
+      margin: 0;
+    }
   }
 `;
 
