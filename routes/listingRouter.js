@@ -31,8 +31,15 @@ listingRouter.get('/', async (req, res) => {
     } = req.query;
     const uidQuery = uid ? { 'user.uid': uid } : {};
     const activeQuery = active ? { active } : {};
-    const startQuery = start ? { start: { $lt: moment(new Date(start)).endOf('day').toDate() } } : {};
-    const endQuery = end ? { end: { $gte: new Date(end) } } : {};
+    const startQuery = start && !end
+      ? { start: { $lte: moment(new Date(start)).endOf('day').toDate() }, end: { $gt: new Date(start) } }
+      : {};
+    const endQuery = end && !start
+      ? { end: { $gte: new Date(end) }, start: { $lt: new Date(end) } }
+      : {};
+    const startEndQuery = start && end
+      ? { start: { $lte: moment(new Date(start)).endOf('day').toDate() }, end: { $gte: new Date(end) } }
+      : {};
     const priceQuery = minPrice && maxPrice
       ? { price: { $lte: Number(maxPrice), $gte: Number(minPrice) } }
       : {};
@@ -44,6 +51,7 @@ listingRouter.get('/', async (req, res) => {
       ...uidQuery,
       ...startQuery,
       ...endQuery,
+      ...startEndQuery,
       ...priceQuery,
       ...toCampusQuery,
     };
