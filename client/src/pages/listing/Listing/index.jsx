@@ -36,6 +36,7 @@ import useRouter from 'src/util/hooks/useRouter';
 import { signIn } from 'src/services/firebase';
 import socket from 'src/util/socket';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
+import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -473,12 +474,15 @@ km to campus
         heading={`Message ${user.name.split(' ')[0]}`}
       >
         <ModalContents>
-          <Body>Ask any questions that you want to clarify!</Body>
+          <Body margin='2rem 0 0 0'>Ask any questions that you want to clarify!</Body>
           <Input
             multiline
             rows={5}
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
+          />
+          <PolicyDisclaimer
+            action='sending a message on Cornlet'
           />
           <HoriCenter>
             <Btn

@@ -12,6 +12,7 @@ import useRouter from 'src/util/hooks/useRouter';
 import Modal from 'src/components/views/Modal';
 import Body from 'src/components/fonts/Body';
 import FormContents from './FormContents';
+import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
 
 const Form = styled.form`
   @media (min-width: ${(props) => props.theme.md}px) {
@@ -183,6 +184,9 @@ const FormComponent = ({ user, initialValues }) => {
         formik={formik}
         user={user}
       />
+      <PolicyDisclaimer 
+        action='saving listings on Cornlet'
+      />
       <Center>
         <Btn
           color="primary"
@@ -190,7 +194,7 @@ const FormComponent = ({ user, initialValues }) => {
           type="submit"
           onClick={handleSubmitAttempt}
         >
-Save
+Save Listing
         </Btn>
       </Center>
       <Modal

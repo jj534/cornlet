@@ -36,6 +36,9 @@ const StyledBody = styled.p`
 
   // maxWidth
   max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : '')};
+
+  // margin
+  margin: ${props => props.margin ? props.margin : ''};
 `;
 
 const Body = (props) => (
