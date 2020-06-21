@@ -15,11 +15,16 @@ const Container = styled.div`
   }
 `;
 
+const StatusBadge = styled(Btn)`
+  cursor: initial;
+`
+
 export const CloseSVG = styled(CloseRaw)`
   height: .7rem;
   width: .7rem;
   fill: ${props => props.theme.primary};
   margin-left: .5rem;
+  cursor: pointer;
 `;
 
 const FilterStatus = () => {
@@ -71,13 +76,12 @@ const FilterStatus = () => {
   return (
     <Container>
       {filters.map(({ text, cb }) => (
-        <Btn
+        <StatusBadge
           color='primary'
-          onClick={() => cb()}
         >
           {text}
-          <CloseSVG />
-        </Btn>
+          <CloseSVG onClick={() => cb()} />
+        </StatusBadge>
       ))}
     </Container>
   )
