@@ -7,6 +7,10 @@ import DynCardList from 'src/containers/DynCardList';
 import useRouter from 'src/util/hooks/useRouter';
 import LoadingDots from 'src/components/displays/LoadingDots';
 
+export const Container = styled.div`
+
+`;
+
 export const Center = styled.div`
   width: 100%;
   display: flex;
@@ -23,11 +27,12 @@ const Listings = () => {
     const connector = router.location.search ? '&' : '?';
     api.get(`/listing${router.location.search}${connector}active=true`)
       .then((res) => {
-        setListings(res.data);
+        console.log('res.data', res.data)
+        setListings(res.data.docs);
         setLoading(false);
       })
-      .catch((e) => {
-        log('ERROR get listings at home', e);
+      .catch(({ response }) => {
+        log('ERROR get listings at home', { response });
         setLoading(false);
       });
   }, [router]);
@@ -35,14 +40,17 @@ const Listings = () => {
   if (loading) return <Center><LoadingDots /></Center>;
 
   return (
-    <DynCardList>
-      {listings.map((listing) => (
-        <ListingCard
-          key={listing._id}
-          listing={listing}
-        />
-      ))}
-    </DynCardList>
+    <Container>
+      <DynCardList>
+        {listings.map((listing) => (
+          <ListingCard
+            key={listing._id}
+            listing={listing}
+          />
+        ))}
+      </DynCardList>
+      
+    </Container>
   );
 };
 

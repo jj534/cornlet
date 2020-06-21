@@ -29,8 +29,9 @@ listingRouter.get('/', async (req, res) => {
     const {
       uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus,
     } = req.query;
-    const uidQuery = uid ? { 'user.uid': uid } : {};
+    const deletedQuery = { deleted: false };
     const activeQuery = active ? { active } : {};
+    const uidQuery = uid ? { 'user.uid': uid } : {};
     const startQuery = start && !end
       ? { start: { $lte: moment(new Date(start)).endOf('day').toDate() }, end: { $gt: new Date(start) } }
       : {};
@@ -47,6 +48,7 @@ listingRouter.get('/', async (req, res) => {
       ? { toCampus: { $lte: Number(maxToCampus), $gte: Number(minToCampus) } }
       : {};
     const query = {
+      ...deletedQuery,
       ...activeQuery,
       ...uidQuery,
       ...startQuery,
@@ -64,12 +66,16 @@ listingRouter.get('/', async (req, res) => {
       'to-campus': { sort: { toCampus: 1 } },
     };
     const sortQuery = sortTypeToQuery[sort] || { sort: { updatedAt: -1 } };
-
-    const docs = await Listing.find(query, null, sortQuery);
-    const notDeletedDocs = docs.filter((doc) => !doc.deleted);
-    res.send(notDeletedDocs);
+    const options = {
+      page: 1,
+      limit: 9,
+      sort: sortQuery.sort,
+    };
+    const docs = await Listing.paginate(query, options);
+    res.send(docs);
   }
   catch (e) {
+    console.log('e', e)
     res.status(500).send(e);
   }
 });
