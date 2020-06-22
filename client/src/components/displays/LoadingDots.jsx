@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Center = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export const Container = styled.div`
   display: inline-block;
   position: relative;
@@ -58,14 +64,15 @@ export const Container = styled.div`
   }
 `;
 
-
 const LoadingDots = () => (
-  <Container>
-    <div />
-    <div />
-    <div />
-    <div />
-  </Container>
+  <Center>
+    <Container>
+      <div />
+      <div />
+      <div />
+      <div />
+    </Container>
+  </Center>
 );
 
 export default LoadingDots;

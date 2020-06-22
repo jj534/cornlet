@@ -10,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import api from 'src/util/api';
 import log from 'src/util/log';
 
-import { ReactComponent as PenRaw } from 'src/assets/svgs/pen.svg';
+import { ReactComponent as PencilRaw } from 'src/assets/svgs/pencil.svg';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import PriceBadge from 'src/components/displays/PriceBadge';
@@ -114,7 +114,7 @@ const RightSection = styled.div`
   }
 `;
 
-const Pen = styled(PenRaw)`
+const Pencil = styled(PencilRaw)`
   height: 1rem;
   width: 1rem;
   cursor: pointer;
@@ -239,7 +239,7 @@ $
           />
           <RightSection>
             <Link to={editPath}>
-              <Pen />
+              <Pencil />
             </Link>
             <Bin onClick={() => setDeleteModal(true)} />
           </RightSection>
