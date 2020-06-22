@@ -15,12 +15,14 @@ const Page = styled.button`
   width: 2rem;
   border-radius: 50%;
   background: inherit;
-  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   // selected
   background: ${props => props.selected ? 'rgba(0, 0, 0, .7)' : ''};
   color: ${props => props.selected ? 'white' : ''};
-
 `
 
 const PaginationBtns = ({ totalPages, page }) => {
