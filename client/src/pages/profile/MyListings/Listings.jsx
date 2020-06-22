@@ -4,6 +4,7 @@ import api from 'src/util/api';
 import log from 'src/util/log';
 import ListingCard from 'src/components/cards/ListingCard';
 import DynCardList from 'src/containers/DynCardList';
+import PaginationBtns from 'src/components/buttons/PaginationBtns';
 
 const Container = styled.div`
   margin: 2rem 0;
@@ -11,11 +12,15 @@ const Container = styled.div`
 
 const MyListings = ({ uid, setHasListings }) => {
   const [listings, setListings] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
 
   const reload = () => {
     api.get(`/listing?uid=${uid}`)
       .then((res) => {
-        setListings(res.data);
+        setListings(res.data.docs);
+        setTotalPages(res.data.totalPages);
+        setPage(res.data.page);
       })
       .catch((e) => log('ERROR get mylistings', e));
   };
@@ -42,6 +47,10 @@ const MyListings = ({ uid, setHasListings }) => {
           />
         ))}
       </DynCardList>
+      <PaginationBtns
+        totalPages={totalPages}
+        page={page}
+      />
     </Container>
   );
 };
