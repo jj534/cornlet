@@ -25,11 +25,11 @@ const SortBy = () => {
     },
     {
       value: 'price-asc',
-      label: 'Price (ascending)',
+      label: 'Price: Low to High',
     },
     {
       value: 'price-dec',
-      label: 'Price (decending)',
+      label: 'Price: High to Low',
     },
     {
       value: 'to-campus',
