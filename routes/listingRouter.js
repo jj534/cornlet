@@ -27,7 +27,7 @@ listingRouter.get('/', async (req, res) => {
   try {
     // format query
     const {
-      uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus,
+      uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus, page,
     } = req.query;
     const deletedQuery = { deleted: false };
     const activeQuery = active ? { active } : {};
@@ -67,7 +67,7 @@ listingRouter.get('/', async (req, res) => {
     };
     const sortQuery = sortTypeToQuery[sort] || { sort: { updatedAt: -1 } };
     const options = {
-      page: 1,
+      page: page || 1,
       limit: 9,
       sort: sortQuery.sort,
     };

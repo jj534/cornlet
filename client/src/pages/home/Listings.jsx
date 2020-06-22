@@ -6,6 +6,7 @@ import log from 'src/util/log';
 import DynCardList from 'src/containers/DynCardList';
 import useRouter from 'src/util/hooks/useRouter';
 import LoadingDots from 'src/components/displays/LoadingDots';
+import PaginationBtns from 'src/components/buttons/PaginationBtns';
 
 export const Container = styled.div`
 
@@ -21,14 +22,17 @@ const Listings = () => {
   const router = useRouter();
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     setLoading(true);
     const connector = router.location.search ? '&' : '?';
     api.get(`/listing${router.location.search}${connector}active=true`)
       .then((res) => {
-        console.log('res.data', res.data)
         setListings(res.data.docs);
+        setTotalPages(res.data.totalPages);
+        setPage(res.data.page);
         setLoading(false);
       })
       .catch(({ response }) => {
@@ -49,7 +53,10 @@ const Listings = () => {
           />
         ))}
       </DynCardList>
-      
+      <PaginationBtns
+        totalPages={totalPages}
+        page={page}
+      />
     </Container>
   );
 };
