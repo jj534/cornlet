@@ -15,6 +15,7 @@ const Page = styled.button`
   width: 2rem;
   border-radius: 50%;
   background: inherit;
+  text-align: center;
 
   // selected
   background: ${props => props.selected ? 'rgba(0, 0, 0, .7)' : ''};
