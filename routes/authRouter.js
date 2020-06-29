@@ -27,9 +27,9 @@ authRouter.get('/callback', (req, res) => {
   }
 });
 
-authRouter.get('/logout', (req, res) => {
+authRouter.get('/signout', (req, res) => {
   req.logout();
-  res.redirect(process.env.REACT_APP_CLIENT_DOMAIN);
+  res.send('OK');
 });
 
 module.exports = authRouter;

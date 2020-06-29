@@ -22,11 +22,9 @@ passport.use(new GoogleStrategy({
       photo: photos[0].value,
       email: emails[0].value,
     }).save();
-    console.log('newUser', newUser);
     done(null, newUser);
   }
   else {
-    console.log('existingUser', existingUser);
     done(null, existingUser);
   }
 })));

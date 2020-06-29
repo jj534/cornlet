@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import MainHeader from 'src/components/headers/MainHeader';
 import Navbar from 'src/components/headers/Navbar';
-import signOut from 'src/services/firebase/signOut';
-import { useHistory } from 'react-router-dom';
 import Btn from 'src/components/buttons/Btn';
+import api from 'src/util/api';
+import log from 'src/util/log';
+import useRouter from 'src/util/hooks/useRouter';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
 `;
@@ -16,10 +18,18 @@ const Content = styled.div`
 `;
 
 const Settings = () => {
-  const history = useHistory();
+  const router = useRouter();
+  const dispatch = useDispatch();
   const handleSignOut = async () => {
-    history.push('/');
-    signOut();
+    api.get('/auth/signout')
+      .then(() => {
+        router.history.push('/');
+        dispatch({
+          type: 'USER_SET',
+          payload: null,
+        })
+      })
+      .catch(({ response }) => log('Settings', response))
   };
 
   return (
