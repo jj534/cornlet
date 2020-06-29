@@ -30,7 +30,6 @@ const FormComponent = ({ user, initialValues }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const tempValues = useSelector((state) => state.tempValues);
-  const authing = useSelector((state) => state.authing);
   const router = useRouter();
 
   // configure inital values
@@ -125,42 +124,30 @@ const FormComponent = ({ user, initialValues }) => {
           });
       }
       else {
-        signin();
-        dispatch({
-          type: 'AUTHING_SET',
-          payload: true,
-        });
         dispatch({
           type: 'TEMP_VALUES_SET',
           payload: values,
+        });
+        signin({
+          redirectPath: '/new'
         });
       }
     },
   });
 
-  if (tempValues) {
-    if (!authing) {
-      if (user) {
-        api.post('/listing/create', { ...tempValues, user })
-          .then(() => {
-            dispatch({
-              type: 'TEMP_VALUES_SET',
-              payload: null,
-            });
-            router.history.push('/profile/listings');
-          })
-          .catch((e) => {
-            log('ERROR new listing submit form', e);
-          });
-      }
-      else {
+  if (tempValues && user) {
+    api.post('/listing/create', { ...tempValues, user })
+      .then(() => {
         dispatch({
           type: 'TEMP_VALUES_SET',
           payload: null,
         });
-      }
-    }
-    return <div>processing signin</div>;
+        setShowPrompt(false);
+        router.history.push('/profile/listings');
+      })
+      .catch((e) => {
+        log('ERROR new listing submit form', e);
+      });
   }
 
   // error on submit

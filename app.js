@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
@@ -51,31 +50,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// PASSPORT
-app.use(session({
-  secret: process.env.REACT_APP_SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-}));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser((user, done) => {
-  done(null, user._id);
-});
-
-passport.deserializeUser((id, done) => {
-  console.log('deserialising user by id', id);
-  User.findById(id)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch(e => {
-      done(new Error("Failed to deserialize a user"));
-    });
-});
-
 // SOCKET IO
 require('./socket').listen(server);
 
@@ -92,9 +66,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// ROUTING
-app.use('/api', require('./routes'));
-
 // PROD SERVE FRONTEND
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname)));
@@ -107,6 +78,35 @@ if (process.env.NODE_ENV === 'production') {
 else {
   app.use(express.static(path.join(__dirname, 'public')));
 }
+
+// PASSPORT
+app.use(session({
+  secret: process.env.REACT_APP_SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  // find user based on id stored in cookie
+  // save user data to req.user
+  User.findById(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch(e => {
+      done(new Error("Failed to deserialize a user"));
+    });
+});
+
+// ROUTING
+app.use('/api', require('./routes'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

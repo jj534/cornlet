@@ -4,18 +4,7 @@ const Listing = require('./../models/Listing');
 
 listingRouter.post('/create', async (req, res) => {
   try {
-    // format user props
-    const { user } = req.body;
-    const props = {
-      uid: user.uid,
-      email: user.email,
-      name: user.displayName,
-      photo: user.photoURL,
-    };
-    const data = { ...req.body, user: props };
-
-    // query
-    const result = await new Listing(data).save();
+    const result = await new Listing(req.body).save();
     res.send(result);
   }
   catch (e) {
