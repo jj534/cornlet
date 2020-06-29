@@ -40,7 +40,7 @@ const MyListings = () => {
       <Navbar />
       <Section>
         <Row>
-          <Heading>{`Hi, ${user.displayName.split(' ')[0]}`}</Heading>
+          <Heading>{`Hi, ${user.name.split(' ')[0]}`}</Heading>
         </Row>
         <Body>{text}</Body>
       </Section>

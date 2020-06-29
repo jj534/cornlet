@@ -38,65 +38,65 @@ const signIn = () => {
   firebase.auth().signInWithRedirect(provider);
 }
 
-firebase.auth().onAuthStateChanged((user) => {
+// firebase.auth().onAuthStateChanged((user) => {
 
-  if (user) {
-    store.dispatch({
-      type: 'USER_SET',
-      payload: user,
-    });
+//   if (user) {
+//     store.dispatch({
+//       type: 'USER_SET',
+//       payload: user,
+//     });
 
-    api.post('/user/save', user)
-      .catch(({ response }) => log('firebase', response));
+//     api.post('/user/save', user)
+//       .catch(({ response }) => log('firebase', response));
 
-    api.get(`/user/${user.uid}/bm`)
-      .then(({ data }) => {
-        store.dispatch({
-          type: 'BM_SET',
-          payload: data,
-        })
-        api.get(`/chatroom/user/${user.uid}`)
-          .then(({ data }) => {
-            store.dispatch({
-              type: 'CHATROOMS_SET',
-              payload: data,
-            })
-            store.dispatch({
-              type: 'AUTHING_SET',
-              payload: false,
-            })
-          })
-          .catch(({ response }) => {
-            log('firebase', response);
-            store.dispatch({
-              type: 'AUTHING_SET',
-              payload: false,
-            });
-          })
-      })
-      .catch(({ response }) => {
-        log('firebase', response);
-        store.dispatch({
-          type: 'AUTHING_SET',
-          payload: false,
-        });
-      })
-  } 
-  else {
-    store.dispatch({
-      type: 'USER_SET',
-      payload: null,
-    });
-    store.dispatch({
-      type: 'AUTHING_SET',
-      payload: false,
-    });
-    store.dispatch({
-      type: 'CHATROOMS_SET',
-      payload: [],
-    });
-  }
-});
+//     api.get(`/user/${user.uid}/bm`)
+//       .then(({ data }) => {
+//         store.dispatch({
+//           type: 'BM_SET',
+//           payload: data,
+//         })
+//         api.get(`/chatroom/user/${user.uid}`)
+//           .then(({ data }) => {
+//             store.dispatch({
+//               type: 'CHATROOMS_SET',
+//               payload: data,
+//             })
+//             store.dispatch({
+//               type: 'AUTHING_SET',
+//               payload: false,
+//             })
+//           })
+//           .catch(({ response }) => {
+//             log('firebase', response);
+//             store.dispatch({
+//               type: 'AUTHING_SET',
+//               payload: false,
+//             });
+//           })
+//       })
+//       .catch(({ response }) => {
+//         log('firebase', response);
+//         store.dispatch({
+//           type: 'AUTHING_SET',
+//           payload: false,
+//         });
+//       })
+//   } 
+//   else {
+//     store.dispatch({
+//       type: 'USER_SET',
+//       payload: null,
+//     });
+//     store.dispatch({
+//       type: 'AUTHING_SET',
+//       payload: false,
+//     });
+//     store.dispatch({
+//       type: 'CHATROOMS_SET',
+//       payload: [],
+//     });
+//   }
+// });
 
 export default firebase;
 export {

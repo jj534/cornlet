@@ -17,6 +17,8 @@ export const Content = styled.div`
 
 const AuthCallback = () => {
   const dispatch = useDispatch();
+  const authing = useSelector(state => state.authing);
+  const router = useRouter();
 
   useEffect(() => {
     api.get('/auth/callback')
@@ -29,6 +31,7 @@ const AuthCallback = () => {
           type: 'AUTHING_SET',
           payload: false,
         });
+        router.history.push('/profile/listings');
       })
       .catch(({ response }) => {
         log('AuthCallback', response);
@@ -42,9 +45,6 @@ const AuthCallback = () => {
         });
       })
   }, [])
-
-  const authing = useSelector(state => state.authing);
-  const router = useRouter();
 
   if (authing) {
     return (
