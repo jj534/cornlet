@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import useRouter from 'src/util/hooks/useRouter';
 import { useSelector } from 'react-redux';
-import api from 'src/util/api';
 import signin from 'src/util/helpers/signin';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 const Container = styled.div`
   position: fixed;
@@ -18,8 +17,14 @@ const Container = styled.div`
   padding: 2rem;
 `;
 
+export const HoriLine = styled.div`
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  margin: 2rem 0;
+`;
+
 export const NavContainer = styled.div`
-  margin-bottom: 1.8rem;
+  margin: 2rem 0;
 `;
 
 export const NavElt = styled.nav`
@@ -27,28 +32,28 @@ export const NavElt = styled.nav`
   cursor: pointer;
 `;
 
-const FullscreenNav = ({ setIsMenuOpen, absolutePath }) => {
+const FullscreenNav = ({ setIsMenuOpen }) => {
   const router = useRouter();
-  const handleRedirect = (path, absolutePath) => {
-    if (absolutePath) {
-      window.open(path, '_self');
-    }
-    else {
-      router.history.push(path)
-      setIsMenuOpen(false);
-    }
-  }
-
-  const handleSignin = () => {
-    api.get('/auth/google')
-      .then((res) => console.log('res', res))
-      .catch(({ response }) => console.log('response', response))
+  const handleRedirect = (path) => {
+    router.history.push(path)
+    setIsMenuOpen(false);
   }
 
   const user = useSelector(state => state.user);
 
+  // prevent scroll
+  const targetRef = React.createRef();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    disableBodyScroll(targetRef);
+
+    return () => {
+      clearAllBodyScrollLocks();
+    }
+  }, [])
+
   return (
-    <Container>
+    <Container ref={targetRef}>
       <NavContainer>
         <NavElt onClick={() => handleRedirect('/')}>Home</NavElt>
       </NavContainer>
@@ -61,6 +66,7 @@ const FullscreenNav = ({ setIsMenuOpen, absolutePath }) => {
       {user
         ? (
           <div>
+            <HoriLine />
             <NavContainer>
               <NavElt onClick={() => handleRedirect('/profile')}>My Profile</NavElt>
             </NavContainer>
