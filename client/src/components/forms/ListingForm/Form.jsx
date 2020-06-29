@@ -6,13 +6,13 @@ import Btn from 'src/components/buttons/Btn';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import { useHistory, Prompt } from 'react-router-dom';
-import { signIn } from 'src/services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import useRouter from 'src/util/hooks/useRouter';
 import Modal from 'src/components/views/Modal';
 import Body from 'src/components/fonts/Body';
 import FormContents from './FormContents';
 import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
+import signin from 'src/util/helpers/signin';
 
 const Form = styled.form`
   @media (min-width: ${(props) => props.theme.md}px) {
@@ -125,7 +125,7 @@ const FormComponent = ({ user, initialValues }) => {
           });
       }
       else {
-        signIn();
+        signin();
         dispatch({
           type: 'AUTHING_SET',
           payload: true,

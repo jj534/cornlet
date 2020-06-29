@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import useRouter from 'src/util/hooks/useRouter';
 import { useSelector } from 'react-redux';
 import api from 'src/util/api';
+import signin from 'src/util/helpers/signin';
 
 const Container = styled.div`
   position: fixed;
@@ -70,7 +71,7 @@ const FullscreenNav = ({ setIsMenuOpen, absolutePath }) => {
         )
         : (
           <NavContainer>
-            <NavElt onClick={() => handleRedirect('http://localhost:8081/api/auth/google', true)}>Sign in</NavElt>
+            <NavElt onClick={signin}>Sign in</NavElt>
           </NavContainer>
         )
       }

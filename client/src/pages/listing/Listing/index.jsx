@@ -33,10 +33,10 @@ import HoriCenter from 'src/containers/HoriCenter';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import useRouter from 'src/util/hooks/useRouter';
-import { signIn } from 'src/services/firebase';
 import socket from 'src/util/socket';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
 import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
+import signin from 'src/util/helpers/signin';
 
 const Wrapper = styled.div`
   display: flex;
@@ -276,7 +276,7 @@ const Listing = ({ listing }) => {
 
     if (!signedInUser) {
       // not signed in, redirect to signin
-      signIn();
+      signin();
       dispatch({
         type: 'AUTHING_SET',
         payload: true,

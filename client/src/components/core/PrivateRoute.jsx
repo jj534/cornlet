@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { signIn } from 'src/services/firebase';
 import MainHeader from '../headers/MainHeader';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -10,7 +9,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const dispatch = useDispatch();
 
   if (!user && !authing) {
-    signIn();
+    window.open('http://localhost:8081/api/auth/google', '_self');
     dispatch({
       type: 'AUTHING_SET',
       payload: true,

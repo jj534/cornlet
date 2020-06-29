@@ -1,15 +1,6 @@
 import * as firebase from "firebase/app";
-import 'firebase/auth';
 import 'firebase/storage';
-import 'firebase/analytics';
-
-//import signIn from './signIn';
-import signOut from './signOut';
 import uploadFile from './uploadFile';
-
-import store from 'src/redux/store';
-import api from 'src/util/api';
-import log from 'src/util/log';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9olIfEWy0ydA0yJU52qfH0paJn9MXIM",
@@ -23,20 +14,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-if (process.env !== 'development') {
-  firebase.analytics();
-}
-
-var provider = new firebase.auth.GoogleAuthProvider();
-
-provider.setCustomParameters({
-  prompt: 'select_account'
-});
-
-const signIn = () => {
-  firebase.auth().signInWithRedirect(provider);
-}
 
 // firebase.auth().onAuthStateChanged((user) => {
 
@@ -100,7 +77,5 @@ const signIn = () => {
 
 export default firebase;
 export {
-  signIn,
-  signOut,
   uploadFile,
 }
