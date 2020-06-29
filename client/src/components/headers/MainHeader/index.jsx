@@ -9,6 +9,7 @@ import useIsDesktop from 'src/util/hooks/useIsDesktop';
 
 import Bookmarks from './Bookmarks';
 import Chat from './Chat';
+import MobileNav from './MobileNav';
 
 const Container = styled.div`
   display: flex;
@@ -41,23 +42,28 @@ const MainHeader = () => {
       <Link to="/">
         <Logo />
       </Link>
-      <Right>
-        <Chat />
-        {!authing && <Bookmarks />}
-        {!authing && (
-          <Link to="/new">
-            <Btn
-              color="primary"
-              inverted
-            >
-New
-              {' '}
-              {isDesktop && ' Listing'}
-            </Btn>
-          </Link>
-        )}
-        <Auth />
-      </Right>
+      {isDesktop
+        ? (
+          <Right>
+            <Chat />
+            {!authing && <Bookmarks />}
+            {!authing && (
+              <Link to="/new">
+                <Btn
+                  color="primary"
+                  inverted
+                >
+    New
+                  {' '}
+                  {isDesktop && ' Listing'}
+                </Btn>
+              </Link>
+            )}
+            <Auth />
+          </Right>
+        )
+        : <MobileNav />
+      }
     </Container>
   );
 };

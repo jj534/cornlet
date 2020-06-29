@@ -2,9 +2,13 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
+const User = require('./models/User');
 require('dotenv').config();
 
 // MONGODB
@@ -34,13 +38,6 @@ const server = app.listen(PORT, () => {
   console.log(`listening at ${PORT}`);
 });
 
-// SOCKET IO
-require('./socket').listen(server);
-
-// VIEW ENGINE
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 // MIDDLEWARE
 const corsCfg = {
   origin: '*',
@@ -53,7 +50,39 @@ app.use(cors(corsCfg));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+
+// PASSPORT
+app.use(session({
+  secret: process.env.REACT_APP_SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  console.log('serialising user', user);
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log('deserialising user by id', id);
+  User.findById(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch(e => {
+      done(new Error("Failed to deserialize a user"));
+    });
+});
+
+// SOCKET IO
+require('./socket').listen(server);
+
+// VIEW ENGINE
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // FORCE HTTPS ON PROD
 // eslint-disable-next-line consistent-return

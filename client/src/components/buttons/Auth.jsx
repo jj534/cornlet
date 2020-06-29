@@ -46,7 +46,8 @@ const Auth = () => {
     <Container>
       {authing
         ? <Loading />
-        : <SignIn onClick={handleClick} />}
+        : <SignIn onClick={handleClick} />
+      }
     </Container>
   );
 };

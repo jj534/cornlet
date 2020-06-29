@@ -1,6 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import ScrollToTop from './ScrollToTop';
+import PrivateRoute from './PrivateRoute';
+import MainFooter from '../footers/MainFooter';
+import SocketIO from './SocketIO';
+
 import Home from 'src/pages/home';
 import Listing from 'src/pages/listing';
 import New from 'src/pages/new';
@@ -15,10 +20,7 @@ import MyListings from 'src/pages/profile/MyListings';
 import Chat from 'src/pages/profile/MyChats/Chat';
 import Chatroom from 'src/pages/profile/MyChats/Chatroom';
 import Settings from 'src/pages/profile/Settings';
-import ScrollToTop from './ScrollToTop';
-import PrivateRoute from './PrivateRoute';
-import MainFooter from '../footers/MainFooter';
-import SocketIO from './SocketIO';
+import AuthCallback from 'src/pages/auth-callback';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -30,6 +32,7 @@ const AppRouter = () => (
       <Route exact path="/terms-conditions" component={TermsConditions} />
       <Route exact path="/privacy-policy" component={PrivacyPolicy} />
       <Route exact path="/cookie-policy" component={CookiePolicy} />
+      <Route exact path="/auth/callback" component={AuthCallback} />
       <PrivateRoute exact path="/profile/settings" component={Settings} />
       <PrivateRoute exact path="/profile/chat/:cid" component={Chatroom} />
       <PrivateRoute exact path="/profile/chat" component={Chat} />
