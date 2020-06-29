@@ -18,6 +18,7 @@ export const Content = styled.div`
 const AuthCallback = () => {
   const dispatch = useDispatch();
   const authing = useSelector(state => state.authing);
+  const redirectPath = useSelector(state => state.redirectPath)
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +32,11 @@ const AuthCallback = () => {
           type: 'AUTHING_SET',
           payload: false,
         });
-        router.history.push('/profile/listings');
+        router.history.push(redirectPath || '/profile/listings');
+        dispatch({
+          type: 'REDIRECT_PATH_SET',
+          payload: null,
+        });
       })
       .catch(({ response }) => {
         log('AuthCallback', response);

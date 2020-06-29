@@ -275,12 +275,8 @@ const Listing = ({ listing }) => {
     handleClose();
 
     if (!signedInUser) {
-      // not signed in, redirect to signin
-      signin();
-      dispatch({
-        type: 'AUTHING_SET',
-        payload: true,
-      });
+      // not signed in, signin
+      signin({ redirectPath: `/listing/${listing._id}` });
       dispatch({
         type: 'TEMP_VALUES_SET',
         payload: msg,
