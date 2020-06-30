@@ -58,15 +58,17 @@ const BmBtn = ({ listing }) => {
 
         // DB
         if (addListingToBm) {
-          await api.put(`/user/${user.uid}/bm/add/${listing._id}`);
+          await api.put(`/user/${user._id}/bm/add/${listing._id}`)
+            .catch(({ response }) => log('BmBtn', response))
         }
         else {
-          await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
+          await api.put(`/user/${user._id}/bm/remove/${listing._id}`)
+            .catch(({ response }) => log('BmBtn', response))
         }
       }
     }
     catch (e) {
-      log('ListingCard', e);
+      log('BmBtn', e);
     }
   };
 

@@ -32,17 +32,29 @@ userRouter.post('/save', async (req, res) => {
   }
 });
 
-const defaultBm = { notif: false, listings: [] };
-
 // get uid's bookmark data
-userRouter.get('/:uid/bm', async (req, res) => {
+userRouter.get('/:id/bm', async (req, res) => {
   try {
-    const { uid } = req.params;
-    const user = await User.findOne({ uid }).populate('bm.listings');
+    const { id } = req.params;
+    const user = await User.findById({ id }).populate('bm.listings');
+
     if (user) {
       res.send(user.bm);
     }
-    else res.send(defaultBm);
+    else {
+      throw new Error('Invalid uid');
+    }
+  }
+  catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+userRouter.put('/:id/bm/notif/false', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedUser = await User.findByIdAndUpdate(id, { 'bm.notif': false }, { new: true });
+    res.send(updatedUser);
   }
   catch (e) {
     res.status(500).send(e);
@@ -51,42 +63,40 @@ userRouter.get('/:uid/bm', async (req, res) => {
 
 // add or remove lid to uid's bookmarked listings
 // opr: add || remove
-userRouter.put('/:uid/bm/:opr/:lid', async (req, res) => {
+userRouter.put('/:id/bm/:opr/:lid', async (req, res) => {
   try {
-    const { uid, lid, opr } = req.params;
-    const user = await User.findOne({ uid });
-    let newBm = defaultBm;
-    if (opr === 'add') {
-      if (user && !user.bm.listings.includes(lid)) {
-        newBm.listings = [...user.bm.listings, lid];
-        newBm.notif = true;
+    const { id, lid, opr } = req.params;
+    const user = await User.findById(id);
+
+    if (user) {
+      if (opr === 'add') {
+        if (user && !user.bm.listings.includes(lid)) {
+          user.bm.listings = [...user.bm.listings, lid];
+          user.bm.notif = true;
+        }
       }
-      else if (!user) newBm.listings = [lid];
-    }
-    else if (opr === 'remove') {
-      if (user && user.bm.listings.includes(lid)) {
-        newBm = user.bm;
-        newBm.listings.splice(newBm.listings.indexOf(lid), 1);
+      else if (opr === 'remove') {
+        if (user && user.bm.listings.includes(lid)) {
+          user.bm.listings = [...user.bm.listings].filter((bmLid) => bmLid.toString() !== lid);
+        }
       }
+      await user.save({ new: true });
     }
-    const opts = { new: true, upsert: true };
-    const updatedUser = await User.findOneAndUpdate({ uid }, { bm: newBm }, opts);
-    res.send(updatedUser);
+    res.send('OK');
   }
   catch (e) {
     res.status(500).send(e);
   }
 });
 
-userRouter.put('/:uid/bm/notif/false', async (req, res) => {
-  try {
-    const { uid } = req.params;
-    const updatedUser = await User.findOneAndUpdate({ uid }, { 'bm.notif': false }, { new: true });
-    res.send(updatedUser);
-  }
-  catch (e) {
-    res.status(500).send(e);
-  }
-});
+const findUsersWithoutEmail = async () => {
+  const res = await User.deleteOne({ email: null });
+  console.log('res', res);
+
+  const users = await User.find({ email: null });
+  console.log('users', users);
+};
+
+// findUsersWithoutEmail();
 
 module.exports = userRouter;

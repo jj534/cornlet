@@ -71,8 +71,9 @@ const BmListing = ({ listing }) => {
           type: 'USER_BM_REMOVE',
           payload: listing,
         })
-        
-        await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
+
+        await api.put(`/user/${user._id}/bm/remove/${listing._id}`)
+          .catch(({ response }) => log('BmListing', response))
       }
     }
     catch (error) {
