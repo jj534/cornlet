@@ -25,7 +25,7 @@ const BmDropdown = ({ listings, dropdown, setDropdown }) => {
   const noBmText = <NoBm>No bookmarks!</NoBm>;
 
   return (
-    <Dropdown show={dropdown} setShow={setDropdown}>
+    <Dropdown show={dropdown} setShow={setDropdown} alignRight>
       <Container>
         {(!listings || !listings.length)
           ? noBmText

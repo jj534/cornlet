@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as BMIconRaw } from 'src/assets/svgs/bookmark-filled.svg';
+import { ReactComponent as BMIconRaw } from 'src/assets/svgs/bookmark.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import CornerRedDot from 'src/components/displays/CornerRedDot';
 import BmDropdown from './BmDropdown';

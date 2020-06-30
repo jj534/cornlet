@@ -20,7 +20,7 @@ const Container = styled.div`
 
 `;
 
-const Auth = () => {
+const Auth = ({ border }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const authing = useSelector((state) => state.authing);
@@ -35,8 +35,9 @@ const Auth = () => {
   if (user) {
     return (
       <Avatar
-        src={user.photoURL}
+        src={user.photo}
         path="/profile"
+        border={border}
       />
     );
   }

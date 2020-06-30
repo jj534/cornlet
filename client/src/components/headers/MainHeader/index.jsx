@@ -34,7 +34,6 @@ const Right = styled.div`
 `;
 
 const MainHeader = () => {
-  const authing = useSelector((state) => state.authing);
   const isDesktop = useIsDesktop();
 
   return (
@@ -45,21 +44,17 @@ const MainHeader = () => {
       {isDesktop
         ? (
           <Right>
+            <Link to="/new">
+              <Btn
+                color="primary"
+                inverted
+              >
+                +   New Listing
+              </Btn>
+            </Link>
             <Chat />
-            {!authing && <Bookmarks />}
-            {!authing && (
-              <Link to="/new">
-                <Btn
-                  color="primary"
-                  inverted
-                >
-    New
-                  {' '}
-                  {isDesktop && ' Listing'}
-                </Btn>
-              </Link>
-            )}
-            <Auth />
+            <Auth border />
+            <Bookmarks />
           </Right>
         )
         : <MobileNav />

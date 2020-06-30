@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { ReactComponent as ChatRaw } from 'src/assets/svgs/chat-square.svg';
 import CornerRedDot from 'src/components/displays/CornerRedDot';
 import { Link } from 'react-router-dom';
+import Body from 'src/components/fonts/Body';
 
 const Container = styled.div`
   position: relative;
-  padding-right: .2rem;
+  padding-right: .4rem;
 `;
 
 export const ChatSVG = styled(ChatRaw)`
@@ -18,7 +19,6 @@ export const ChatSVG = styled(ChatRaw)`
 `;
 
 const Chat = () => {
-  const authing = useSelector((state) => state.authing);
   const chatrooms = useSelector((state) => state.chatrooms);
   const user = useSelector((state) => state.user);
   let hasNotif = false;
@@ -33,7 +33,7 @@ const Chat = () => {
   return (
     <Link to="/profile/chat">
       <Container>
-        {!authing && <ChatSVG />}
+        <Body bold>Inbox</Body>
         {hasNotif && <CornerRedDot />}
       </Container>
     </Link>
