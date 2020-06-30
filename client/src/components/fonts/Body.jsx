@@ -39,6 +39,9 @@ const StyledBody = styled.p`
 
   // margin
   margin: ${props => props.margin ? props.margin : ''};
+
+  // pointer
+  cursor: ${props => props.pointer && 'pointer'};
 `;
 
 const Body = (props) => (
