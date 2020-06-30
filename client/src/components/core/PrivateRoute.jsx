@@ -1,20 +1,14 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
-import MainHeader from '../headers/MainHeader';
 import signin from 'src/util/helpers/signin';
+import MainHeader from '../headers/MainHeader';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.user);
-  const authing = useSelector((state) => state.authing);
-  const dispatch = useDispatch();
 
-  if (!user && !authing) {
+  if (!user) {
     signin();
-    return <div />;
-  }
-
-  if (authing) {
     return <MainHeader />;
   }
 

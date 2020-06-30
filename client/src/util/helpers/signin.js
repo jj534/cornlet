@@ -6,7 +6,8 @@ const signin = (options) => {
     type: 'AUTHING_SET',
     payload: true,
   });
-  if (options.redirectPath) {
+  
+  if (options && options.redirectPath) {
     store.dispatch({
       type: 'REDIRECT_PATH_SET',
       payload: options.redirectPath,
