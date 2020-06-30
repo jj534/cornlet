@@ -6,10 +6,12 @@ const signin = (options) => {
     type: 'AUTHING_SET',
     payload: true,
   });
-  store.dispatch({
-    type: 'REDIRECT_PATH_SET',
-    payload: options.redirectPath,
-  })
+  if (options.redirectPath) {
+    store.dispatch({
+      type: 'REDIRECT_PATH_SET',
+      payload: options.redirectPath,
+    })
+  }
 }
 
 export default signin;

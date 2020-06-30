@@ -148,6 +148,7 @@ const FormComponent = ({ user, initialValues }) => {
       .catch((e) => {
         log('ERROR new listing submit form', e);
       });
+    return <div>Creating listing...</div>
   }
 
   // error on submit
