@@ -59,15 +59,21 @@ const BmListing = ({ listing }) => {
   const handleRemove = async (e) => {
     try {
       e.preventDefault();
-      // redux
-      dispatch({
-        type: 'BM_REMOVE',
-        payload: listing,
-      });
-      if (!user) return;
 
-      // db
-      await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
+      if (!user) {
+        dispatch({
+          type: 'BM_REMOVE',
+          payload: listing,
+        });
+      }
+      else {
+        dispatch({
+          type: 'USER_BM_REMOVE',
+          payload: listing,
+        })
+        
+        await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
+      }
     }
     catch (error) {
       log('BmListing', error);

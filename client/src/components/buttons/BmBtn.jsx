@@ -6,7 +6,10 @@ import log from 'src/util/log';
 import { ReactComponent as BmFilledRaw } from 'src/assets/svgs/bookmark.svg';
 
 const Container = styled.div`
-
+  background: white;
+  padding: .5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 `;
 
 const BmFilled = styled(BmFilledRaw)`
@@ -17,12 +20,11 @@ const BmFilled = styled(BmFilledRaw)`
   stroke: black;
   stroke-width: 2;
   overflow: visible !important;
-  cursor: pointer;
   opacity: .9;
 
   // highlighted
   fill: ${(props) => (props.highlighted ? props.theme.primary : '')};
-  stroke-width: ${(props) => (props.highlighted ? '0' : '')};
+  // stroke-width: ${(props) => (props.highlighted ? '0' : '')};
 `;
 
 const BmBtn = ({ listing }) => {
@@ -30,26 +32,37 @@ const BmBtn = ({ listing }) => {
   const user = useSelector((state) => state.user);
   let isBmed = false;
   if (bm.listings) {
-    isBmed = bm.listings.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
+    const listingsToCheck = user ? user.bm.listings : bm.listings
+    isBmed = listingsToCheck.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
   }
   const dispatch = useDispatch();
   const toggleBm = async () => {
     try {
-      const newState = !isBmed;
+      const addListingToBm = !isBmed;
       // redux
-      const type = newState ? 'BM_ADD' : 'BM_REMOVE';
-      dispatch({
-        type,
-        payload: listing,
-      });
-      if (!user) return;
+      const type = addListingToBm ? 'BM_ADD' : 'BM_REMOVE';
 
-      // DB
-      if (newState) {
-        await api.put(`/user/${user.uid}/bm/add/${listing._id}`);
+      if (!user) {
+        // redux: bm
+        dispatch({
+          type,
+          payload: listing,
+        });
       }
       else {
-        await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
+        // redux: user.bm
+        dispatch({
+          type: `USER_${type}`,
+          payload: listing,
+        })
+
+        // DB
+        if (addListingToBm) {
+          await api.put(`/user/${user.uid}/bm/add/${listing._id}`);
+        }
+        else {
+          await api.put(`/user/${user.uid}/bm/remove/${listing._id}`);
+        }
       }
     }
     catch (e) {
@@ -58,8 +71,8 @@ const BmBtn = ({ listing }) => {
   };
 
   return (
-    <Container>
-      <BmFilled onClick={toggleBm} highlighted={isBmed ? 1 : 0} />
+    <Container onClick={toggleBm}>
+      <BmFilled highlighted={isBmed ? 1 : 0} />
     </Container>
   );
 };

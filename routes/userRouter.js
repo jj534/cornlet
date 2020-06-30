@@ -78,4 +78,15 @@ userRouter.put('/:uid/bm/:opr/:lid', async (req, res) => {
   }
 });
 
+userRouter.put('/:uid/bm/notif/false', async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const updatedUser = await User.findOneAndUpdate({ uid }, { 'bm.notif': false }, { new: true });
+    res.send(updatedUser);
+  }
+  catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 module.exports = userRouter;

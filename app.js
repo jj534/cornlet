@@ -97,6 +97,8 @@ passport.deserializeUser((id, done) => {
   // find user based on id stored in cookie
   // save user data to req.user
   User.findById(id)
+    .populate('bm.listings')
+    .populate('chatrooms')
     .then((user) => {
       done(null, user);
     })
