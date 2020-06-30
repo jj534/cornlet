@@ -89,14 +89,4 @@ userRouter.put('/:id/bm/:opr/:lid', async (req, res) => {
   }
 });
 
-const findUsersWithoutEmail = async () => {
-  const res = await User.deleteOne({ email: null });
-  console.log('res', res);
-
-  const users = await User.find({ email: null });
-  console.log('users', users);
-};
-
-// findUsersWithoutEmail();
-
 module.exports = userRouter;

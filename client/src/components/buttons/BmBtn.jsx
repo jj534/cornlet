@@ -10,6 +10,7 @@ const Container = styled.div`
   padding: .5rem;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  cursor: pointer;
 `;
 
 const BmFilled = styled(BmFilledRaw)`
@@ -39,7 +40,6 @@ const BmBtn = ({ listing }) => {
   const toggleBm = async () => {
     try {
       const addListingToBm = !isBmed;
-      // redux
       const type = addListingToBm ? 'BM_ADD' : 'BM_REMOVE';
 
       if (!user) {
