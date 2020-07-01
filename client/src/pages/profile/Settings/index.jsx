@@ -24,10 +24,16 @@ const Settings = () => {
     api.get('/auth/signout')
       .then(() => {
         router.history.push('/');
+
         dispatch({
           type: 'USER_SET',
           payload: null,
-        })
+        });
+        
+        dispatch({
+          type: 'CHATROOMS_SET',
+          payload: [],
+        });
       })
       .catch(({ response }) => log('Settings', response))
   };

@@ -32,6 +32,10 @@ const AuthCallback = () => {
           type: 'AUTHING_SET',
           payload: false,
         });
+        dispatch({
+          type: 'CHATROOMS_SET',
+          payload: res.data.chatrooms,
+        });
         router.history.push(redirectPath || '/profile/listings');
         dispatch({
           type: 'REDIRECT_PATH_SET',

@@ -33,7 +33,7 @@ const Chat = () => {
   return (
     <Link to="/profile/chat">
       <Container>
-        <Body bold>Inbox</Body>
+        <Body bold>Messages</Body>
         {hasNotif && <CornerRedDot />}
       </Container>
     </Link>
