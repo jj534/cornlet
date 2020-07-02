@@ -7,6 +7,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const User = require('./models/User');
 require('dotenv').config();
 
@@ -84,6 +85,7 @@ app.use(session({
   secret: process.env.REACT_APP_SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
