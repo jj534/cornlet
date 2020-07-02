@@ -10,6 +10,12 @@ module.exports.listen = (app) => {
       try {
         io.emit('msg', data);
 
+        // TODO: fix race condition error
+        // if another chat is sent before the previous chat is saved
+        // the Chatroom.findById finds the chat data before the previous chat was saved
+        // appending the new chat data and updating ignores the previously sent chat data
+        // not a super urgent problem since consecutive chat has to be sent very fast
+
         // save to DB
         const chatroom = await Chatroom.findById(data.cid).populate('searcher listing');
         const newMsgs = [...chatroom.msgs];
@@ -35,7 +41,7 @@ module.exports.listen = (app) => {
         newMsgs.push(dataWithoutCid);
         chatroom.msgs = newMsgs;
 
-        chatroom.save();
+        await Chatroom.findByIdAndUpdate(data.cid, { ...chatroom.toObject() }, { new: true });
       }
       catch (e) {
         console.log('socket error', e);
@@ -69,7 +75,7 @@ module.exports.listen = (app) => {
           newNotifUids.splice(newNotifUids.indexOf(data.uid), 1);
         }
         chatroom.notifUids = newNotifUids;
-        chatroom.save();
+        await chatroom.save();
       }
       catch (e) {
         console.log('socket error', e);

@@ -228,7 +228,6 @@ const Listing = ({ listing }) => {
 
   const signedInUser = useSelector((state) => state.user);
   const chatrooms = useSelector((state) => state.chatrooms);
-  const authing = useSelector((state) => state.authing);
   const tempValues = useSelector((state) => state.tempValues);
 
   const availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
@@ -260,6 +259,10 @@ const Listing = ({ listing }) => {
       searcherUid: signedInUser.uid,
       ownerUid: user.uid,
     };
+    dispatch({
+      type: 'TEMP_VALUES_SET',
+      payload: null,
+    });
     api.post('/chatroom/create', reqData)
       .then(({ data }) => {
         // emit socket event
@@ -276,11 +279,11 @@ const Listing = ({ listing }) => {
 
     if (!signedInUser) {
       // not signed in, signin
-      signin({ redirectPath: `/listing/${listing._id}` });
       dispatch({
         type: 'TEMP_VALUES_SET',
         payload: msg,
       });
+      signin({ redirectPath: `/listing/${listing._id}` });
     }
     else {
       const listingChatrooms = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
@@ -294,6 +297,10 @@ const Listing = ({ listing }) => {
           uid: signedInUser.uid,
           createdAt: new Date(),
         };
+        dispatch({
+          type: 'TEMP_VALUES_SET',
+          payload: null,
+        });
         socket.emit('msg', data);
         router.push(`/profile/chat/${listingChatrooms[0]._id}`);
       }
@@ -303,12 +310,14 @@ const Listing = ({ listing }) => {
     }
   };
 
-  if (tempValues && !authing) {
+  if (tempValues) {
     handleCreateMsg();
-    dispatch({
-      type: 'TEMP_VALUES_SET',
-      payload: null,
-    });
+    return (
+      <div>
+        <MainHeader />
+        <Body>Creating message ...</Body>
+      </div>
+    )
   }
 
   return (
@@ -321,9 +330,7 @@ const Listing = ({ listing }) => {
           <RenderOn mobile>
             <BackHeader fullwidth />
           </RenderOn>
-          {authing
-            ? <div>handling authentication</div>
-            : (!listing.active || listing.deleted)
+            {(!listing.active || listing.deleted)
               ? <Body>This listing is inactive or has been deleted by the owner.</Body>
               : (
                 <ListingSection>
