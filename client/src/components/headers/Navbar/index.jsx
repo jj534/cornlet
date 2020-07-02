@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavElt from './NavElt';
+import useUnreadChatrooms from 'src/util/hooks/useUnreadChatrooms';
 
 const Container = styled.div`
   overflow: hidden;
@@ -18,24 +19,29 @@ const HrLine = styled.div`
   right: 0;
 `;
 
-const Navbar = () => (
-  <Container>
-    <NavRow>
-      <NavElt
-        label="Listings"
-        to="/profile/listings"
-      />
-      <NavElt
-        label="Chat"
-        to="/profile/chat"
-      />
-      <NavElt
-        label="Settings"
-        to="/profile/settings"
-      />
-    </NavRow>
-    <HrLine />
-  </Container>
-);
+const Navbar = () => {
+  const unreadChatroomsCount = useUnreadChatrooms().length;
+
+  return (
+    <Container>
+      <NavRow>
+        <NavElt
+          label="Listings"
+          to="/profile/listings"
+        />
+        <NavElt
+          label="Messages"
+          to="/profile/chat"
+          notifCount={unreadChatroomsCount}
+        />
+        <NavElt
+          label="Settings"
+          to="/profile/settings"
+        />
+      </NavRow>
+      <HrLine />
+    </Container>
+  )
+};
 
 export default Navbar;
