@@ -4,6 +4,9 @@ import useRouter from 'src/util/hooks/useRouter';
 import { useSelector } from 'react-redux';
 import signin from 'src/util/helpers/signin';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import useUnreadChatrooms from 'src/util/hooks/useUnreadChatrooms';
+import Notification from 'src/components/displays/Notification';
+import NotifCounter from 'src/components/displays/NotifCounter';
 
 const Container = styled.div`
   position: fixed;
@@ -25,11 +28,13 @@ export const HoriLine = styled.div`
 
 export const NavContainer = styled.div`
   margin: 2rem 0;
+  display: flex;
 `;
 
 export const NavElt = styled.nav`
   font-size: 1.8rem;
   cursor: pointer;
+  margin-right: 1rem;
 `;
 
 const FullscreenNav = ({ setIsMenuOpen }) => {
@@ -40,6 +45,7 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
   }
 
   const user = useSelector(state => state.user);
+  const unreadChatroomsCount = useUnreadChatrooms().length;
 
   // prevent scroll
   const targetRef = React.createRef();
@@ -68,10 +74,14 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
           <div>
             <HoriLine />
             <NavContainer>
-              <NavElt onClick={() => handleRedirect('/profile')}>My Profile</NavElt>
+              <NavElt onClick={() => handleRedirect('/profile')}>My Listings</NavElt>
             </NavContainer>
             <NavContainer>
               <NavElt onClick={() => handleRedirect('/profile/chat')}>Messages</NavElt>
+              {unreadChatroomsCount > 0 && <NotifCounter>{unreadChatroomsCount}</NotifCounter>}
+            </NavContainer>
+            <NavContainer>
+              <NavElt onClick={() => handleRedirect('/profile/settings')}>Settings</NavElt>
             </NavContainer>
           </div>
         )
