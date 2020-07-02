@@ -220,6 +220,7 @@ export const ModalContents = styled.div`
 
 
 const Listing = ({ listing }) => {
+  console.log('Listing render');
   const {
     imgs, addr, price, user, desc, sold, displayName, cornellOnly,
     totalRooms, availRooms, bathrooms, type, toCampus,
@@ -259,10 +260,6 @@ const Listing = ({ listing }) => {
       searcherUid: signedInUser.uid,
       ownerUid: user.uid,
     };
-    dispatch({
-      type: 'TEMP_VALUES_SET',
-      payload: null,
-    });
     api.post('/chatroom/create', reqData)
       .then(({ data }) => {
         // emit socket event
@@ -297,10 +294,6 @@ const Listing = ({ listing }) => {
           uid: signedInUser.uid,
           createdAt: new Date(),
         };
-        dispatch({
-          type: 'TEMP_VALUES_SET',
-          payload: null,
-        });
         socket.emit('msg', data);
         router.push(`/profile/chat/${listingChatrooms[0]._id}`);
       }
@@ -310,8 +303,14 @@ const Listing = ({ listing }) => {
     }
   };
 
-  if (tempValues) {
+  if (tempValues && signedInUser) {
     handleCreateMsg();
+
+    dispatch({
+      type: 'TEMP_VALUES_SET',
+      payload: null,
+    });
+
     return (
       <div>
         <MainHeader />
