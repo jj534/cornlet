@@ -220,7 +220,6 @@ export const ModalContents = styled.div`
 
 
 const Listing = ({ listing }) => {
-  console.log('Listing render');
   const {
     imgs, addr, price, user, desc, sold, displayName, cornellOnly,
     totalRooms, availRooms, bathrooms, type, toCampus,
