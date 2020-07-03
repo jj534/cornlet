@@ -64,9 +64,6 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
         <NavElt onClick={() => handleRedirect('/')}>Home</NavElt>
       </NavContainer>
       <NavContainer>
-        <NavElt onClick={() => handleRedirect('/')}>FAQs</NavElt>
-      </NavContainer>
-      <NavContainer>
         <NavElt onClick={() => handleRedirect('/new')}>New Listing</NavElt>
       </NavContainer>
       {user
