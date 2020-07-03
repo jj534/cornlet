@@ -64,7 +64,6 @@ listingRouter.get('/', async (req, res) => {
     res.send(docs);
   }
   catch (e) {
-    console.log('e', e);
     res.status(500).send(e);
   }
 });

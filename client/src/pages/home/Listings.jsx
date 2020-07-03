@@ -30,6 +30,7 @@ const Listings = () => {
     const connector = router.location.search ? '&' : '?';
     api.get(`/listing${router.location.search}${connector}active=true`)
       .then((res) => {
+        console.log('Listings res', res);
         setListings(res.data.docs);
         setTotalPages(res.data.totalPages);
         setPage(res.data.page);
@@ -41,7 +42,7 @@ const Listings = () => {
       });
   }, [router]);
 
-  if (loading) return <Center><LoadingDots /></Center>;
+  if (loading && !listings) return <Center><LoadingDots /></Center>;
 
   return (
     <Container>
