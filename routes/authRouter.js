@@ -8,7 +8,7 @@ authRouter.get('/google',
 authRouter.get('/google/callback',
   passportGoogle.authenticate('google', {
     successRedirect: `${process.env.REACT_APP_CLIENT_DOMAIN}/auth/callback`,
-    failureRedirect: '/failure',
+    failureRedirect: `${process.env.REACT_APP_CLIENT_DOMAIN}/auth/callback`,
   }));
 
 authRouter.get('/callback', async (req, res) => {
