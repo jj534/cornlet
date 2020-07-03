@@ -13,7 +13,7 @@ const persistConfig = {
   blacklist,
 }
 
-const middleware = process.env.NODE_ENV === 'development' ? [thunk, logger] : [thunk];
+const middleware = process.env.REACT_APP_ENV !== 'production' ? [thunk, logger] : [thunk];
  
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = createStore(persistedReducer, applyMiddleware(...middleware));
