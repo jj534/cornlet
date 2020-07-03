@@ -68,14 +68,14 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
 
   // prevent scroll
   const targetRef = React.createRef();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    disableBodyScroll(targetRef);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  //   disableBodyScroll(targetRef);
 
-    return () => {
-      clearAllBodyScrollLocks();
-    }
-  }, [])
+  //   return () => {
+  //     clearAllBodyScrollLocks();
+  //   }
+  // }, [])
 
   return (
     <Container ref={targetRef}>
