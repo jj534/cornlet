@@ -5,7 +5,7 @@ const User = require('../models/User');
 passport.use(new GoogleStrategy({
   clientID: process.env.REACT_APP_CLIENT_ID,
   clientSecret: process.env.REACT_APP_CLIENT_SECRET,
-  callbackURL: 'http://localhost:8081/api/auth/google/callback',
+  callbackURL: `${process.env.REACT_APP_CLIENT_DOMAIN}/api/auth/google/callback`,
 },
 (async (accessToken, refreshToken, profile, done) => {
   // find current user in UserModel
