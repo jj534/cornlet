@@ -51,35 +51,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// SOCKET IO
-require('./socket').listen(server);
-
-// VIEW ENGINE
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// FORCE HTTPS ON PROD
-// eslint-disable-next-line consistent-return
-app.use((req, res, next) => {
-  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV === 'production') {
-    return res.redirect(`https://${req.get('host')}${req.url}`);
-  }
-  next();
-});
-
-// PROD SERVE FRONTEND
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname)));
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-else {
-  app.use(express.static(path.join(__dirname, 'public')));
-}
-
 // PASSPORT
 app.use(session({
   secret: process.env.REACT_APP_SESSION_SECRET,
@@ -111,6 +82,35 @@ passport.deserializeUser((id, done) => {
 
 // ROUTING
 app.use('/api', require('./routes'));
+
+// SOCKET IO
+require('./socket').listen(server);
+
+// VIEW ENGINE
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// FORCE HTTPS ON PROD
+// eslint-disable-next-line consistent-return
+app.use((req, res, next) => {
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV === 'production') {
+    return res.redirect(`https://${req.get('host')}${req.url}`);
+  }
+  next();
+});
+
+// PROD SERVE FRONTEND
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname)));
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+else {
+  app.use(express.static(path.join(__dirname, 'public')));
+}
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
