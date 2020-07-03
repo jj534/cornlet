@@ -17,18 +17,18 @@ const Container = styled.div`
   z-index: 99;
   background: white;
   height: 100vh;
-  padding: 0 1rem;
+  padding: 5.8rem 0 1rem 0;
 `;
 
 export const Header = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  padding: 5.5rem .8rem 1rem 0;
+  padding: 0 1.8rem 1rem 0;
 `;
 
 export const NavContent = styled.div`
-  padding: 1rem;
+  padding: 0 2rem;
 `;
 
 export const HoriLine = styled.div`
@@ -68,14 +68,14 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
 
   // prevent scroll
   const targetRef = React.createRef();
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   disableBodyScroll(targetRef);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    disableBodyScroll(targetRef);
 
-  //   return () => {
-  //     clearAllBodyScrollLocks();
-  //   }
-  // }, [])
+    return () => {
+      clearAllBodyScrollLocks();
+    }
+  }, [])
 
   return (
     <Container ref={targetRef}>
