@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useRouter from 'src/util/hooks/useRouter';
 import { ReactComponent as UpRaw } from 'src/assets/svgs/up.svg';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Container = styled.div`
   border-radius: 50%;
@@ -35,6 +36,18 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [router.location]);
+
+  // temp: reset user redux store
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  useEffect(() => {
+    if (user && user.displayName) {
+      dispatch({
+        type: 'USER_SET',
+        payload: null,
+      })
+    }
+  }, [])
 
   // for mobile, if not currently at top
   // render back to top button

@@ -49,7 +49,7 @@ const Plus = styled.p`
   font-weight: bold;
   color: ${props => props.theme.primary};
   opacity: .9;
-`
+`;
 
 const MyListings = ({ uid, setHasListings }) => {
   const [listings, setListings] = useState([]);
