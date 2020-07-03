@@ -198,7 +198,7 @@ const ListingCard = ({ listing, edit, reload }) => {
       <CornerBtn>
         <BmBtn listing={listing} />
       </CornerBtn>
-      <Link to={listingPath} target={isDesktop && '_blank'}>
+      <Link to={listingPath} target={isDesktop ? '_blank' : undefined}>
         <ImgContainer>
           <Img
             src={imgs[0]}
