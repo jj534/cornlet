@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   
   @media (min-width: ${(props) => props.theme.md}px) {

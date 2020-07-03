@@ -14,7 +14,6 @@ const Container = styled.div`
 
 export const NewCardContainer = styled.div`
   width: 90vw;
-  height: 100%;
   padding: 1rem .5rem;
   overflow: hidden;
 
