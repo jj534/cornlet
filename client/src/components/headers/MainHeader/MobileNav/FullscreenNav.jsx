@@ -6,18 +6,18 @@ import signin from 'src/util/helpers/signin';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import useUnreadChatrooms from 'src/util/hooks/useUnreadChatrooms';
 import NotifCounter from 'src/components/displays/NotifCounter';
-import MainHeader from '..';
 import { ReactComponent as CloseRaw } from 'src/assets/svgs/close.svg';
 
 const Container = styled.div`
   position: fixed;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 99;
   background: white;
   height: 100vh;
-  padding: 5.8rem 0 1rem 0;
+  padding: 5.6rem 0 1rem 0;
 `;
 
 export const Header = styled.div`
@@ -69,8 +69,8 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
   // prevent scroll
   const targetRef = React.createRef();
   useEffect(() => {
-    window.scrollTo(0, 0);
-    disableBodyScroll(targetRef);
+    window.scrollTo(0, 1);
+    disableBodyScroll(targetRef.current);
 
     return () => {
       clearAllBodyScrollLocks();
