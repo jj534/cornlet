@@ -61,7 +61,7 @@ app.set('view engine', 'jade');
 // FORCE HTTPS ON PROD
 // eslint-disable-next-line consistent-return
 app.use((req, res, next) => {
-  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.REACT_APP_ENV) {
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV === 'production') {
     return res.redirect(`https://${req.get('host')}${req.url}`);
   }
   next();
