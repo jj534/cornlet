@@ -32,9 +32,11 @@ const BmBtn = ({ listing }) => {
   const bm = useSelector((state) => state.bm);
   const user = useSelector((state) => state.user);
   let isBmed = false;
-  if (bm.listings) {
-    const listingsToCheck = user ? user.bm.listings : bm.listings
-    isBmed = listingsToCheck.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
+  if (user) {
+    isBmed = user.bm && user.bm.listings && user.bm.listings.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
+  }
+  else {
+    isBmed = bm && bm.listings && bm.listings.filter((bmedListing) => bmedListing._id === listing._id).length !== 0;
   }
   const dispatch = useDispatch();
   const toggleBm = async () => {

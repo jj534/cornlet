@@ -1,4 +1,4 @@
-const bmReducer = (state = {}, action) => {
+const bmReducer = (state = { notif: false, listings: [] }, action) => {
   switch (action.type) {
     case 'BM_SET':
       return action.payload;
