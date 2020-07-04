@@ -1,5 +1,6 @@
 import firebase from 'src/services/firebase';
-import axios from 'axios';
+import Compressor from 'compressorjs';
+import api from 'src/util/api';
 
 // REJECT: Upload error
 // RESOLVE: Img download url
@@ -13,28 +14,38 @@ const uploadFile = (file, directory) => new Promise((resolve, reject) => {
     .then((url) => {
       resolve(url)
     })
-    .catch((error) => {
-      // file doesn't exist. upload file
-      const uploadTask = storageRef.child(path).put(file);
-      uploadTask.on('state_changed',
-        (snapshot) => {},
-        (e) => {
-          reject(e);
+    .catch(() => {
+      // file doesn't already exist in storage
+      // compress file
+      new Compressor(file, {
+        quality: 0.6,
+        convertSize: 1,
+        success(result) {
+          const uploadTask = storageRef.child(path).put(result);
+          uploadTask.on('state_changed',
+            (snapshot) => {},
+            (e) => {
+              reject(e);
+            },
+            () => {
+              // UPLOAD SUCCESS
+              uploadTask.snapshot.ref.getDownloadURL().then((src) => {
+                // STORE METADATA IN DB
+                const data = {
+                  name: file.name,
+                  src,
+                  path
+                }
+                api.post('/file/create', data)
+                  .then(() => resolve(src))
+                  .catch((e) => reject(e))
+              });
+            });  
         },
-        () => {
-          // UPLOAD SUCCESS
-          uploadTask.snapshot.ref.getDownloadURL().then((src) => {
-            // STORE METADATA IN DB
-            const data = {
-              name: file.name,
-              src,
-              path
-            }
-            axios.post('/api/file/create', data)
-              .then(() => resolve(src))
-              .catch((e) => reject(e))
-          });
-        });  
+        error(err) {
+          console.log(err.message);
+        },
+      });
     });
 });
 
