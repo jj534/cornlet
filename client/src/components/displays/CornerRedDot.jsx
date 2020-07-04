@@ -13,7 +13,6 @@ const Container = styled.div`
 
   // lg
   padding: ${(props) => (props.lg ? '6px' : '')};
-  // border-width: ${(props) => (props.lg ? '3px' : '')};
 `;
 
 const CornerRedDot = (props) => <Container {...props} />;

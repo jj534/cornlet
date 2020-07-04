@@ -86,6 +86,7 @@ const MyListings = ({ uid, setHasListings }) => {
       <DynCardList>
         {listings.map((listing) => (
           <ListingCard
+            key={listing._id}
             listing={listing}
             edit
             reload={reload}

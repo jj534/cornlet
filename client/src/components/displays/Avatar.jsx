@@ -34,7 +34,7 @@ const ProfileIcon = ({ src, path, lg, border }) => (
         <Link to={path}>
           <SAvatar
             src={src}
-            border={border}
+            border={border ? 1 : 0}
             lg={lg}
           />
         </Link>

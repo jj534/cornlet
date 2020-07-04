@@ -6,12 +6,12 @@ const AmenityGrpContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 5rem;
+  width: 6rem;
   margin: 1rem 1rem 0 0;
   cursor: pointer;
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    width: 4.5rem;
+    width: 5rem;
   }
 
   // active
