@@ -7,7 +7,7 @@ import MainHeader from '../headers/MainHeader';
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.user);
 
-  if (!user) {
+  if (!user || !user.name) {
     signin();
     return <MainHeader />;
   }

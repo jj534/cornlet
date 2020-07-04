@@ -37,18 +37,6 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [router.location]);
 
-  // temp: reset user redux store
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
-  useEffect(() => {
-    if (user && user.displayName) {
-      dispatch({
-        type: 'USER_SET',
-        payload: null,
-      })
-    }
-  }, [])
-
   // for mobile, if not currently at top
   // render back to top button
   const isDesktop = useIsDesktop();
