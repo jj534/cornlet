@@ -10,21 +10,28 @@ module.exports.listen = (app) => {
       try {
         io.emit('msg', data);
 
-        // TODO: fix race condition error
-        // if another chat is sent before the previous chat is saved
-        // the Chatroom.findById finds the chat data before the previous chat was saved
-        // appending the new chat data and updating ignores the previously sent chat data
-        // not a super urgent problem since consecutive chat has to be sent very fast
-
-        // save to DB
+        // fetch chatroom
         const chatroom = await Chatroom.findById(data.cid).populate('searcher listing');
-        const newMsgs = [...chatroom.msgs];
 
         // set other user to unread
         const otherUserUid = chatroom.uids.filter((uid) => uid !== data.uid)[0];
+        const updatedNotifUids = [...chatroom.notifUids];
         if (!chatroom.notifUids.includes(otherUserUid)) {
-          chatroom.notifUids.push(otherUserUid);
+          updatedNotifUids.push(otherUserUid);
         }
+
+        // remove cid from new msg
+        const newMsg = {
+          ...data,
+          cid: undefined,
+        };
+
+        // update DB
+        const updateData = {
+          notifUids: updatedNotifUids,
+          $push: { msgs: newMsg },
+        };
+        await Chatroom.findByIdAndUpdate(data.cid, updateData, { new: true });
 
         // send email notif to other user
         const isSearcher = otherUserUid === chatroom.searcher.uid;
@@ -32,16 +39,6 @@ module.exports.listen = (app) => {
         const firstName = isSearcher ? chatroom.listing.user.name.split(' ')[0] : chatroom.searcher.name.split(' ')[0];
 
         sendMsgNotifEmail(email, firstName, data.content);
-
-        // add msg to chatroom
-        const dataWithoutCid = {
-          ...data,
-          cid: undefined,
-        };
-        newMsgs.push(dataWithoutCid);
-        chatroom.msgs = newMsgs;
-
-        await Chatroom.findByIdAndUpdate(data.cid, { ...chatroom.toObject() }, { new: true });
       }
       catch (e) {
         console.log('socket error', e);
