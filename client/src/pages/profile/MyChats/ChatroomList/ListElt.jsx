@@ -55,6 +55,7 @@ const ListElt = ({ chatroom }) => {
   const nextPath = selected ? '/profile/chat' : chatroomPath;
   const user = useSelector((state) => state.user);
   const hasNotif = chatroom.notifUids && chatroom.notifUids.includes(user.uid);
+  const lastMsg = chatroom.msgs[chatroom.msgs.length-1];
 
   return (
     <Link to={nextPath}>
@@ -82,7 +83,7 @@ const ListElt = ({ chatroom }) => {
                 {chatroom.msgs[chatroom.msgs.length - 1].content}
               </Body>
             </TextContainer>
-            <Body muted>{formatDate(chatroom.updatedAt, true)}</Body>
+            <Body muted>{formatDate(lastMsg.createdAt, true)}</Body>
           </Row>
         </TextSection>
       </Container>
