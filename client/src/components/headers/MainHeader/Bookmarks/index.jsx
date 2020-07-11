@@ -52,7 +52,7 @@ const Bookmarks = () => {
   return (
     <Container>
       <BMIconContainer>
-        {(user ? user.bm.notif : bm && bm.notif) && <CornerRedDot />}
+        {(user ? user.bm && user.bm.notif : bm && bm.notif) && <CornerRedDot />}
         <BMIcon onClick={toggleDropdown} />
       </BMIconContainer>
       {dropdown && (

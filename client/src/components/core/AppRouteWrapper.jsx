@@ -21,6 +21,7 @@ import Chat from 'src/pages/profile/MyChats/Chat';
 import Chatroom from 'src/pages/profile/MyChats/Chatroom';
 import Settings from 'src/pages/profile/Settings';
 import AuthCallback from 'src/pages/auth-callback';
+import ResetUserStore from './ResetUserStore';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -40,6 +41,7 @@ const AppRouter = () => (
       <PrivateRoute exact path="/profile" component={Profile} />
       <Route exact path="/" component={Home} />
     </Switch>
+    <ResetUserStore />
     <ScrollToTop />
     <SocketIO />
     <MainFooter />
