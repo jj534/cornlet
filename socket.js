@@ -1,5 +1,6 @@
 const socketio = require('socket.io');
 const Chatroom = require('./models/Chatroom');
+const User = require('./models/User');
 const sendMsgNotifEmail = require('./util/sendMsgNotifEmail');
 
 module.exports.listen = (app) => {
@@ -38,6 +39,16 @@ module.exports.listen = (app) => {
         const email = isSearcher ? chatroom.searcher.email : chatroom.listing.user.email;
         const firstName = isSearcher ? chatroom.listing.user.name.split(' ')[0] : chatroom.searcher.name.split(' ')[0];
 
+        if (!isSearcher) {
+          console.log('email recipient is listing owner');
+          // if listing owner hasn't created an account yet, don't send email alert
+          const user = await User.findOne({ uid: otherUserUid });
+          if (!user) {
+            console.log('prevent send email notif');
+            return;
+          };
+        }
+
         sendMsgNotifEmail(email, firstName, data.content);
       }
       catch (e) {
@@ -54,7 +65,15 @@ module.exports.listen = (app) => {
         const { name } = chatroom.searcher;
         const firstName = name.split(' ')[0];
         const { email } = chatroom.listing.user;
-        sendMsgNotifEmail(email, firstName, chatroom.msgs[0].content);
+
+        const user = await User.findOne({ email });
+        if (user && chatroom.listing.user.uid === user.uid) {
+          console.log('passed uid validation')
+          sendMsgNotifEmail(email, firstName, chatroom.msgs[0].content);
+        }
+        else {
+          console.log('failed uid validation');
+        }
       }
       catch (e) {
         console.log('socket error', e);
