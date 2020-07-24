@@ -105,8 +105,9 @@ app.use((req, res, next) => {
 
 // PROD SERVE FRONTEND
 if (process.env.NODE_ENV === 'production') {
+  const HALF_HOUR = 1000 * 60 * 30;
   app.use(express.static(path.join(__dirname)));
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
+  app.use(express.static(path.join(__dirname, 'client', 'build'), { maxAge: HALF_HOUR }));
 
   app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
