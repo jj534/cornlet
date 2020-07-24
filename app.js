@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const compression = require('compression');
 const User = require('./models/User');
 require('dotenv').config();
 
@@ -50,6 +51,9 @@ app.use(cors(corsCfg));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+if (process.env.NODE_ENV === 'production') {
+  app.use(compression());
+}
 
 // PASSPORT
 app.use(session({

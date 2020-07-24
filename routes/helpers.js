@@ -167,7 +167,7 @@ const logUserDataByName = async (name) => {
   }
 };
 
-const manipluateCornletTester = async () => {
+const manipluateCornletTester2 = async () => {
   try {
     const email = 'cornlettester2@gmail.com';
 
@@ -188,7 +188,7 @@ const manipluateCornletTester = async () => {
   }
 };
 
-// manipluateCornletTester();
+// manipluateCornletTester2();
 
 // logUserDataByName('Sophie Ruan');
 
