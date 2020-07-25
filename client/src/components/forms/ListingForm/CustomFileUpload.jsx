@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FileUpload from 'src/components/inputs/FileUpload';
 import ErrMsg from 'src/components/fonts/ErrMsg';
 import generator from 'generate-password';
+import CircleCross from 'src/components/buttons/CircleCross';
 
 const Container = styled.div`
   margin: 1rem 0;
@@ -14,18 +15,14 @@ const ImgContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const ImgWrapper = styled.div`
-  position: relative;
-`;
-
-const Cross = styled.button`
+const CrossContiner = styled.div`
   position: absolute;
-  top: 2px;
-  right: 2px;
-  background: ${(props) => props.theme.danger};
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-  padding: 6px;
+  top: 0;
+  right: 0;
+
+  @media (min-width: ${props => props.theme.md}px) {
+    display: none;
+  }
 `;
 
 const Img = styled.img`
@@ -35,6 +32,47 @@ const Img = styled.img`
   margin: .5rem;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: ${props => `0 0 0 3px ${props.theme.primary}`};
+  }
+
+  // isThumbnail
+  box-shadow: ${props => props.isThumbnail && `0 0 0 3px ${props.theme.primary}`};
+`;
+
+const ThumbnailText = styled.p`
+  color: ${props => props.theme.primary};
+  font-weight: bold;
+  text-align: center;
+  font-size: .9rem;
+`
+
+const SetThumbnailText = styled.p`
+  color: ${props => props.theme.primary};
+  font-weight: bold;
+  text-align: center;
+  font-size: .9rem;
+  opacity: 0;
+  cursor: pointer;
+
+  // isThumbnail
+  display: ${props => props.isThumbnail && 'none'};
+`
+
+const ImgWrapper = styled.div`
+  position: relative;
+
+  &:hover ${SetThumbnailText} {
+    opacity: .9;
+  }
+
+  @media (min-width: ${props => props.theme.md}px) {
+    &:hover ${CrossContiner} {
+      display: block;
+    }
+  }
 `;
 
 const CustomFileUpload = ({
@@ -46,6 +84,7 @@ const CustomFileUpload = ({
     numbers: true,
   });
 
+  // add new image to formik
   useEffect(() => {
     if (newSrc) {
       const newFiles = [...formik.values[name]];
@@ -56,6 +95,7 @@ const CustomFileUpload = ({
     }
   }, [newSrc, name]);
 
+  // delete image
   const handleDelete = (targetSrc) => {
     const newFiles = [...formik.values[name]];
     if (newFiles.includes(targetSrc)) {
@@ -63,6 +103,17 @@ const CustomFileUpload = ({
     }
     formik.setFieldValue(name, newFiles);
   };
+
+  // set default thumbnailIdx to 0
+  useEffect(() => {
+    if (!formik.values.thumbnailIdx) {
+      formik.setFieldValue('thumbnailIdx', 0);
+    }
+  }, [])
+
+  const setThumbnailIdx = (i) => {
+    formik.setFieldValue('thumbnailIdx', i);
+  }
 
   return (
     <Container>
@@ -75,18 +126,32 @@ const CustomFileUpload = ({
         name="imgs"
       />
       <ImgContainer>
-        {formik.values[name].map((src) => (
-          <ImgWrapper key={src}>
-            <Img
-              key={src}
-              src={src}
-            />
-            <Cross
-              type="button"
-              onClick={() => handleDelete(src)}
-            />
-          </ImgWrapper>
-        ))}
+        {formik.values[name].map((src, i) => {
+          const isThumbnail = i === formik.values.thumbnailIdx;
+          return (
+            <ImgWrapper key={src}>
+              <Img
+                key={src}
+                src={src}
+                isThumbnail={isThumbnail}
+                onClick={() => setThumbnailIdx(i)}
+              />
+              <CrossContiner>
+                <CircleCross
+                  onClick={() => handleDelete(src)}
+                />
+              </CrossContiner>
+              {isThumbnail && <ThumbnailText>Thumbnail</ThumbnailText>}
+              <SetThumbnailText 
+                isThumbnail={isThumbnail} 
+                muted
+                onClick={() => setThumbnailIdx(i)}
+              >
+                Set Thumbnail
+              </SetThumbnailText>
+            </ImgWrapper>
+          )
+        })}
       </ImgContainer>
     </Container>
   );

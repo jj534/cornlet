@@ -154,7 +154,7 @@ export const ModalBtnSection = styled.div`
 
 const ListingCard = ({ listing, edit, reload }) => {
   const {
-    _id, addr, price, imgs, sold, active,
+    _id, addr, price, imgs, sold, active, thumbnailIdx
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
@@ -201,7 +201,7 @@ const ListingCard = ({ listing, edit, reload }) => {
       <Link to={listingPath} target={isDesktop ? '_blank' : undefined}>
         <ImgContainer>
           <Img
-            src={imgs[0]}
+            src={imgs[thumbnailIdx || 0]}
             faded={sold}
             alt='cornlet listing property photos for cornell'
           />

@@ -61,6 +61,10 @@ const listingSchema = Schema({
     type: [String],
     default: [],
   },
+  thumbnailIdx: {
+    type: Number,
+    required: true,
+  },
   desc: {
     type: String,
     required: true,
