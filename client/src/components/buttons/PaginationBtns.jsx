@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import useRouter from 'src/util/hooks/useRouter';
+import Pagination from '@material-ui/lab/Pagination';
 
 const Container = styled.div`
   width: 100%;
@@ -23,6 +24,11 @@ const Page = styled.button`
   // selected
   background: ${props => props.selected ? 'rgba(0, 0, 0, .7)' : ''};
   color: ${props => props.selected ? 'white' : ''};
+`;
+
+const Dots = styled.div`
+  transform: translateY(0.15em);
+  margin: 0 .2rem;
 `
 
 const PaginationBtns = ({ totalPages, page }) => {
@@ -32,15 +38,16 @@ const PaginationBtns = ({ totalPages, page }) => {
   }
 
   const router = useRouter();
-  const handleClick = (p) => {
-    router.updateQuery({ page: p });
-  }
+  const handleChange = (e, v) => {
+    console.log('v', v);
+    console.log('e', e);
+    router.updateQuery({ page: v });
+  };
+  // const page = router.query.page || 1;
 
   return (
     <Container>
-      {pages.map((p) => (
-        <Page key={p} selected={p === page} onClick={() => handleClick(p)}>{p}</Page>
-      ))}
+        <Pagination count={totalPages} page={page} onChange={handleChange} />
     </Container>
   )
 };
