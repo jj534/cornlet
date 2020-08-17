@@ -2,6 +2,31 @@ const listingRouter = require('express').Router();
 const moment = require('moment');
 const Listing = require('./../models/Listing');
 
+const logListings = async () => {
+  const listings = await Listing.find();
+  let active = 0;
+  let deleted = 0;
+  let inactive = 0;
+  listings.forEach((listing) => {
+    if (listing.deleted) {
+      deleted += 1;
+    }
+    else {
+      if (listing.active) {
+        active += 1;
+      }
+      else {
+        inactive += 1;
+      }
+    }
+  });
+  console.log('active', active);
+  console.log('inactive', inactive);
+  console.log('deleted', deleted);
+};
+
+// logListings();
+
 listingRouter.post('/create', async (req, res) => {
   try {
     const result = await new Listing(req.body).save();
