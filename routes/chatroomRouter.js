@@ -2,6 +2,16 @@ const chatroomRouter = require('express').Router();
 const Chatroom = require('../models/Chatroom');
 const User = require('../models/User');
 
+// const logChats = async () => {
+//   const chatrooms = await Chatroom.find();
+//   const chatroomsCount = chatrooms.length;
+
+//   let msgsCount = 0;
+//   chatrooms.forEach((chatroom) => {
+//     msgsCount += chatroom.msgs.length;
+//   });
+// };
+
 chatroomRouter.post('/create', async (req, res) => {
   try {
     const {

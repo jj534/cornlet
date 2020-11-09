@@ -1,6 +1,14 @@
 const userRouter = require('express').Router();
 const User = require('./../models/User');
 
+const logUsers = async () => {
+  const users = await User.find();
+  const userCount = users.length;
+  console.log('userCount', userCount);
+}
+
+// logUsers();
+
 userRouter.post('/save', async (req, res) => {
   try {
     const {

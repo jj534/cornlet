@@ -4,10 +4,13 @@ const Listing = require('./../models/Listing');
 
 const logListings = async () => {
   const listings = await Listing.find();
+  const totalListings = listings.length;
   let active = 0;
   let deleted = 0;
   let inactive = 0;
+  let totalPrice = 0;
   listings.forEach((listing) => {
+    totalPrice += listing.price;
     if (listing.deleted) {
       deleted += 1;
     }
@@ -20,9 +23,12 @@ const logListings = async () => {
       }
     }
   });
+  const avgPrice = totalPrice / totalListings;
+  console.log('totalListings', totalListings);
   console.log('active', active);
   console.log('inactive', inactive);
   console.log('deleted', deleted);
+  console.log('avgPrice', avgPrice);
 };
 
 // logListings();
