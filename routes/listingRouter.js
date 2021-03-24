@@ -14,13 +14,11 @@ const logListings = async () => {
     if (listing.deleted) {
       deleted += 1;
     }
+    else if (listing.active) {
+      active += 1;
+    }
     else {
-      if (listing.active) {
-        active += 1;
-      }
-      else {
-        inactive += 1;
-      }
+      inactive += 1;
     }
   });
   const avgPrice = totalPrice / totalListings;
@@ -57,7 +55,7 @@ listingRouter.get('/', async (req, res) => {
       : {};
     const endQuery = end && !start
       ? { end: { $gte: new Date(end) }, start: { $lt: new Date(end) } }
-      : {};
+      : { end: { $gte: new Date() } };
     const startEndQuery = start && end
       ? { start: { $lte: moment(new Date(start)).endOf('day').toDate() }, end: { $gte: new Date(end) } }
       : {};
@@ -88,7 +86,7 @@ listingRouter.get('/', async (req, res) => {
     const sortQuery = sortTypeToQuery[sort] || { sort: { updatedAt: -1 } };
     const options = {
       page: page || 1,
-      limit: 9,
+      limit: 16,
       sort: sortQuery.sort,
     };
     const docs = await Listing.paginate(query, options);

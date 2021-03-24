@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Badge from 'src/components/displays/Badge';
 import Body from 'src/components/fonts/Body';
+import Heading from 'src/components/fonts/Heading';
 import getDateString from 'src/util/helpers/getDateString';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -18,15 +19,16 @@ import Modal from 'src/components/views/Modal';
 import Btn from 'src/components/buttons/Btn';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
+import getShortDateString from 'src/util/helpers/getShortDateString';
 
 const Container = styled.div`
-  width: 90vw;
+  width: 43vw;
   padding: 1rem .5rem;
   position: relative;
   overflow: hidden;
 
   @media (min-width: ${(props) => props.theme.md}px) {
-    width: 33%;
+    width: 25%;
   }
 `;
 
@@ -44,12 +46,25 @@ const TextArea = styled.div`
   width: 100%;
 `;
 
-const Title = styled(Body)`
+const Title = styled.h3`
   white-space: nowrap;
   flex-grow: 0;
   text-overflow: ellipsis;
   overflow: hidden;
   margin-right: .5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+`;
+
+const Overline = styled.p`
+  white-space: nowrap;
+  flex-grow: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: .8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  opacity: .7;
 `;
 
 const ImgContainer = styled.div`
@@ -152,9 +167,29 @@ export const ModalBtnSection = styled.div`
   }
 `;
 
+const TextLines = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  & > div {
+    margin-bottom: .3rem;
+  }
+
+  @media (min-width: ${props => props.theme.md}px) {
+    flex-direction: row;
+    align-items: center;
+
+    & > div {
+      margin-bottom: 0;
+    }
+  }
+`;
+
 const ListingCard = ({ listing, edit, reload }) => {
   const {
-    _id, addr, price, imgs, sold, active, thumbnailIdx
+    _id, addr, price, imgs, sold, active, thumbnailIdx, availRooms
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
@@ -205,18 +240,25 @@ const ListingCard = ({ listing, edit, reload }) => {
             faded={sold}
             alt='cornlet listing property photos for cornell'
           />
-          <PriceBadge alignLeft>
-$
-            {price}
-          </PriceBadge>
         </ImgContainer>
         <TextArea>
+          <Overline style={{ marginBottom: '.4rem' }}>{availRooms} bedrooms available</Overline>
           <Title>{formatListingDesc(listing)}</Title>
-          <Row>
+          <div style={{ marginTop: '.5rem' }}>
             {sold
               ? <Badge color="primary" size="sm" inverted>Sold</Badge>
-              : <Body muted sm>{getDateString(listing)}</Body>}
-          </Row>
+              : (
+                <TextLines>
+                  <div>
+                    <Body muted sm>{getShortDateString(listing)}</Body>
+                  </div>
+                  <div>
+                    <Body><span style={{ fontWeight: 500 }}>${price}</span> <span style={{ opacity: .6 }}>/ month</span></Body>
+                  </div>
+                </TextLines>
+              )
+            }
+          </div>
         </TextArea>
       </Link>
       {edit && (
