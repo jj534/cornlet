@@ -75,7 +75,7 @@ const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
     <div>
       <TextArea>
         <TopRow>
-          <Overline style={{ marginBottom: '.4rem' }}>{availRooms} bedrooms available</Overline>
+          <Overline style={{ marginBottom: '.4rem' }}>{sold ? 'Not' : `${availRooms} bedrooms`} available</Overline>
           {isShowingClose && (
             <IconContainer>
               <CloseIcon onClick={onCloseClick} />
