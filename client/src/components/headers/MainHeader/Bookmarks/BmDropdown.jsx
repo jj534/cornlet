@@ -20,6 +20,12 @@ const Container = styled.div`
   }
 `;
 
+const DropdownContent = styled.div`
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+`;
+
 const NoBm = styled.div`
   display: flex;
   justify-content: center;
@@ -31,16 +37,18 @@ const BmDropdown = ({ listings, dropdown, setDropdown }) => {
 
   return (
     <Dropdown show={dropdown} setShow={setDropdown} alignRight>
-      <PerfectScrollbar options={{ suppressScrollX: true }}>
-        <Container>
-          {(!listings || !listings.length)
-            ? noBmText
-            : listings.map((listing) => (
-              <BmListing key={listing._id} listing={listing} />
-            ))
-          }
-        </Container>
-      </PerfectScrollbar>
+      <DropdownContent>
+        <PerfectScrollbar options={{ suppressScrollX: true }}>
+          <Container>
+            {(!listings || !listings.length)
+              ? noBmText
+              : listings.map((listing) => (
+                <BmListing key={listing._id} listing={listing} />
+              ))
+            }
+          </Container>
+        </PerfectScrollbar>
+      </DropdownContent>
     </Dropdown>
   );
 };

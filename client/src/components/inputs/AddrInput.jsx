@@ -22,6 +22,12 @@ export const DropdownContainer = styled.div`
   margin-top: 6px;
 `;
 
+const DropdownContent = styled.div`
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+`;
+
 export const Suggestion = styled.div`
   padding: .5rem 1rem;
   cursor: pointer;
@@ -99,15 +105,17 @@ km to campus
               alignLeft
               alignTop
             >
-              {loading && <LoadingDots />}
-              {suggestions.map((suggestion) => (
-                <Suggestion
-                  {...getSuggestionItemProps(suggestion)}
-                  active={suggestion.active}
-                >
-                  <Body ellipsis>{suggestion.description}</Body>
-                </Suggestion>
-              ))}
+              <DropdownContent>
+                {loading && <LoadingDots />}
+                {suggestions.map((suggestion) => (
+                  <Suggestion
+                    {...getSuggestionItemProps(suggestion)}
+                    active={suggestion.active}
+                  >
+                    <Body ellipsis>{suggestion.description}</Body>
+                  </Suggestion>
+                ))}
+              </DropdownContent>
             </Dropdown>
           </DropdownContainer>
         </Container>
