@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem 0 2rem 0;
+  padding: .5rem 0;
   position: relative;
   
   @media (min-width: ${(props) => props.theme.md}px) {

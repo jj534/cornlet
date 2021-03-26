@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Badge from 'src/components/displays/Badge';
-import Body from 'src/components/fonts/Body';
-import Heading from 'src/components/fonts/Heading';
-import getDateString from 'src/util/helpers/getDateString';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-
-import api from 'src/util/api';
-import log from 'src/util/log';
-
-import { ReactComponent as PencilRaw } from 'src/assets/svgs/pencil.svg';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
+import { ReactComponent as PencilRaw } from 'src/assets/svgs/pencil.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
-import PriceBadge from 'src/components/displays/PriceBadge';
-import Modal from 'src/components/views/Modal';
 import Btn from 'src/components/buttons/Btn';
-import formatListingDesc from 'src/util/helpers/formatListingDesc';
+import Body from 'src/components/fonts/Body';
+import ListingInfo from 'src/components/fonts/ListingInfo';
+import Space from 'src/components/layouts/Space';
+import Modal from 'src/components/views/Modal';
+import api from 'src/util/api';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
-import getShortDateString from 'src/util/helpers/getShortDateString';
+import log from 'src/util/log';
+import styled from 'styled-components';
 
 const Container = styled.div`
   width: 43vw;
@@ -38,33 +32,6 @@ const CornerBtn = styled.div`
   right: 1rem;
   z-index: 2;
   cursor: pointer;
-`;
-
-const TextArea = styled.div`
-  margin-top: .8rem;
-  padding: 0 .2rem;
-  width: 100%;
-`;
-
-const Title = styled.h3`
-  white-space: nowrap;
-  flex-grow: 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-right: .5rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-`;
-
-const Overline = styled.p`
-  white-space: nowrap;
-  flex-grow: 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: .8rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  opacity: .7;
 `;
 
 const ImgContainer = styled.div`
@@ -167,26 +134,6 @@ export const ModalBtnSection = styled.div`
   }
 `;
 
-const TextLines = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  & > div {
-    margin-bottom: .3rem;
-  }
-
-  @media (min-width: ${props => props.theme.md}px) {
-    flex-direction: row;
-    align-items: center;
-
-    & > div {
-      margin-bottom: 0;
-    }
-  }
-`;
-
 const ListingCard = ({ listing, edit, reload }) => {
   const {
     _id, addr, price, imgs, sold, active, thumbnailIdx, availRooms
@@ -241,25 +188,8 @@ const ListingCard = ({ listing, edit, reload }) => {
             alt='cornlet listing property photos for cornell'
           />
         </ImgContainer>
-        <TextArea>
-          <Overline style={{ marginBottom: '.4rem' }}>{availRooms} bedrooms available</Overline>
-          <Title>{formatListingDesc(listing)}</Title>
-          <div style={{ marginTop: '.5rem' }}>
-            {sold
-              ? <Badge color="primary" size="sm" inverted>Sold</Badge>
-              : (
-                <TextLines>
-                  <div>
-                    <Body muted sm>{getShortDateString(listing)}</Body>
-                  </div>
-                  <div>
-                    <Body><span style={{ fontWeight: 500 }}>${price}</span> <span style={{ opacity: .6 }}>/ month</span></Body>
-                  </div>
-                </TextLines>
-              )
-            }
-          </div>
-        </TextArea>
+        <Space margin='.8rem 0' />
+        <ListingInfo listing={listing} />
       </Link>
       {edit && (
         <EditTools>

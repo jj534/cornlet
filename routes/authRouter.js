@@ -17,7 +17,7 @@ authRouter.get('/callback', async (req, res) => {
       const chatrooms = await Chatroom.find({ uids: req.user.uid }).populate('searcher listing').sort({ updatedAt: -1 });
       res.send({
         success: true,
-        message: "user has successfully authenticated",
+        message: 'user has successfully authenticated',
         user: req.user,
         cookies: req.cookies,
         chatrooms,
@@ -26,7 +26,7 @@ authRouter.get('/callback', async (req, res) => {
     else {
       res.send({
         success: false,
-        message: "user was not authenticated",
+        message: 'user was not authenticated',
       });
     }
   }

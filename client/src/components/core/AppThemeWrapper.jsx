@@ -1,8 +1,11 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import 'src/theme/Normalise.scss';
 import theme from 'src/theme';
 import AppReduxWrapper from './AppReduxWrapper';
+import PerfectScrollbar from 'react-perfect-scrollbar'
+
+import 'src/theme/Normalise.scss';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -25,11 +28,13 @@ const Container = styled.div`
 
 const AppThemeWrapper = () => (
   <ThemeProvider theme={theme}>
-    <Wrapper>
-      <Container>
-        <AppReduxWrapper />
-      </Container>
-    </Wrapper>
+    <PerfectScrollbar options={{ suppressScrollX: true }}>
+      <Wrapper>
+        <Container>
+          <AppReduxWrapper />
+        </Container>
+      </Wrapper>
+    </PerfectScrollbar>
   </ThemeProvider>
 );
 

@@ -2,13 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropdown from 'src/components/views/Dropdown';
 import BmListing from './BmListing';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const Container = styled.div`
   max-height: 350px;
-  overflow: auto;
 
   @media (min-width: ${(props) => props.theme.md}px) {
     width: 400px;
+  }
+
+  & > div {
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+  }
+
+  & > div:last-child {
+    border-bottom: none;
   }
 `;
 
@@ -19,18 +27,20 @@ const NoBm = styled.div`
 `;
 
 const BmDropdown = ({ listings, dropdown, setDropdown }) => {
-  const listingComponents = listings && listings.map((listing) => (
-    <BmListing key={listing._id} listing={listing} />
-  ));
   const noBmText = <NoBm>No bookmarks!</NoBm>;
 
   return (
     <Dropdown show={dropdown} setShow={setDropdown} alignRight>
-      <Container>
-        {(!listings || !listings.length)
-          ? noBmText
-          : listingComponents}
-      </Container>
+      <PerfectScrollbar options={{ suppressScrollX: true }}>
+        <Container>
+          {(!listings || !listings.length)
+            ? noBmText
+            : listings.map((listing) => (
+              <BmListing key={listing._id} listing={listing} />
+            ))
+          }
+        </Container>
+      </PerfectScrollbar>
     </Dropdown>
   );
 };
