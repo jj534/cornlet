@@ -6,8 +6,12 @@ import SliderFilter from 'src/components/filters/SliderFilter';
 import ClearFilters from './ClearFilters';
 
 const Container = styled.div`
-  width: 350px;
-  padding: 0 1rem 2rem 1rem;
+  width: 300px;
+  padding: .5rem 1rem;
+
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 `;
 
 const Name = styled(Body)`

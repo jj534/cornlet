@@ -7,11 +7,6 @@ import useRouter from 'src/util/hooks/useRouter';
 const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 .5rem;
-
-  & > * {
-    margin-right: 1rem;
-  }
 `;
 
 const SortBy = () => {
@@ -43,7 +38,6 @@ const SortBy = () => {
 
   return (
     <Container>
-      <Body nowrap>Sort by: </Body>
       <Select
         opts={opts}
         value={query.sort || 'recent'}

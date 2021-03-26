@@ -8,12 +8,6 @@ const Container = styled.div`
   left: 0;
   right: 0;
   z-index: 5;
-  overflow: hidden;
-
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-  border: 1px solid rgba(0, 0, 0, .05);
 
   @media (min-width: ${(props) => props.theme.md}px) {
     top: 40px;

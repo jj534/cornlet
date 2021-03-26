@@ -13,11 +13,14 @@ const Container = styled.div`
   &:hover {
     background: rgba(0, 0, 0, .05);
   }
+
+  // padding
+  padding: ${props => props.padding && props.padding};
 `;
 
-const IconContainer = ({ children }) => {
+const IconContainer = ({ children, padding }) => {
   return (
-    <Container>
+    <Container padding={padding}>
       {children}
     </Container>
   )

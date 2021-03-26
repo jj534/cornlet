@@ -41,7 +41,7 @@ const Listings = () => {
       });
   }, [router]);
 
-  if (loading && !listings) return <Center><LoadingDots /></Center>;
+  if (loading || !listings) return <Center><LoadingDots /></Center>;
 
   return (
     <Container>

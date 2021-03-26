@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { ReactComponent as FilterRaw } from 'src/assets/svgs/filter.svg';
 import Dropdown from 'src/components/views/Dropdown';
+import useFilters from 'src/util/hooks/useFilters';
+import styled from 'styled-components';
 import FilterContents from './FilterContents';
 import FilterStatus from './FilterStatus';
 
 const Container = styled.div`
+  position: relative;
+  overflow: visible;
 `;
 
 export const Row = styled.div`
@@ -24,18 +27,41 @@ export const Row = styled.div`
 
 const FilterBtn = styled.button`
   background: white;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-  border-radius: 4px;
-  padding: .5rem 1rem;
+  border-radius: 8px;
+  padding: .3rem .7rem;
+  border: 2px solid rgba(0, 0, 0, .2);
+  color: ${props => props.theme.textLight};
 
   display: flex;
   align-items: center;
 `;
 
 const FilterSVG = styled(FilterRaw)`
-  height: 16px;
-  width: 16px;
-  margin-right: .5rem;
+  height: 1.3rem;
+  margin-right: .3rem;
+  fill: ${props => props.theme.textLight};
+`;
+
+const FilterCounter = styled.div`
+  height: 1.3rem;
+  width: 1.3rem;
+  margin-left: .5rem;
+
+  font-size: .8rem;
+  font-weight: 500;
+
+  border-radius: 50%;
+  background: ${props => props.theme.brand300};
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
 `;
 
 const Filters = () => {
@@ -43,14 +69,15 @@ const Filters = () => {
   const handleClick = () => {
     setShow(true);
   };
+  const filters = useFilters()
 
   return (
     <Container>
       <Row>
         <FilterBtn type="button" onClick={handleClick}>
           <FilterSVG />
-          {' '}
-  Filters
+          Filters
+          {filters.length > 0 && <FilterCounter>{filters.length}</FilterCounter>}
         </FilterBtn>
         <FilterStatus />
       </Row>
