@@ -11,7 +11,7 @@ const Button = styled.button`
   border-radius: 8px;
   box-shadow: ${props => props.inverted ? '0 2px 4px rgba(0, 0, 0, .05)' : ''};
   
-  background-color: ${(props) => (props.inverted ? props.theme[props.color] : '')};
+  background: ${props => props.theme.brand};
   color: white;
 
   @media (min-width: ${(props) => props.theme.md}px) {
