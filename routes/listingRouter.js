@@ -55,7 +55,7 @@ listingRouter.get('/', async (req, res) => {
       : {};
     const endQuery = end && !start
       ? { end: { $gte: new Date(end) }, start: { $lt: new Date(end) } }
-      : { end: { $gte: new Date() } };
+      : {};
     const startEndQuery = start && end
       ? { start: { $lte: moment(new Date(start)).endOf('day').toDate() }, end: { $gte: new Date(end) } }
       : {};
