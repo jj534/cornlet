@@ -17,7 +17,7 @@ const forceProdDB = true;
 const isProdDb = forceProdDB || (process.env.NODE_ENV === 'production' && process.env.REACT_APP_DB_PROD);
 const dbType = isProdDb ? 'prod' : 'dev';
 const URI = isProdDb ? process.env.REACT_APP_DB_PROD : process.env.REACT_APP_DB_DEV;
-console.log('URI', URI);
+
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

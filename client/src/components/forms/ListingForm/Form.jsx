@@ -63,7 +63,7 @@ const FormComponent = ({ user, initialValues }) => {
     bathrooms: 1.5,
     femaleRoommates: 1,
     maleRoommates: 2,
-    amenities: ['wifi'],
+    amenities: [],
     imgs: ['https://firebasestorage.googleapis.com/v0/b/cornlet-prod.appspot.com/o/temp%2Fforest.jpg?alt=media&token=967fa2f7-3730-4ebf-9b05-aa3c4cafeb59', 'https://firebasestorage.googleapis.com/v0/b/cornlet-prod.appspot.com/o/user%2F111196813972660835996%2Fcollege-dorm-room-200395471-001-58a1a2a55f9b58819c128c01.jpg?alt=media&token=03a743d2-87c4-4831-a4fd-354bc8f7a2cd'],
     thumbnailIdx: 0,
     desc: 'test description',

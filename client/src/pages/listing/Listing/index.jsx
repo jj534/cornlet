@@ -445,7 +445,7 @@ km to campus
                       </MapContainer>
                       )}
                     </Section>
-                    {availAmenities.length > 0
+                    {/* {availAmenities.length > 0
                     && (
                     <Section>
                       <Row><Subheading bold>Amenities</Subheading></Row>
@@ -463,7 +463,7 @@ km to campus
                         </AmenitiesList>
                       </Row>
                     </Section>
-                    )}
+                    )} */}
                   </Content>
                 </ListingSection>
               )}

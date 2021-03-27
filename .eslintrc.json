@@ -17,6 +17,7 @@
     },
     "rules": {
         "no-underscore-dangle": "off",
-        "brace-style": ["error", "stroustrup"]
+        "brace-style": ["error", "stroustrup"],
+        "no-nested-ternary": "off"
     }
 }

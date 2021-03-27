@@ -89,10 +89,6 @@ const FormContents = ({ formik, user }) => (
       />
     </InputContainer>
     <VerticalMargin />
-    <Amenities
-      formik={formik}
-    />
-    <VerticalMargin />
     <MarginedHeading>Duration</MarginedHeading>
     <StartEnd formik={formik} />
     <InputContainer>

@@ -57,6 +57,8 @@ const MyListings = ({ uid, setHasListings }) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
+  console.log(`listings`, listings)
+
   const reload = () => {
     setLoading(true);
     api.get(`/listing?uid=${uid}`)

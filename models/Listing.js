@@ -54,7 +54,6 @@ const listingSchema = Schema({
   },
   amenities: {
     type: [String],
-    required: true,
     default: [],
   },
   imgs: {
