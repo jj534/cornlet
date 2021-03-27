@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactComponent as CloseRaw } from 'src/assets/svgs/close.svg';
-import Btn from 'src/components/buttons/Btn';
+import InvertedBtn from 'src/components/buttons/InvertedBtn';
 import IconContainer from 'src/components/displays/IconContainer';
 import Space from 'src/components/layouts/Space';
 import useFilters from 'src/util/hooks/useFilters';
@@ -18,13 +18,14 @@ const Container = styled.div`
   }
 `;
 
-const StatusBadge = styled(Btn)`
+const StatusBadge = styled(InvertedBtn)`
   cursor: initial;
   border: 2px solid ${props => props.theme.brand300};
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: .2rem .2rem .2rem .5rem;
+  color: ${props => props.theme.brand};
 `
 
 export const CloseSVG = styled(CloseRaw)`

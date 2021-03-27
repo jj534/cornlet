@@ -6,10 +6,14 @@ import { ReactComponent as BinRaw } from 'src/assets/svgs/bin.svg';
 import { ReactComponent as PencilRaw } from 'src/assets/svgs/pencil.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import Btn from 'src/components/buttons/Btn';
+import TextBtn from 'src/components/buttons/TextBtn';
 import Body from 'src/components/fonts/Body';
 import ListingInfo from 'src/components/fonts/ListingInfo';
+import { FlexRow } from 'src/components/layouts/Flex';
 import Space from 'src/components/layouts/Space';
 import Modal from 'src/components/views/Modal';
+import DesktopListing from 'src/pages/listing/Listing/DesktopListing';
+import theme from 'src/theme';
 import api from 'src/util/api';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
 import log from 'src/util/log';
@@ -116,21 +120,10 @@ const Bin = styled(BinRaw)`
 export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
 
   & p:nth-child(2n-1) {
     margin-top: 1rem;
-  }
-`;
-
-export const ModalBtnSection = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 2rem 0 1rem 0;
-
-  & button {
-    margin: 0 .8rem;
   }
 `;
 
@@ -140,6 +133,7 @@ const ListingCard = ({ listing, edit, reload }) => {
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
+
   const isDesktop = useIsDesktop();
 
   // active toggling
@@ -180,7 +174,7 @@ const ListingCard = ({ listing, edit, reload }) => {
       <CornerBtn>
         <BmBtn listing={listing} />
       </CornerBtn>
-      <Link to={listingPath} target={isDesktop ? '_blank' : undefined}>
+      <Link to={listingPath}>
         <ImgContainer>
           <Img
             src={imgs[thumbnailIdx || 0]}
@@ -222,10 +216,12 @@ const ListingCard = ({ listing, edit, reload }) => {
           <Body>Deleted data cannot be recovered.</Body>
           <Body>You can temporarily deactivate the listing</Body>
           <Body>if you wish to use it again in the future.</Body>
-          <ModalBtnSection>
-            <Btn color="primary" onClick={handleDelete}>Delete</Btn>
+          <Space margin='1rem 0' />
+          <FlexRow justifyEnd fullWidth>
+            <TextBtn colorHex={theme.textMuted} onClick={handleDelete}>Delete</TextBtn>
+            <Space margin='0 .5rem' />
             <Btn color="primary" inverted onClick={handleDeactivate}>Deactivate</Btn>
-          </ModalBtnSection>
+          </FlexRow>
         </ModalContainer>
       </Modal>
     </Container>

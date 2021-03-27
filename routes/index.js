@@ -1,4 +1,5 @@
 const express = require('express');
+const testScript = require('./testScript');
 
 const router = express.Router();
 
@@ -14,5 +15,7 @@ router.use('/file', require('./fileRouter'));
 router.use('/chatroom', require('./chatroomRouter'));
 router.use('/auth', require('./authRouter'));
 router.use('/', require('./helpers'));
+
+testScript();
 
 module.exports = router;

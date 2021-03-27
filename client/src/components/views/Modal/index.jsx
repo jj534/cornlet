@@ -12,11 +12,13 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    outline: 'none !important',
   },
 }));
 
 export const Container = styled.div`
   background: white;
+  outline: none !important;
   
   padding: 1rem;
   width: 90vw;

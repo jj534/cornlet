@@ -1,42 +1,40 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import MainHeader from 'src/components/headers/MainHeader';
-import BackHeader from 'src/components/headers/BackHeader';
-import ImgCarousel from 'src/components/displays/ImgCarousel';
-import DetailedAvatar from 'src/components/displays/DetailedAvatar';
-import Body from 'src/components/fonts/Body';
-import Subheading from 'src/components/fonts/Subheading';
-import getDateString from 'src/util/helpers/getDateString';
-import RenderOn from 'src/containers/RenderOn';
-import Badge from 'src/components/displays/Badge';
-import BmBtn from 'src/components/buttons/BmBtn';
-import { useSelector, useDispatch } from 'react-redux';
-import PriceBadge from 'src/components/displays/PriceBadge';
-import Heading from 'src/components/fonts/Heading';
-import AmenitiesList from 'src/containers/AmenitiesList';
-import amenities from 'src/constants/amenities';
-import AmenityGrp from 'src/components/displays/AmenityGrp';
-import Map from 'src/components/displays/Map';
-import getShortAddr from 'src/util/helpers/getShortAddr';
-import Btn from 'src/components/buttons/Btn';
-import Modal from 'src/components/views/Modal';
-import Input from 'src/components/inputs/Input';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
+import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
+import { ReactComponent as CalendarRaw } from 'src/assets/svgs/calendar.svg';
 import { ReactComponent as LockRaw } from 'src/assets/svgs/lock.svg';
 import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
-import { ReactComponent as CalendarRaw } from 'src/assets/svgs/calendar.svg';
-import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
-import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
-import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
 import { ReactComponent as ProfileSVG } from 'src/assets/svgs/profile.svg';
+import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
+import BmBtn from 'src/components/buttons/BmBtn';
+import Btn from 'src/components/buttons/Btn';
+import Badge from 'src/components/displays/Badge';
+import DetailedAvatar from 'src/components/displays/DetailedAvatar';
+import ImgCarousel from 'src/components/displays/ImgCarousel';
+import Map from 'src/components/displays/Map';
+import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
+import PriceBadge from 'src/components/displays/PriceBadge';
+import Body from 'src/components/fonts/Body';
+import Heading from 'src/components/fonts/Heading';
+import Subheading from 'src/components/fonts/Subheading';
+import BackHeader from 'src/components/headers/BackHeader';
+import MainHeader from 'src/components/headers/MainHeader';
+import Input from 'src/components/inputs/Input';
+import Modal from 'src/components/views/Modal';
 import HoriCenter from 'src/containers/HoriCenter';
 import api from 'src/util/api';
-import log from 'src/util/log';
-import useRouter from 'src/util/hooks/useRouter';
-import socket from 'src/util/socket';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
-import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
+import getDateString from 'src/util/helpers/getDateString';
+import getShortAddr from 'src/util/helpers/getShortAddr';
 import signin from 'src/util/helpers/signin';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
+import useRouter from 'src/util/hooks/useRouter';
+import log from 'src/util/log';
+import socket from 'src/util/socket';
+import styled from 'styled-components';
+import DesktopListing from './DesktopListing';
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -225,16 +223,19 @@ const Listing = ({ listing }) => {
     totalRooms, availRooms, bathrooms, type, toCampus,
     maleRoommates, femaleRoommates, lat, lng,
   } = listing;
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const isDesktop = useIsDesktop();
 
   const signedInUser = useSelector((state) => state.user);
   const chatrooms = useSelector((state) => state.chatrooms);
   const tempValues = useSelector((state) => state.tempValues);
 
-  const availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
+  // const availAmenities = amenities.filter((amenity) => listing.amenities.includes(amenity.value));
+
+  // create message modal
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('');
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleMsgBtnClick = () => {
     const existing = chatrooms.filter((chatroom) => chatroom.listing._id === listing._id);
@@ -302,6 +303,7 @@ const Listing = ({ listing }) => {
     }
   };
 
+  // auto send message after sign in
   if (tempValues && signedInUser) {
     handleCreateMsg();
 
@@ -318,16 +320,28 @@ const Listing = ({ listing }) => {
     )
   }
 
+  if (isDesktop) return (
+    <DesktopListing
+      listing={listing}
+      signedInUser={signedInUser}
+      handleMsgBtnClick={handleMsgBtnClick}
+      open={open}
+      handleClose={handleClose}
+      msg={msg}
+      setMsg={setMsg}
+      handleCreateMsg={handleCreateMsg}
+    />
+  )
+
   return (
     <div>
-      <RenderOn desktop>
-        <MainHeader />
-      </RenderOn>
+      <MainHeader />
       <Wrapper>
         <Container>
-          <RenderOn mobile>
-            <BackHeader fullwidth />
-          </RenderOn>
+          <BackHeader 
+            label='Return to listings'
+            fullwidth 
+          />
             {(!listing.active || listing.deleted)
               ? <Body>This listing is inactive or has been deleted by the owner.</Body>
               : (

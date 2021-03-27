@@ -24,15 +24,24 @@ const StyledBody = styled.p`
   @media (min-width: ${(props) => props.theme.md}px) {
     font-size: ${(props) => (props.sm ? '.9rem' : '')};
   }
+
+  // fontSize
+  font-size: ${props => props.fontSize && props.fontSize};
   
   // color
   color: ${(props) => (props.color ? props.theme[props.color] : '')};
+
+  // colorHex
+  color: ${props => props.colorHex && props.colorHex};
 
   // lineHeight
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : '')};
 
   // bold
   font-weight: ${(props) => (props.bold ? 'bold' : '')};
+
+  // fontWeight
+  font-weight: ${props => props.fontWeight && props.fontWeight};
 
   // maxWidth
   max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : '')};

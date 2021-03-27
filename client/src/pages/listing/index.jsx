@@ -11,6 +11,7 @@ const Container = styled.div`
 const ListingIndex = ({ match }) => {
   const { id } = match.params;
   const [listing, setListing] = useState();
+  
   useEffect(() => {
     if (id) {
       api.get(`/listing/${id}`)

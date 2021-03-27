@@ -13,6 +13,9 @@ const StyledBody = styled.h2`
 
   // bold
   font-weight: ${(props) => (props.bold ? 'bold' : '')};
+
+  // fontWeight
+  font-weight: ${props => props.fontWeight && props.fontWeight};
 `;
 
 const Subheading = ({ children, bold, ...rest }) => (
