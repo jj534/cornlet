@@ -434,10 +434,6 @@ roommate(s) during sublet
                     </Section>
                     <Section>
                       <Row marginBottom><Subheading bold>Location</Subheading></Row>
-                      <Row icon>
-                        <SVGContainer><PlaceSVG /></SVGContainer>
-                        <Body muted sm>{getShortAddr(addr)}</Body>
-                      </Row>
                       {toCampus && (
                       <Row icon>
                         <SVGContainer><WalkSVG /></SVGContainer>
