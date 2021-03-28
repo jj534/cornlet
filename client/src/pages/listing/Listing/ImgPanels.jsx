@@ -59,8 +59,8 @@ const ShowAllArea = styled.div`
   right: 15px;
 `;
 
-const ShowAllBtn = styled(Btn)`
-  border-color: ${props => props.theme.grey[200]};
+const ShowAllBtn = styled(InvertedBtn)`
+  border: 2px solid ${props => props.theme.grey[400]};
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 `;
 
@@ -127,9 +127,9 @@ const ImgPanels = ({ imgs }) => {
               : <NoImgComponent />
             }
             <ShowAllArea>
-              <InvertedBtn onClick={() => setIsModalOpen(true)}>
+              <ShowAllBtn onClick={() => setIsModalOpen(true)}>
                 Show all photos
-              </InvertedBtn>
+              </ShowAllBtn>
             </ShowAllArea>
           </SidePanelInner>
         </SidePanel>

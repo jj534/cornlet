@@ -31,8 +31,6 @@ const BackHeader = ({ to, fullwidth, label }) => {
   const history = useHistory();
   const router = useRouter();
 
-  console.log(`history`, history)
-
   const handleClick = () => {
     if (to) history.push(to);
     else if (history.length > 1) {

@@ -8,6 +8,7 @@ const StyledBody = styled.p`
   white-space: pre-line;
   line-height: 1.2;
   word-break: break-word;
+  color: ${props => props.theme.text};
 
   // ellipsis
   text-overflow: ${(props) => (props.ellipsis ? 'ellipsis' : '')};

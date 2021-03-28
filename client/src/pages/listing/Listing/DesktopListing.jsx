@@ -1,9 +1,9 @@
 import React from 'react';
 import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
 import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
-import { ReactComponent as CalendarRaw } from 'src/assets/svgs/calendar.svg';
+import { ReactComponent as CalendarSVG } from 'src/assets/svgs/calendar.svg';
 import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
-import { ReactComponent as ProfileSVG } from 'src/assets/svgs/profile.svg';
+import { ReactComponent as ProfileSVG } from 'src/assets/svgs/face.svg';
 import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import Btn from 'src/components/buttons/Btn';
@@ -48,6 +48,7 @@ const Content = styled.div`
     margin-top: 0;
     flex: 2;
     max-width: 700px;
+    padding: 0 1rem;
   }
 `;
 
@@ -65,73 +66,21 @@ const Section = styled.div`
   }
 `;
 
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-  margin: .2rem 0;
-  
-  @media (min-width: ${(props) => props.theme.md}px) {
-    margin: 0 0 .5rem 0;
-  }
-
-  // marginTop
-  margin-top: ${(props) => (props.marginTop ? '1rem' : '')};
-
-  @media (min-width: ${(props) => props.theme.md}px) {
-    margin-top: ${(props) => (props.marginTop ? '1.2rem' : '')};
-  }
-
-  // marginTopLarge
-  margin-top: ${(props) => (props.marginTopLarge ? '1.5rem' : '')};
-
-  @media (min-width: ${(props) => props.theme.md}px) {
-    margin-top: ${(props) => (props.marginTopLarge ? '1.7rem' : '')};
-  }
-
-  // marginBottom
-  margin-bottom: ${(props) => (props.marginBottom ? '1rem' : '')};
-
-  @media (min-width: ${(props) => props.theme.md}px) {
-    margin-bottom: ${(props) => (props.marginBottom ? '1.2rem' : '')};
-  }
-
-  // marginBottomLarge
-  margin-bottom: ${(props) => (props.marginBottomLarge ? '1.5rem' : '')};
-
-  @media (min-width: ${(props) => props.theme.md}px) {
-    margin-bottom: ${(props) => (props.marginBottomLarge ? '1.7rem' : '')};
-  }
-
-  // icon
-  justify-content: ${(props) => (props.icon ? 'flex-start' : '')};
-`;
-
-export const MapContainer = styled.div`
-  @media (min-width: ${(props) => props.theme.md}px) {
-    padding: 0 1rem;
-  }
-`;
-
 const SVGContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 2rem;
-  margin-right: .2rem;
+  margin-right: .8rem;
 
   & > svg {
     width: 1.5rem;
     height: 1.5rem;
-    opacity: .6;
+    opacity: .8;
   }
-
-  // mr
-  margin-right: ${(props) => (props.mr ? '.5rem' : '')};
 `;
 
-export const CalendarSVG = styled(CalendarRaw)`
-  width: 30px !important;
+const SVGLabel = styled(Body)`
+  font-size: 1rem;
+  font-weight: 400;
 `;
 
 export const Fullwidth = styled.div`
@@ -139,31 +88,6 @@ export const Fullwidth = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const MsgBtn = styled.button`
-  width: 100%;
-  max-width: 400px;
-  padding: .8rem 0;
-  margin-top: 1rem;
-  font-size: 1rem;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-
-  background: ${(props) => props.theme.primary};
-  color: white;
-
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-
-  & svg {
-    height: 1.2rem;
-    width: 1.2rem;
-    fill: white;
-    margin-right: 1rem;
-  }
 `;
 
 export const ModalContents = styled.div`
@@ -209,110 +133,75 @@ const DesktopListing = ({
                   <FlexRow justifySpaceBetween>
                     <Content>
                       <Section>
-                        <Row>
+                        <FlexRow justifySpaceBetween>
                           <Heading>
                             {formatListingDesc(listing)}
                           </Heading>
                           <BmBtn listing={listing} />
-                        </Row>
-                        <Row icon>
-                          <SVGContainer><CalendarSVG /></SVGContainer>
-                          <Body muted sm>{getDateString(listing)}</Body>
-                        </Row>
-                      </Section>
-                      {/* contact section */}
-                      {/* <Section>
-                        <Row marginBottom><Subheading bold>Contact</Subheading></Row>
-                        {sold
-                          ? <Row><Badge color="primary" inverted>Sold</Badge></Row>
-                          : (
-                            <Row>
-                              {(!cornellOnly || (cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu'))
-                                ? (
-                                  <Fullwidth>
-                                    <DetailedAvatar
-                                      name={displayName || user.name}
-                                      src={displayName ? undefined : user.photo}
-                                    />
-                                    <Btn color="primary" inverted onClick={handleMsgBtnClick}>Message</Btn>
-                                  </Fullwidth>
-                                )
-                                : (
-                                  <LockSection>
-                                    <LockAvatar>
-                                      <LockSVG />
-                                    </LockAvatar>
-                                    <TextSection>
-                                      <Subheading bold>Restricted to Cornell</Subheading>
-                                      <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
-                                    </TextSection>
-                                  </LockSection>
-                                )}
-                            </Row>
+                        </FlexRow>
+                        <Space margin='2rem 0' />
+                        <div>
+                          <FlexRow alignCenter>
+                            <SVGContainer><CalendarSVG /></SVGContainer>
+                            <SVGLabel>{getDateString(listing)}</SVGLabel>
+                          </FlexRow>
+                          {availRooms !== 0 && (
+                            <>
+                              <Space margin='1rem 0' />
+                              <FlexRow alignCenter>
+                                <SVGContainer><BedroomSVG /></SVGContainer>
+                                <SVGLabel>{availRooms} room(s) available</SVGLabel>
+                              </FlexRow>
+                            </>
                           )}
-                      </Section> */}
-                      <Section>
-                        <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
-                        {availRooms !== 0 && (
-                        <Row icon>
-                          <SVGContainer mr><BedroomSVG /></SVGContainer>
-                          <Body muted sm>
-                            {availRooms}
-                            {' '}
-  room(s) available
-                          </Body>
-                        </Row>
-                        )}
-                        {bathrooms !== 0 && (
-                        <Row icon>
-                          <SVGContainer mr><BathroomSVG /></SVGContainer>
-                          <Body muted sm>
-                            {bathrooms}
-                            {' '}
-  bathrooms
-                          </Body>
-                        </Row>
-                        )}
-                        {(maleRoommates !== 0 || femaleRoommates !== 0) && (
-                        <Row icon>
-                          <SVGContainer mr><ProfileSVG /></SVGContainer>
-                          <Body muted sm>
-                            {maleRoommates + femaleRoommates}
-                            {' '}
-  roommate(s) during sublet
-                          </Body>
-                        </Row>
-                        )}
-                        <Row marginTopLarge marginBottom>
-                          <Body lineHeight={1.5}>{desc}</Body>
-                        </Row>
+                          {bathrooms !== 0 && (
+                            <>
+                              <Space margin='1rem 0' />
+                              <FlexRow alignCenter>
+                                <SVGContainer><BathroomSVG /></SVGContainer>
+                                <SVGLabel>{bathrooms} bathrooms</SVGLabel>
+                              </FlexRow>
+                            </>
+                          )}
+                          {(maleRoommates !== 0 || femaleRoommates !== 0) && (
+                            <>
+                              <Space margin='1rem 0' />
+                              <FlexRow alignCenter>
+                                <SVGContainer><ProfileSVG /></SVGContainer>
+                                <SVGLabel>{maleRoommates + femaleRoommates} roommate(s) during sublet</SVGLabel>
+                              </FlexRow>
+                            </>
+                          )}
+                        </div>
                       </Section>
+
+                      {/* location section */}
                       <Section>
-                        <Row marginBottom><Subheading bold>Location</Subheading></Row>
-                        <Row icon>
+                        <Subheading bold>Location</Subheading>
+                        <Space margin='1.5rem 0' />
+                        {/* <FlexRow alignCenter>
                           <SVGContainer><PlaceSVG /></SVGContainer>
-                          <Body muted sm>{getShortAddr(addr)}</Body>
-                        </Row>
+                          <SVGLabel>{getShortAddr(addr)}</SVGLabel>
+                        </FlexRow> */}
                         {toCampus && (
-                        <Row icon>
-                          <SVGContainer><WalkSVG /></SVGContainer>
-                          <Body muted sm>
-                            {toCampus}
-                            {' '}
-  km to campus
-                          </Body>
-                        </Row>
+                          <SVGLabel>{toCampus} km to campus</SVGLabel>
                         )}
-                        <Row marginBottom />
-                        {(lat && lng)
-                        && (
-                        <MapContainer>
-                          <Map
-                            lat={lat}
-                            lng={lng}
-                          />
-                        </MapContainer>
+                        <Space margin='1.5rem 0' />
+                        {(lat && lng) && (
+                          <div>
+                            <Map
+                              lat={lat}
+                              lng={lng}
+                            />
+                          </div>
                         )}
+                      </Section>
+
+                      {/* description section */}
+                      <Section>
+                        <Subheading bold>Description</Subheading>
+                        <Space margin='1.5rem 0' />
+                        <Body lineHeight={1.5}>{desc}</Body>
                       </Section>
                       {/* {availAmenities.length > 0
                       && (
