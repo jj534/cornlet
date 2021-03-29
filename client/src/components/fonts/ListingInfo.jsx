@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
 import getShortDateString from 'src/util/helpers/getShortDateString';
-import Badge from '../displays/Badge';
+import BadgeV2 from '../displays/BadgeV2';
 import Body from './Body';
 import { ReactComponent as CloseRaw } from 'src/assets/svgs/close-material.svg';
 import IconContainer from '../displays/IconContainer';
+import theme from 'src/theme';
 
 
 const TextLines = styled.div`
@@ -85,7 +86,11 @@ const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
         <Title>{formatListingDesc(listing)}</Title>
         <div style={{ marginTop: '.5rem' }}>
           {sold
-            ? <Badge color="primary" size="sm" inverted>Sold</Badge>
+            ? <BadgeV2 
+                color={theme.brand} 
+                background={theme.brand50} 
+                label='Sold' 
+              />
             : (
               <TextLines>
                 <div>

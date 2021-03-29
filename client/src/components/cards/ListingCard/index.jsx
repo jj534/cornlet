@@ -185,6 +185,8 @@ const ListingCard = ({ listing, edit, reload }) => {
         <Space margin='.8rem 0' />
         <ListingInfo listing={listing} />
       </Link>
+
+      {/* edit tools for listing owner */}
       {edit && (
         <EditTools>
           <FormControlLabel
@@ -206,6 +208,8 @@ const ListingCard = ({ listing, edit, reload }) => {
           </RightSection>
         </EditTools>
       )}
+
+      {/* delete modal */}
       <Modal
         open={deleteModal}
         handleClose={handleClose}
