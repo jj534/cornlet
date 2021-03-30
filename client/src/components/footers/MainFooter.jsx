@@ -35,10 +35,10 @@ const MainFooter = () => {
 
   return (
     <Container>
-      {isMobile && <Body sm>cornletservice@gmail.com</Body>}
+      {isMobile && <Body sm>contactcornlet@gmail.com</Body>}
       <Content>
         <Body sm>
-          {!isMobile && 'cornletservice@gmail.com |'}
+          {!isMobile && 'contactcornlet@gmail.com |'}
           <StyledLink to='/terms-conditions'>Terms of Service</StyledLink> |
           <StyledLink to='/privacy-policy'>Privacy Policy</StyledLink> |
           <StyledLink to='/cookie-policy'>Cookie Policy</StyledLink>
