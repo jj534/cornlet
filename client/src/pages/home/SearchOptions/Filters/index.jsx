@@ -86,7 +86,7 @@ const Filters = () => {
         setShow={setShow}
         alignLeft
       >
-        <FilterContents />
+        <FilterContents setShow={setShow} />
       </Dropdown>
     </Container>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,6 +13,7 @@ const Container = styled.div`
 const StyledPicker = styled(DatePicker)`
   padding: .4rem 1.5rem .4rem .4rem;
   font-size: .8rem;
+  font-weight: 500;
   background-color: white;
 
   display: inline;
@@ -24,8 +25,8 @@ const StyledPicker = styled(DatePicker)`
   // default
   width: 8.5rem;
   background-color: inherit;
-  color: rgba(0, 0, 0, .7);
-  border: 1px solid rgba(0, 0, 0, .2);
+  color: ${props => props.theme.text};
+  border: 2px solid ${props => props.theme.border.dark};
 `;
 
 const CalendarSVG = styled(CalendarRaw)`
@@ -36,7 +37,7 @@ const CalendarSVG = styled(CalendarRaw)`
   top: 0;
   bottom: 0;
   margin: auto;
-  opacity: .8;
+  fill: ${props => props.theme.border.dark};
 `;
 
 const DateFilter = ({ name }) => {

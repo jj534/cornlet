@@ -4,7 +4,7 @@ import useRouter from 'src/util/hooks/useRouter';
 import Slider from '@material-ui/core/Slider';
 
 const Container = styled.div`
-  padding: 0 1rem;
+  padding: 0 .3rem;
   display: flex;
   justify-content: center;
 
