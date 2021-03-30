@@ -16,7 +16,7 @@ const TextLines = styled.div`
   align-items: flex-start;
 
   & > div {
-    margin-bottom: .3rem;
+    margin-bottom: .5rem;
   }
 
   @media (min-width: ${props => props.theme.md}px) {
