@@ -11,7 +11,8 @@ const Container = styled.div`
 `;
 
 const StyledPicker = styled(DatePicker)`
-  padding: .4rem 1.5rem .4rem .4rem;
+  /* padding: .4rem 1.5rem .4rem .4rem; */
+  padding: .5rem 0;
   font-size: .8rem;
   font-weight: 500;
   background-color: white;
@@ -22,8 +23,7 @@ const StyledPicker = styled(DatePicker)`
   text-align: center;
   cursor: pointer;
   
-  // default
-  width: 8.5rem;
+  width: 110px;
   background-color: inherit;
   color: ${props => props.theme.text};
   border: 2px solid ${props => props.theme.border.dark};
@@ -71,7 +71,7 @@ const DateFilter = ({ name }) => {
         selected={date}
         onChange={(newDate) => setDate(newDate)}
       />
-      <CalendarSVG />
+      {/* <CalendarSVG /> */}
     </Container>
   );
 };
