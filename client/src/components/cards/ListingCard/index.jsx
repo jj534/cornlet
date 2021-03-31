@@ -9,12 +9,14 @@ import Btn from 'src/components/buttons/Btn';
 import TextBtn from 'src/components/buttons/TextBtn';
 import Body from 'src/components/fonts/Body';
 import ListingInfo from 'src/components/fonts/ListingInfo';
+import Text from 'src/components/fonts/Text';
 import { FlexRow } from 'src/components/layouts/Flex';
 import Space from 'src/components/layouts/Space';
 import Modal from 'src/components/views/Modal';
 import DesktopListing from 'src/pages/listing/Listing/DesktopListing';
 import theme from 'src/theme';
 import api from 'src/util/api';
+import getShortAddr from 'src/util/helpers/getShortAddr';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
 import log from 'src/util/log';
 import styled from 'styled-components';
@@ -129,7 +131,7 @@ export const ModalContainer = styled.div`
 
 const ListingCard = ({ listing, edit, reload }) => {
   const {
-    _id, addr, price, imgs, sold, active, thumbnailIdx, availRooms
+    _id, addr, imgs, sold, active, thumbnailIdx, availRooms
   } = listing;
   const editPath = edit ? `/listing/${_id}/edit` : `/listing/${_id}`;
   const listingPath = `/listing/${_id}`;
@@ -171,9 +173,11 @@ const ListingCard = ({ listing, edit, reload }) => {
 
   return (
     <Container>
-      <CornerBtn>
-        <BmBtn listing={listing} />
-      </CornerBtn>
+      {!edit && (
+        <CornerBtn>
+          <BmBtn listing={listing} />
+        </CornerBtn>
+      )}
       <Link to={listingPath}>
         <ImgContainer>
           <Img
@@ -183,7 +187,10 @@ const ListingCard = ({ listing, edit, reload }) => {
           />
         </ImgContainer>
         <Space margin='.8rem 0' />
-        <ListingInfo listing={listing} />
+        {edit
+          ? <Text variant='p' fontWeight={500} maxLines={1}>{getShortAddr(addr)}</Text>
+          : <ListingInfo listing={listing} />
+        }
       </Link>
 
       {/* edit tools for listing owner */}

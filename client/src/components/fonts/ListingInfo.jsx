@@ -7,6 +7,7 @@ import Body from './Body';
 import { ReactComponent as CloseRaw } from 'src/assets/svgs/close-material.svg';
 import IconContainer from '../displays/IconContainer';
 import theme from 'src/theme';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
 
 
 const TextLines = styled.div`
@@ -72,11 +73,13 @@ const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
     price, sold, availRooms
   } = listing || {};
 
+  const isDesktop = useIsDesktop();
+
   return (
     <div>
       <TextArea>
         <TopRow>
-          <Overline style={{ marginBottom: '.4rem' }}>{sold ? 'Not' : `${availRooms} bedrooms`} available</Overline>
+          {isDesktop && <Overline style={{ marginBottom: '.4rem' }}>{sold ? 'Not' : `${availRooms} bedrooms`} available</Overline>}
           {isShowingClose && (
             <IconContainer>
               <CloseIcon onClick={onCloseClick} />
