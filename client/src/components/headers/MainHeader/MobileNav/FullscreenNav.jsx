@@ -17,7 +17,7 @@ const Container = styled.div`
   z-index: 99;
   background: white;
   height: 100vh;
-  padding: 5.6rem 0 1rem 0;
+  padding: 1.5rem 0;
 `;
 
 export const Header = styled.div`
