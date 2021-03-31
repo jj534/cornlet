@@ -43,6 +43,8 @@ listingRouter.post('/create', async (req, res) => {
 
 listingRouter.get('/', async (req, res) => {
   try {
+    const today = new Date();
+
     // format query
     const {
       uid, active, start, end, sort, minPrice, maxPrice, minToCampus, maxToCampus, page,
@@ -57,7 +59,7 @@ listingRouter.get('/', async (req, res) => {
       ? { end: { $gte: new Date(end) }, start: { $lt: new Date(end) } }
       : uid
         ? {}
-        : { end: { $gte: new Date() } };
+        : { end: { $gte: today.setDate(today.getDate() - 1) } };
     const startEndQuery = start && end
       ? { start: { $lte: moment(new Date(start)).endOf('day').toDate() }, end: { $gte: new Date(end) } }
       : {};
