@@ -1,27 +1,24 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import ScrollToTop from './ScrollToTop';
-import PrivateRoute from './PrivateRoute';
-import MainFooter from '../footers/MainFooter';
-import SocketIO from './SocketIO';
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import AuthCallback from 'src/pages/auth-callback';
+import CookiePolicy from 'src/pages/cookie-policy';
+import Edit from 'src/pages/edit';
+import Env from 'src/pages/env';
 import Home from 'src/pages/home';
 import Listing from 'src/pages/listing';
 import New from 'src/pages/new';
-import Edit from 'src/pages/edit';
-import Env from 'src/pages/env';
 import PrivacyPolicy from 'src/pages/privacy-policy';
-import CookiePolicy from 'src/pages/cookie-policy';
-import TermsConditions from 'src/pages/terms-conditions';
-
 import Profile from 'src/pages/profile';
-import MyListings from 'src/pages/profile/MyListings';
 import Chat from 'src/pages/profile/MyChats/Chat';
 import Chatroom from 'src/pages/profile/MyChats/Chatroom';
+import MyListings from 'src/pages/profile/MyListings';
 import Settings from 'src/pages/profile/Settings';
-import AuthCallback from 'src/pages/auth-callback';
+import TermsConditions from 'src/pages/terms-conditions';
+import MainFooter from '../footers/MainFooter';
+import PrivateRoute from './PrivateRoute';
 import ResetUserStore from './ResetUserStore';
+import ScrollToTop from './ScrollToTop';
+import SocketIO from './SocketIO';
 
 const AppRouter = () => (
   <BrowserRouter>

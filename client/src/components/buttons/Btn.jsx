@@ -23,6 +23,9 @@ const Button = styled.button`
 
   // background
   background: ${props => props.background && props.background};
+
+  // disabled
+  background: ${props => props.disabled && props.theme.grey[400]};
 `;
 
 const Btn = ({

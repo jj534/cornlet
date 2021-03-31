@@ -8,6 +8,8 @@ import log from 'src/util/log';
 import api from 'src/util/api';
 
 const Container = styled.div`
+  flex-grow: 0;
+
   @media (min-width: ${props => props.theme.md}px) {
     position: relative;
   }
@@ -15,6 +17,7 @@ const Container = styled.div`
 
 export const BMIconContainer = styled.div`
   position: relative;
+  flex-grow: 0;
 `;
 
 const BMIcon = styled(BMIconRaw)`

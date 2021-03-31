@@ -54,7 +54,7 @@ const SoldComponent = () => (
   <FlexColumn alignCenter>
     <Btn background={theme.grey[300]} fullWidth inverted disabled>Message host</Btn>
     <Space margin='.3rem 0' />
-    <Body colorHex={theme.textMuted} fontSize='.8rem'>This listing has been sold</Body>
+    <Body colorHex={theme.textMuted} fontSize='.8rem'>This listing has been marked as sold</Body>
   </FlexColumn >
 )
 

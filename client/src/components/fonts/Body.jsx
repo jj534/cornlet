@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledBody = styled.p`
   opacity: 1;
   font-size: 1rem;
+  font-weight: 400;
   
   white-space: pre-line;
   line-height: 1.2;

@@ -12,15 +12,18 @@ import Btn from 'src/components/buttons/Btn';
 import Badge from 'src/components/displays/Badge';
 import DetailedAvatar from 'src/components/displays/DetailedAvatar';
 import ImgCarousel from 'src/components/displays/ImgCarousel';
+import InfoBox from 'src/components/displays/InfoBox';
 import Map from 'src/components/displays/Map';
 import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
 import PriceBadge from 'src/components/displays/PriceBadge';
 import Body from 'src/components/fonts/Body';
 import Heading from 'src/components/fonts/Heading';
 import Subheading from 'src/components/fonts/Subheading';
+import Text from 'src/components/fonts/Text';
 import BackHeader from 'src/components/headers/BackHeader';
 import MainHeader from 'src/components/headers/MainHeader';
 import Input from 'src/components/inputs/Input';
+import Space from 'src/components/layouts/Space';
 import Modal from 'src/components/views/Modal';
 import HoriCenter from 'src/containers/HoriCenter';
 import api from 'src/util/api';
@@ -34,6 +37,8 @@ import log from 'src/util/log';
 import socket from 'src/util/socket';
 import styled from 'styled-components';
 import DesktopListing from './DesktopListing';
+import IconsSection from './IconsSection';
+import MobileFooter from './MobileFooter';
 
 
 const Wrapper = styled.div`
@@ -342,143 +347,102 @@ const Listing = ({ listing }) => {
             label='Return to listings'
             fullwidth 
           />
-            {(!listing.active || listing.deleted)
-              ? <Body>This listing is inactive or has been deleted by the owner.</Body>
-              : (
-                <ListingSection>
-                  <ImgInnerContainer>
-                    <ImgCarousel imgs={imgs} />
-                    <PriceBadge alignTop lg>
-$
-                      {price}
-                    </PriceBadge>
-                  </ImgInnerContainer>
-                  <Content>
-                    <Section>
-                      <Row>
-                        <Heading>
-                          {formatListingDesc(listing)}
-                        </Heading>
-                        <BmBtn listing={listing} />
-                      </Row>
-                      <Row icon>
-                        <SVGContainer><CalendarSVG /></SVGContainer>
-                        <Body muted sm>{getDateString(listing)}</Body>
-                      </Row>
-                    </Section>
+          {(!listing.active || listing.deleted)
+            ? <Body>This listing is inactive or has been deleted by the owner.</Body>
+            : (
+              <ListingSection>
+                <ImgInnerContainer>
+                  <ImgCarousel imgs={imgs} />
+                </ImgInnerContainer>
+                <Content>
+                  <Section>
+                    <Row>
+                      <Heading>
+                        {formatListingDesc(listing)}
+                      </Heading>
+                      <BmBtn listing={listing} />
+                    </Row>
+                    <Space margin='2rem 0' />
+                    <Row>
+                      <IconsSection listing={listing} />
+                    </Row>
+                  </Section>
+
+                  {/* contact section */}
+                  {!sold && (
                     <Section>
                       <Row marginBottom><Subheading bold>Contact</Subheading></Row>
-                      {sold
-                        ? <Row><Badge color="primary" inverted>Sold</Badge></Row>
-                        : (
-                          <Row>
-                            {(!cornellOnly || (cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu'))
-                              ? (
-                                <Fullwidth>
-                                  <DetailedAvatar
-                                    name={displayName || user.name}
-                                    src={displayName ? undefined : user.photo}
-                                  />
-                                  <Btn color="primary" inverted onClick={handleMsgBtnClick}>Message</Btn>
-                                </Fullwidth>
-                              )
-                              : (
-                                <LockSection>
-                                  <LockAvatar>
-                                    <LockSVG />
-                                  </LockAvatar>
-                                  <TextSection>
-                                    <Subheading bold>Restricted to Cornell</Subheading>
-                                    <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
-                                  </TextSection>
-                                </LockSection>
-                              )}
-                          </Row>
-                        )}
-                    </Section>
-                    <Section>
-                      <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
-                      {availRooms !== 0 && (
-                      <Row icon>
-                        <SVGContainer mr><BedroomSVG /></SVGContainer>
-                        <Body muted sm>
-                          {availRooms}
-                          {' '}
-room(s) available
-                        </Body>
-                      </Row>
-                      )}
-                      {bathrooms !== 0 && (
-                      <Row icon>
-                        <SVGContainer mr><BathroomSVG /></SVGContainer>
-                        <Body muted sm>
-                          {bathrooms}
-                          {' '}
-bathrooms
-                        </Body>
-                      </Row>
-                      )}
-                      {(maleRoommates !== 0 || femaleRoommates !== 0) && (
-                      <Row icon>
-                        <SVGContainer mr><ProfileSVG /></SVGContainer>
-                        <Body muted sm>
-                          {maleRoommates + femaleRoommates}
-                          {' '}
-roommate(s) during sublet
-                        </Body>
-                      </Row>
-                      )}
-                      <Row marginTopLarge marginBottom>
-                        <Body lineHeight={1.5}>{desc}</Body>
-                      </Row>
-                    </Section>
-                    <Section>
-                      <Row marginBottom><Subheading bold>Location</Subheading></Row>
-                      {toCampus && (
-                      <Row icon>
-                        <SVGContainer><WalkSVG /></SVGContainer>
-                        <Body muted sm>
-                          {toCampus}
-                          {' '}
-km to campus
-                        </Body>
-                      </Row>
-                      )}
-                      <Row marginBottom />
-                      {(lat && lng)
-                      && (
-                      <MapContainer>
-                        <Map
-                          lat={lat}
-                          lng={lng}
-                        />
-                      </MapContainer>
-                      )}
-                    </Section>
-                    {/* {availAmenities.length > 0
-                    && (
-                    <Section>
-                      <Row><Subheading bold>Amenities</Subheading></Row>
                       <Row>
-                        <AmenitiesList>
-                          {availAmenities.map((amenity) => (
-                            <AmenityGrp
-                              key={amenity.value}
-                              count={amenity.count}
-                              icon={amenity.icon}
-                              label={amenity.label}
-                              active
-                            />
-                          ))}
-                        </AmenitiesList>
+                        {(!cornellOnly || (cornellOnly && signedInUser && signedInUser.email.split('@')[1] === 'cornell.edu'))
+                          ? (
+                            <Fullwidth>
+                              <DetailedAvatar
+                                name={displayName || user.name}
+                                src={displayName ? undefined : user.photo}
+                              />
+                              <Btn color="primary" inverted onClick={handleMsgBtnClick}>Message</Btn>
+                            </Fullwidth>
+                          )
+                          : (
+                            <LockSection>
+                              <LockAvatar>
+                                <LockSVG />
+                              </LockAvatar>
+                              <TextSection>
+                                <Subheading bold>Restricted to Cornell</Subheading>
+                                <Body muted>Sign in with a @cornell.edu account to contact the owner.</Body>
+                              </TextSection>
+                            </LockSection>
+                          )}
+                        </Row>
+                    </Section>
+                  )}
+
+                  {/* sold warning info box */}
+                  {sold && (
+                    <Section>
+                      <Row>
+                        <InfoBox>
+                          <Text variant='h5'>This listing has been marked as sold</Text>
+                        </InfoBox>
                       </Row>
                     </Section>
-                    )} */}
-                  </Content>
-                </ListingSection>
-              )}
+                  )}
+
+                  <Section>
+                    <Row marginBottomLarge><Subheading bold>Description</Subheading></Row>
+                    <Row marginTopLarge marginBottom>
+                      <Body lineHeight={1.5}>{desc}</Body>
+                    </Row>
+                  </Section>
+                  <Section>
+                    <Row marginBottom><Subheading bold>Location</Subheading></Row>
+                    {toCampus && (
+                    <Row>
+                      <Body>{toCampus} km to campus</Body>
+                    </Row>
+                    )}
+                    <Row marginBottom />
+                    {(lat && lng)
+                    && (
+                    <MapContainer>
+                      <Map
+                        lat={lat}
+                        lng={lng}
+                      />
+                    </MapContainer>
+                    )}
+                  </Section>
+                </Content>
+              </ListingSection>
+            )
+          }
         </Container>
       </Wrapper>
+      <MobileFooter 
+        listing={listing} 
+        handleMsgBtnClick={handleMsgBtnClick}
+      />
       <Modal
         open={open}
         handleClose={handleClose}

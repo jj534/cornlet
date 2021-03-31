@@ -21,6 +21,7 @@ const theme = {
   primaryLight: '#d17676',
   blue: '#0275d8',
   warning: '#f0ad4e',
+  warningLight: '#FDF1E2',
   danger: '#de6362',
 
   // text

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import useRouter from 'src/util/hooks/useRouter';
+import { useEffect, useState } from 'react';
 import { ReactComponent as UpRaw } from 'src/assets/svgs/up.svg';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
-import { useDispatch, useSelector } from 'react-redux';
+import useRouter from 'src/util/hooks/useRouter';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   border-radius: 50%;
@@ -58,13 +57,15 @@ const ScrollToTop = () => {
     });
   }
 
-  if (isDesktop || isAtTop) return <div />;
+  return null
 
-  return (
-    <Container onClick={handleClick}>
-      <UpSVG />
-    </Container>
-  );
+  // if (isDesktop || isAtTop) return <div />;
+
+  // return (
+  //   <Container onClick={handleClick}>
+  //     <UpSVG />
+  //   </Container>
+  // );
 };
 
 export default ScrollToTop;

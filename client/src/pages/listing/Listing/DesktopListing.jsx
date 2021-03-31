@@ -1,17 +1,13 @@
 import React from 'react';
-import { ReactComponent as BathroomSVG } from 'src/assets/svgs/bathroom.svg';
-import { ReactComponent as BedroomSVG } from 'src/assets/svgs/bed.svg';
-import { ReactComponent as CalendarSVG } from 'src/assets/svgs/calendar.svg';
-import { ReactComponent as PlaceSVG } from 'src/assets/svgs/place.svg';
-import { ReactComponent as ProfileSVG } from 'src/assets/svgs/face.svg';
-import { ReactComponent as WalkSVG } from 'src/assets/svgs/walk.svg';
 import BmBtn from 'src/components/buttons/BmBtn';
 import Btn from 'src/components/buttons/Btn';
+import InfoBox from 'src/components/displays/InfoBox';
 import Map from 'src/components/displays/Map';
 import PolicyDisclaimer from 'src/components/displays/PolicyDisclaimer';
 import Body from 'src/components/fonts/Body';
 import Heading from 'src/components/fonts/Heading';
 import Subheading from 'src/components/fonts/Subheading';
+import Text from 'src/components/fonts/Text';
 import BackHeader from 'src/components/headers/BackHeader';
 import MainHeader from 'src/components/headers/MainHeader';
 import Input from 'src/components/inputs/Input';
@@ -20,9 +16,8 @@ import Space from 'src/components/layouts/Space';
 import Modal from 'src/components/views/Modal';
 import HoriCenter from 'src/containers/HoriCenter';
 import formatListingDesc from 'src/util/helpers/formatListingDesc';
-import getDateString from 'src/util/helpers/getDateString';
-import getShortAddr from 'src/util/helpers/getShortAddr';
 import styled from 'styled-components';
+import IconsSection from './IconsSection';
 import ImgPanels from './ImgPanels';
 import RightSidePanel from './RightSidePanel';
 
@@ -64,23 +59,6 @@ const Section = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
     margin-top: 0;
   }
-`;
-
-const SVGContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-right: .8rem;
-
-  & > svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    opacity: .8;
-  }
-`;
-
-const SVGLabel = styled(Body)`
-  font-size: 1rem;
-  font-weight: 400;
 `;
 
 export const Fullwidth = styled.div`
@@ -133,58 +111,31 @@ const DesktopListing = ({
                   <FlexRow justifySpaceBetween>
                     <Content>
                       <Section>
-                        <FlexRow justifySpaceBetween>
-                          <Heading>
+                        <FlexRow justifySpaceBetween alignCenter>
+                          <Text variant='h2'>
                             {formatListingDesc(listing)}
-                          </Heading>
+                          </Text>
                           <BmBtn listing={listing} />
                         </FlexRow>
                         <Space margin='2rem 0' />
-                        <div>
-                          <FlexRow alignCenter>
-                            <SVGContainer><CalendarSVG /></SVGContainer>
-                            <SVGLabel>{getDateString(listing)}</SVGLabel>
-                          </FlexRow>
-                          {availRooms !== 0 && (
-                            <>
-                              <Space margin='1rem 0' />
-                              <FlexRow alignCenter>
-                                <SVGContainer><BedroomSVG /></SVGContainer>
-                                <SVGLabel>{availRooms} room(s) available</SVGLabel>
-                              </FlexRow>
-                            </>
-                          )}
-                          {bathrooms !== 0 && (
-                            <>
-                              <Space margin='1rem 0' />
-                              <FlexRow alignCenter>
-                                <SVGContainer><BathroomSVG /></SVGContainer>
-                                <SVGLabel>{bathrooms} bathrooms</SVGLabel>
-                              </FlexRow>
-                            </>
-                          )}
-                          {(maleRoommates !== 0 || femaleRoommates !== 0) && (
-                            <>
-                              <Space margin='1rem 0' />
-                              <FlexRow alignCenter>
-                                <SVGContainer><ProfileSVG /></SVGContainer>
-                                <SVGLabel>{maleRoommates + femaleRoommates} roommate(s) during sublet</SVGLabel>
-                              </FlexRow>
-                            </>
-                          )}
-                        </div>
+                        <IconsSection listing={listing} />
                       </Section>
+
+                      {/* sold warning info box */}
+                      {sold && (
+                        <Section>
+                          <InfoBox>
+                            <Text variant='h5'>This listing has been marked as sold</Text>
+                          </InfoBox>
+                        </Section>
+                      )}
 
                       {/* location section */}
                       <Section>
                         <Subheading bold>Location</Subheading>
                         <Space margin='1.5rem 0' />
-                        {/* <FlexRow alignCenter>
-                          <SVGContainer><PlaceSVG /></SVGContainer>
-                          <SVGLabel>{getShortAddr(addr)}</SVGLabel>
-                        </FlexRow> */}
                         {toCampus && (
-                          <SVGLabel>{toCampus} km to campus</SVGLabel>
+                          <Body>{toCampus} km to campus</Body>
                         )}
                         <Space margin='1.5rem 0' />
                         {(lat && lng) && (
