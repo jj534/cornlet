@@ -12,18 +12,24 @@ const Container = styled.div`
 const FileUpload = ({ path, setSrc }) => {
   const [loading, setLoading] = useState(false);
 
-  const handleUpload = (e) => {
-    setLoading(true);
-    const file = e.target.files[0];
+  const handleUploadFile = (file) => new Promise((resolve, reject) => {
     uploadFile(file, path)
       .then((url) => {
-        setLoading(false);
         setSrc(url);
+        resolve()
       })
       .catch((error) => {
         setLoading(false);
         log('FileUpload', error);
+        reject(error);
       });
+  })
+
+  const handleUpload = async (e) => {
+    setLoading(true);
+    const promises = [...e.target.files].map((file) => handleUploadFile(file));
+    await Promise.all(promises);
+    setLoading(false);
   };
 
   return (
@@ -31,6 +37,7 @@ const FileUpload = ({ path, setSrc }) => {
       <input
         type="file"
         onChange={handleUpload}
+        multiple
       />
       {loading
         ? <Loading />
