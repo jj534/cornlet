@@ -7,23 +7,38 @@ import { Link } from 'react-router-dom';
 import useIsMobile from 'src/util/hooks/useIsMobile';
 import { matchPath } from "react-router";
 import Space from '../layouts/Space';
+import theme from 'src/theme';
+import Text from '../fonts/Text';
+import { FlexRow } from '../layouts/Flex';
+import { FlexColumn } from '../layouts/Flex';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 4rem 0 2rem 0;
+const FooterContainer = styled.div`
+  border-top: 1px solid ${props => props.theme.border.default};
+  padding: 1rem;
 `;
 
-const Content = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1rem;
-`;
+const MobileFooter = ({ matched }) => (
+  <FooterContainer>
+    <Logo isDark />
+    <Space margin='1rem 0' />
+    <Link to='/terms-conditions'>
+      <Text variant='h5'>Terms of Service</Text>
+    </Link>
+    <Link to='/privacy-policy'>
+      <Text variant='h5'>Privacy Policy</Text>
+    </Link>
+    <Link to='/cookie-policy'>
+      <Text variant='h5'>Cookie Policy</Text>
+    </Link>
+    <Space margin='1rem 0' />
+    <Text variant='h5' color={theme.textLight}>contactcornlet@gmail.com</Text>
+    {matched && matched.isExact && (
+      <Space margin='6rem 0' />
+    )}
+  </FooterContainer>
+)
 
 const StyledLink = styled(Link)`
-  text-decoration: underline;
   padding: 0 .3rem;
 `
 
@@ -40,21 +55,23 @@ const MainFooter = () => {
 
   if (isChatroomPath && isMobile) return <div />;
 
+  if (isMobile) return <MobileFooter matched={matched} />;
+
   return (
-    <Container>
-      {isMobile && <Body sm>contactcornlet@gmail.com</Body>}
-      <Content>
-        <Body sm>
-          {!isMobile && 'contactcornlet@gmail.com |'}
-          <StyledLink to='/terms-conditions'>Terms of Service</StyledLink> |
-          <StyledLink to='/privacy-policy'>Privacy Policy</StyledLink> |
+    <FooterContainer>
+    <FlexRow justifySpaceBetween alignEnd>
+      <Logo isDark />
+      <FlexColumn alignEnd>
+        <Text variant='h5'>contactcornlet@gmail.com</Text>
+        <Space margin='.1rem 0' />
+        <Text variant='h6'>
+          <StyledLink to='/terms-conditions'>Terms of Service</StyledLink> •
+          <StyledLink to='/privacy-policy'>Privacy Policy</StyledLink> •
           <StyledLink to='/cookie-policy'>Cookie Policy</StyledLink>
-        </Body>
-      </Content>
-      {isMobile && matched && matched.isExact && (
-        <Space margin='3rem 0' />
-      )}
-    </Container>
+        </Text>
+      </FlexColumn>
+    </FlexRow>
+    </FooterContainer>
   );
 };
 
