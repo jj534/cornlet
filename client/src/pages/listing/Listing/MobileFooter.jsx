@@ -16,7 +16,7 @@ const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   border-top: 1px solid ${props => props.theme.border.default};
 
-  padding: 1rem;
+  padding: 1.5rem 1rem 2rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -5,6 +5,8 @@ import Body from 'src/components/fonts/Body';
 import useRouter from 'src/util/hooks/useRouter';
 import { Link } from 'react-router-dom';
 import useIsMobile from 'src/util/hooks/useIsMobile';
+import { matchPath } from "react-router";
+import Space from '../layouts/Space';
 
 const Container = styled.div`
   display: flex;
@@ -26,11 +28,16 @@ const StyledLink = styled(Link)`
 `
 
 const MainFooter = () => {
-  // dont render footer in chatroom, mobile
   const router = useRouter();
+  const matched = matchPath(router.pathname, {
+    path: "/listing/:lid",
+    exact: true,
+    strict: false
+  })
   const pathArr = router.pathname.split('/');
   const isChatroomPath = pathArr.length === 4 && pathArr[1] === 'profile' && pathArr[2] === 'chat';
   const isMobile = useIsMobile();
+
   if (isChatroomPath && isMobile) return <div />;
 
   return (
@@ -44,6 +51,9 @@ const MainFooter = () => {
           <StyledLink to='/cookie-policy'>Cookie Policy</StyledLink>
         </Body>
       </Content>
+      {isMobile && matched && matched.isExact && (
+        <Space margin='3rem 0' />
+      )}
     </Container>
   );
 };
