@@ -6,19 +6,13 @@ import { useSelector } from 'react-redux';
 import MainHeader from 'src/components/headers/MainHeader';
 import Navbar from 'src/components/headers/Navbar';
 import Listings from './Listings';
+import { FlexRow } from 'src/components/layouts/Flex';
+import Btn from 'src/components/buttons/Btn';
+import Space from 'src/components/layouts/Space';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-`;
-
-const Section = styled.div`
-  margin: 3rem 0;
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: .5rem 0;
 `;
 
 const MyListings = () => {
@@ -29,6 +23,8 @@ const MyListings = () => {
   const hasListingsText = 'Update your listing to improve its sort rating';
   const [hasListings, setHasListings] = useState(false);
   const [text, setText] = useState(defaultText);
+  const isDesktop = useIsDesktop();
+
   useEffect(() => {
     if (hasListings) setText(hasListingsText);
     else setText(defaultText);
@@ -38,12 +34,20 @@ const MyListings = () => {
     <Container>
       <MainHeader />
       <Navbar />
-      <Section>
-        <Row>
-          <Heading>{`Hi, ${user.name.split(' ')[0]}`}</Heading>
-        </Row>
-        <Body>{text}</Body>
-      </Section>
+      <Space margin='3rem 0' />
+      <FlexRow justifySpaceBetween alignCenter>
+        <Heading>{`Hi, ${user.name.split(' ')[0]}`}</Heading>
+        <Link to='/new'>
+          <Btn>+ New listing</Btn>
+        </Link>
+      </FlexRow>
+      {isDesktop && (
+        <>
+          <Space margin='1rem 0' />
+          <Body>{text}</Body>
+        </>
+      )}
+      <Space margin='2rem 0' />
       <Listings
         uid={user.uid}
         setHasListings={setHasListings}

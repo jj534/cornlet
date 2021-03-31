@@ -3,14 +3,13 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   display: inline-block;
-  padding: .4rem .6rem;
+  padding: .6rem .9rem;
 
   font-size: .9rem;
   font-weight: 400;
 
   border-radius: 8px;
-  box-shadow: ${props => props.inverted ? '0 2px 4px rgba(0, 0, 0, .05)' : ''};
-  
+  box-shadow: ${props => props.theme.shadow};
   background: ${props => props.theme.brand};
   color: white;
 

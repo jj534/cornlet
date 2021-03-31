@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import PaginationBtns from 'src/components/buttons/PaginationBtns';
+import ListingCard from 'src/components/cards/ListingCard';
+import LoadingDots from 'src/components/displays/LoadingDots';
+import DynCardList from 'src/containers/DynCardList';
 import api from 'src/util/api';
 import log from 'src/util/log';
-import ListingCard from 'src/components/cards/ListingCard';
-import DynCardList from 'src/containers/DynCardList';
-import PaginationBtns from 'src/components/buttons/PaginationBtns';
-import { Link } from 'react-router-dom';
-import LoadingDots from 'src/components/displays/LoadingDots';
+import styled from 'styled-components';
 
 const Container = styled.div`
   margin: 2rem 0;
@@ -39,25 +38,11 @@ export const NewCardFrame = styled.div`
   }
 `;
 
-const Plus = styled.p`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-
-  font-size: 3rem;
-  font-weight: bold;
-  color: ${props => props.theme.primary};
-  opacity: .9;
-`;
-
 const MyListings = ({ uid, setHasListings }) => {
   const [listings, setListings] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
-  console.log(`listings`, listings)
 
   const reload = () => {
     setLoading(true);
@@ -94,7 +79,9 @@ const MyListings = ({ uid, setHasListings }) => {
             reload={reload}
           />
         ))}
-        {!loading && (
+
+        {/* new listing card */}
+        {/* {!loading && (
           <NewCardContainer>
             <Link to='/new'>
               <NewCardFrame>
@@ -102,7 +89,7 @@ const MyListings = ({ uid, setHasListings }) => {
               </NewCardFrame>
             </Link>
           </NewCardContainer>
-        )}
+        )} */}
       </DynCardList>
       {listings.length > 0 && (
         <PaginationBtns
