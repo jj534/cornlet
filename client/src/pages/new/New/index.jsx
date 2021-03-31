@@ -11,11 +11,9 @@ const Container = styled.div`
 
 const New = ({ user }) => (
   <Container>
-    <RenderOn desktop>
-      <MainHeader />
-    </RenderOn>
+    <MainHeader />
     <RenderOn mobile>
-      <BackHeader />
+      <BackHeader label='Back' />
     </RenderOn>
     <ListingForm
       user={user}
