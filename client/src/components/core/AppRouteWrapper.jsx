@@ -9,6 +9,7 @@ import Listing from 'src/pages/listing';
 import New from 'src/pages/new';
 import PrivacyPolicy from 'src/pages/privacy-policy';
 import Profile from 'src/pages/profile';
+import MyBookmarks from 'src/pages/profile/MyBookmarks';
 import Chat from 'src/pages/profile/MyChats/Chat';
 import Chatroom from 'src/pages/profile/MyChats/Chatroom';
 import MyListings from 'src/pages/profile/MyListings';
@@ -33,6 +34,7 @@ const AppRouter = () => (
       <Route exact path="/auth/callback" component={AuthCallback} />
       <PrivateRoute exact path="/profile/settings" component={Settings} />
       <PrivateRoute exact path="/profile/chat/:cid" component={Chatroom} />
+      <PrivateRoute exact path="/profile/bookmarks" component={MyBookmarks} />
       <PrivateRoute exact path="/profile/chat" component={Chat} />
       <PrivateRoute exact path="/profile/listings" component={MyListings} />
       <PrivateRoute exact path="/profile" component={Profile} />

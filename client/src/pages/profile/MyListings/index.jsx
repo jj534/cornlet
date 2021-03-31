@@ -34,19 +34,21 @@ const MyListings = () => {
     <Container>
       <MainHeader />
       <Navbar />
-      <Space margin='3rem 0' />
-      <FlexRow justifySpaceBetween alignCenter>
-        <Heading>{`Hi, ${user.name.split(' ')[0]}`}</Heading>
-        <Link to='/new'>
-          <Btn>+ New listing</Btn>
-        </Link>
-      </FlexRow>
-      {isDesktop && (
-        <>
-          <Space margin='1rem 0' />
-          <Body>{text}</Body>
-        </>
-      )}
+      <Space margin='2rem 0' />
+      <div style={{ paddingLeft: '.5rem' }}>
+        <FlexRow justifySpaceBetween alignCenter>
+            <Heading>{`Hi, ${user.name.split(' ')[0]}`}</Heading>
+          <Link to='/new'>
+            <Btn>+ New listing</Btn>
+          </Link>
+        </FlexRow>
+        {isDesktop && (
+          <>
+            <Space margin='1rem 0' />
+            <Body>{text}</Body>
+          </>
+        )}
+      </div>
       <Space margin='2rem 0' />
       <Listings
         uid={user.uid}

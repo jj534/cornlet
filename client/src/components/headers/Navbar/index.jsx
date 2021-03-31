@@ -9,7 +9,14 @@ const Container = styled.div`
 
 const NavRow = styled.div`
   display: flex;
-  
+  overflow-y: auto;
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const HrLine = styled.div`
@@ -28,6 +35,10 @@ const Navbar = () => {
         <NavElt
           label="Listings"
           to="/profile/listings"
+        />
+        <NavElt
+          label="Bookmarks"
+          to="/profile/bookmarks"
         />
         <NavElt
           label="Messages"

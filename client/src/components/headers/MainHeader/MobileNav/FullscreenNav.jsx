@@ -94,7 +94,10 @@ const FullscreenNav = ({ setIsMenuOpen }) => {
             <div>
               <HoriLine />
               <NavContainer>
-                <NavElt onClick={() => handleRedirect('/profile')}>My Listings</NavElt>
+                <NavElt onClick={() => handleRedirect('/profile')}>My listings</NavElt>
+              </NavContainer>
+              <NavContainer>
+                <NavElt onClick={() => handleRedirect('/profile/bookmarks')}>Bookmarks</NavElt>
               </NavContainer>
               <NavContainer>
                 <NavElt onClick={() => handleRedirect('/profile/chat')}>Messages</NavElt>
