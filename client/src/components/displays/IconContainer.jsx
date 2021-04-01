@@ -10,8 +10,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  &:hover {
-    background: rgba(0, 0, 0, .05);
+  @media (min-width: ${(props) => props.theme.md}px) {
+    &:hover {
+      background: rgba(0, 0, 0, .05);
+    }
   }
 
   // padding
