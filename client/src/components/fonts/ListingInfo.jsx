@@ -8,27 +8,9 @@ import { ReactComponent as CloseRaw } from 'src/assets/svgs/close-material.svg';
 import IconContainer from '../displays/IconContainer';
 import theme from 'src/theme';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
-
-
-const TextLines = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  & > div {
-    margin-bottom: .5rem;
-  }
-
-  @media (min-width: ${props => props.theme.md}px) {
-    flex-direction: row;
-    align-items: center;
-
-    & > div {
-      margin-bottom: 0;
-    }
-  }
-`;
+import { FlexRow } from '../layouts/Flex';
+import getDateString from 'src/util/helpers/getDateString';
+import Space from '../layouts/Space';
 
 const TextArea = styled.div`
   padding: 0 .2rem;
@@ -56,12 +38,6 @@ const Overline = styled.p`
   opacity: .7;
 `;
 
-const TopRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const CloseIcon = styled(CloseRaw)`
   height: 1.2rem;
   opacity: .7;
@@ -70,24 +46,23 @@ const CloseIcon = styled(CloseRaw)`
 
 const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
   const {
-    price, sold, availRooms
+    price, sold, availRooms, toCampus
   } = listing || {};
-
-  const isDesktop = useIsDesktop();
 
   return (
     <div>
       <TextArea>
-        <TopRow>
-          {isDesktop && <Overline style={{ marginBottom: '.4rem' }}>{sold ? 'Not' : `${availRooms} bedrooms`} available</Overline>}
+        <FlexRow justifySpaceBetween alignCenter>
+          <Overline style={{ marginBottom: '.4rem' }}>{sold ? 'Not' : `${availRooms} bedrooms`} available</Overline>
           {isShowingClose && (
             <IconContainer>
               <CloseIcon onClick={onCloseClick} />
             </IconContainer>
           )}
-        </TopRow>
+        </FlexRow>
         <Title>{formatListingDesc(listing)}</Title>
-        <div style={{ marginTop: '.5rem' }}>
+        <Space margin='.5rem 0' />
+        <div>
           {sold
             ? <BadgeV2 
                 color={theme.brand} 
@@ -95,14 +70,14 @@ const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
                 label='Sold' 
               />
             : (
-              <TextLines>
+              <FlexRow justifySpaceBetween alignCenter>
                 <div>
-                  <Body muted sm>{getShortDateString(listing)}</Body>
+                  <Body muted sm>{getDateString(listing)}</Body>
                 </div>
                 <div>
                   <Body><span style={{ fontWeight: 500 }}>${price}</span> <span style={{ opacity: .6 }}>/ month</span></Body>
                 </div>
-              </TextLines>
+              </FlexRow>
             )
           }
         </div>

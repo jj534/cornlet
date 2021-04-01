@@ -22,7 +22,7 @@ import log from 'src/util/log';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 43vw;
+  width: 90vw;
   padding: 1rem .5rem;
   position: relative;
   overflow: hidden;
