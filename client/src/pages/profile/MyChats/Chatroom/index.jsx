@@ -33,8 +33,8 @@ const Content = styled.div`
 
 const Chatroom = ({ match }) => (
   <Container>
-    <MainHeader />
     <RenderOn desktop>
+      <MainHeader />
       <Navbar />
     </RenderOn>
     <Content>

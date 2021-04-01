@@ -12,6 +12,9 @@ import TextBtn from 'src/components/buttons/TextBtn';
 import theme from 'src/theme';
 import useIsDesktop from 'src/util/hooks/useIsDesktop';
 import Btn from 'src/components/buttons/Btn';
+import InvertedBtn from 'src/components/buttons/InvertedBtn';
+import Space from 'src/components/layouts/Space';
+import { FlexRow } from 'src/components/layouts/Flex';
 
 const Container = styled.div`
   display: flex;
@@ -24,11 +27,6 @@ const Container = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
     padding: 1rem 2rem;
   }
-`;
-
-const LeftSection = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 const LeftSVG = styled(LeftRaw)`
@@ -63,22 +61,33 @@ const Header = ({ chatroom }) => {
 
   return (
     <Container>
-      <LeftSection>
+      <FlexRow alignStart>
         <RenderOn mobile>
-          <Link to="/profile/chat">
-            <LeftSVG />
-          </Link>
+          <div>
+            <Space margin='.5rem 0' />
+            <Link to="/profile/chat">
+              <LeftSVG />
+            </Link>
+          </div>
         </RenderOn>
-        <ContactSection>
-          <Avatar src={otherUser.photo} />
-          <Link to={`/listing/${chatroom.listing._id}`}>
-            <ContactText>
-              <Body bold>{otherUser.name}</Body>
-              <Body maxWidth={140} ellipsis underline colorHex={theme.brand}>{getShortAddr(chatroom.listing.addr)}</Body>
-            </ContactText>
-          </Link>
-        </ContactSection>
-      </LeftSection>
+        <div>
+          <ContactSection>
+            <Avatar src={otherUser.photo} />
+            <Link to={`/listing/${chatroom.listing._id}`}>
+              <ContactText>
+                <Body bold>{otherUser.name}</Body>
+                <Body maxWidth={140} ellipsis colorHex={theme.textMuted}>{getShortAddr(chatroom.listing.addr)}</Body>
+              </ContactText>
+            </Link>
+          </ContactSection>
+          <RenderOn mobile>
+            <Space margin='1rem 0' />
+            <Link to={`/listing/${chatroom.listing._id}`}>
+              <InvertedBtn color={theme.brand}>View listing</InvertedBtn>
+            </Link>
+          </RenderOn>
+        </div>
+      </FlexRow>
       {isDesktop && (
         <Link to={`/listing/${chatroom.listing._id}`}>
           <Btn>View listing</Btn>
