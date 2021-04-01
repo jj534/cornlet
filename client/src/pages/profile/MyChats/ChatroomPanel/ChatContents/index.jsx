@@ -22,8 +22,12 @@ const ChatContents = ({ chatroom }) => {
       else {
         // msg by different user
         // append new msgGroup
+        const user = isOwner 
+          ? chatroom.listing.user 
+          : chatroom.searcher || chatroom.listing.user
+
         const data = {
-          user: isOwner ? chatroom.listing.user : chatroom.searcher,
+          user,
           msgs: [msg],
           isOwner,
         };
@@ -40,6 +44,8 @@ const ChatContents = ({ chatroom }) => {
   useLayoutEffect(() => {
     scrollToBottom();
   }, [msgGroups]);
+
+  console.log(`msgGroups`, msgGroups)
 
   return (
     <Container>
