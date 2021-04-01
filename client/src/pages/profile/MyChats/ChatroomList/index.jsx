@@ -1,13 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import ListElt from './ListElt';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const Container = styled.div`
   @media (min-width: ${(props) => props.theme.md}px) {
     width: 400px;
     height: 100%;
+    max-height: 100%;
     border-right: 1px solid rgba(0, 0, 0, .1);
+    overflow: hidden;
   }
 `;
 
@@ -16,9 +19,11 @@ const ChatroomList = () => {
 
   return (
     <Container>
-      {chatrooms.map((chatroom) => (
-        <ListElt key={chatroom._id} chatroom={chatroom} />
-      ))}
+      <PerfectScrollbar>
+        {chatrooms.map((chatroom) => (
+          <ListElt key={chatroom._id} chatroom={chatroom} />
+        ))}
+      </PerfectScrollbar>
     </Container>
   );
 };

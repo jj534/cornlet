@@ -53,6 +53,9 @@ const StyledBody = styled.p`
 
   // pointer
   cursor: ${props => props.pointer && 'pointer'};
+
+  // underline
+  text-decoration: ${props => props.underline && 'underline'};
 `;
 
 const Body = (props) => (

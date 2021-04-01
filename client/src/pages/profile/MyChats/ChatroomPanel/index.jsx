@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import useChatroom from 'src/util/hooks/useChatroom';
-
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import { useSelector } from 'react-redux';
 import socket from 'src/util/socket';
 import Header from './Header';
@@ -16,11 +16,8 @@ const Container = styled.div`
 
 export const Fill = styled.div`
   flex: 1;
-
-  @media (min-width: ${(props) => props.theme.md}px) {
-    max-height: 45vh;
-    overflow-y: scroll;
-  }
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const ChatroomPanel = ({ cid }) => {
@@ -36,7 +33,9 @@ const ChatroomPanel = ({ cid }) => {
     <Container>
       <Header chatroom={chatroom} />
       <Fill>
+        {/* <PerfectScrollbar> */}
         <ChatContents chatroom={chatroom} />
+        {/* </PerfectScrollbar> */}
       </Fill>
       <InputSection chatroom={chatroom} />
     </Container>

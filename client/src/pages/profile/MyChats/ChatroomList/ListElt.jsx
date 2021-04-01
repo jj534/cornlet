@@ -9,11 +9,14 @@ import formatDate from 'src/util/helpers/formatDate';
 import useRouter from 'src/util/hooks/useRouter';
 import { useSelector } from 'react-redux';
 import CornerRedDot from 'src/components/displays/CornerRedDot';
+import moment from 'moment';
+import getFromNowDate from 'src/util/helpers/getFromNowDate';
 
 const Container = styled.div`
   display: flex;
   padding: 1rem 0;
   border-radius: 2px;
+  border-bottom: 1px solid ${props => props.theme.border.default};
 
   @media (min-width: ${(props) => props.theme.md}px) {
     padding: 1rem;
@@ -58,36 +61,38 @@ const ListElt = ({ chatroom }) => {
   const lastMsg = chatroom.msgs[chatroom.msgs.length-1];
 
   return (
-    <Link to={nextPath}>
-      <Container selected={selected}>
-        <PhotoSection>
-          <Avatar
-            src={otherUser.photoURL || otherUser.photo}
-            lg
-          />
-          {hasNotif && <CornerRedDot lg />}
-        </PhotoSection>
-        <TextSection>
-          <Row>
-            <Body bold>{otherUser.name}</Body>
-            <TextContainer>
-              <Body color="primary" ellipsis>{getShortAddr(chatroom.listing.addr)}</Body>
-            </TextContainer>
-          </Row>
-          <Row>
-            <TextContainer maxWidth={200}>
-              <Body
-                muted={hasNotif ? 0 : 1}
-                ellipsis
-              >
-                {chatroom.msgs[chatroom.msgs.length - 1].content}
-              </Body>
-            </TextContainer>
-            <Body muted>{formatDate(lastMsg.createdAt, true)}</Body>
-          </Row>
-        </TextSection>
-      </Container>
-    </Link>
+    <div>
+      <Link to={nextPath}>
+        <Container selected={selected}>
+          <PhotoSection>
+            <Avatar
+              src={otherUser.photoURL || otherUser.photo}
+              lg
+            />
+            {hasNotif && <CornerRedDot lg />}
+          </PhotoSection>
+          <TextSection>
+            <Row>
+              <Body bold>{otherUser.name}</Body>
+              <TextContainer>
+                <Body color="primary" ellipsis>{getShortAddr(chatroom.listing.addr)}</Body>
+              </TextContainer>
+            </Row>
+            <Row>
+              <TextContainer maxWidth={200}>
+                <Body
+                  muted={hasNotif ? 0 : 1}
+                  ellipsis
+                >
+                  {chatroom.msgs[chatroom.msgs.length - 1].content}
+                </Body>
+              </TextContainer>
+              <Body muted>{getFromNowDate(lastMsg.createdAt)}</Body>
+            </Row>
+          </TextSection>
+        </Container>
+      </Link>
+    </div>
   );
 };
 

@@ -10,11 +10,25 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    max-height: 90vh;
+
+    & > * {
+      flex-shrink: 0;
+    }
+  }
 `;
 
 const Content = styled.div`
   display: flex;
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    border: 1px solid ${props => props.theme.border.default};
+  }
 `;
 
 const Chatroom = ({ match }) => (

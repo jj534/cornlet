@@ -8,6 +8,10 @@ import Body from 'src/components/fonts/Body';
 import getShortAddr from 'src/util/helpers/getShortAddr';
 import { Link } from 'react-router-dom';
 import RenderOn from 'src/containers/RenderOn';
+import TextBtn from 'src/components/buttons/TextBtn';
+import theme from 'src/theme';
+import useIsDesktop from 'src/util/hooks/useIsDesktop';
+import Btn from 'src/components/buttons/Btn';
 
 const Container = styled.div`
   display: flex;
@@ -55,6 +59,8 @@ const ContactText = styled.div`
 
 const Header = ({ chatroom }) => {
   const otherUser = useChatOtherUser(chatroom);
+  const isDesktop = useIsDesktop();
+
   return (
     <Container>
       <LeftSection>
@@ -65,15 +71,19 @@ const Header = ({ chatroom }) => {
         </RenderOn>
         <ContactSection>
           <Avatar src={otherUser.photo} />
-          <ContactText>
-            <Body bold>{otherUser.name}</Body>
-            <Body maxWidth={140} ellipsis>{getShortAddr(chatroom.listing.addr)}</Body>
-          </ContactText>
+          <Link to={`/listing/${chatroom.listing._id}`}>
+            <ContactText>
+              <Body bold>{otherUser.name}</Body>
+              <Body maxWidth={140} ellipsis underline colorHex={theme.brand}>{getShortAddr(chatroom.listing.addr)}</Body>
+            </ContactText>
+          </Link>
         </ContactSection>
       </LeftSection>
-      <Link to={`/listing/${chatroom.listing._id}`}>
-        <HouseSVG />
-      </Link>
+      {isDesktop && (
+        <Link to={`/listing/${chatroom.listing._id}`}>
+          <Btn>View listing</Btn>
+        </Link>
+      )}
     </Container>
   );
 };

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Avatar from 'src/components/displays/Avatar';
 import Body from 'src/components/fonts/Body';
 import formatDate from 'src/util/helpers/formatDate';
+import getFromNowDate from 'src/util/helpers/getFromNowDate';
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,12 @@ export const MsgSection = styled.div`
   margin-top: .3rem;
 `;
 
+const DateSpan = styled.span`
+  font-size: .9rem;
+  color: ${props => props.theme.textMuted};
+  font-weight: 400;
+`;
+
 const MsgGroup = ({ user, msgs, isOwner }) => {
   const lastMsg = msgs[msgs.length - 1];
 
@@ -42,9 +49,7 @@ const MsgGroup = ({ user, msgs, isOwner }) => {
       </PhotoSection>
       <TextSection>
         <UserSection>
-          <Body bold>{user.name}</Body>
-          {isOwner && <Body bold> (Host)</Body>}
-          <Body muted sm>{formatDate(lastMsg.createdAt, true)}</Body>
+          <Body bold>{user.name} {isOwner ? '(Host)' : ''} <DateSpan>{getFromNowDate(lastMsg.createdAt)}</DateSpan></Body>
         </UserSection>
         <MsgSection>
           {msgs.map((msg) => (

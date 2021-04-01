@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
+import Space from 'src/components/layouts/Space';
 import styled from 'styled-components';
 import MsgGroup from './MsgGroup';
 
@@ -45,8 +46,6 @@ const ChatContents = ({ chatroom }) => {
     scrollToBottom();
   }, [msgGroups]);
 
-  console.log(`msgGroups`, msgGroups)
-
   return (
     <Container>
       {msgGroups.map((msgGroup) => (
@@ -54,6 +53,7 @@ const ChatContents = ({ chatroom }) => {
           {...msgGroup}
         />
       ))}
+      <Space padding='.5rem 0' />
       <div ref={messagesEndRef} />
     </Container>
   );
