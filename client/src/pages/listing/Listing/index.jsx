@@ -433,6 +433,7 @@ const Listing = ({ listing }) => {
                     </MapContainer>
                     )}
                   </Section>
+                  <Space margin='2rem 0' />
                 </Content>
               </ListingSection>
             )
