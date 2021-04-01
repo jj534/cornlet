@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
   requireTLS: true,
   auth: {
     user: 'cornletservice@gmail.com',
-    pass: 'cornletauth8921',
+    pass: process.env.REACT_APP_EMAIL_PWD,
   },
 });
 
@@ -22,7 +22,7 @@ const sendEmail = (to, subject, html) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log('ERROR sendEmail', error);
-    } 
+    }
     else {
       console.log('SUCCESS sendEmail', info);
     }
