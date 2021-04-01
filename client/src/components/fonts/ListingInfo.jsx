@@ -1,16 +1,15 @@
-import React from 'react'
-import styled from 'styled-components';
-import formatListingDesc from 'src/util/helpers/formatListingDesc';
-import getShortDateString from 'src/util/helpers/getShortDateString';
-import BadgeV2 from '../displays/BadgeV2';
-import Body from './Body';
+import React from 'react';
 import { ReactComponent as CloseRaw } from 'src/assets/svgs/close-material.svg';
-import IconContainer from '../displays/IconContainer';
 import theme from 'src/theme';
-import useIsDesktop from 'src/util/hooks/useIsDesktop';
-import { FlexRow } from '../layouts/Flex';
+import formatListingDesc from 'src/util/helpers/formatListingDesc';
 import getDateString from 'src/util/helpers/getDateString';
+import getShortDateString from 'src/util/helpers/getShortDateString';
+import styled from 'styled-components';
+import BadgeV2 from '../displays/BadgeV2';
+import IconContainer from '../displays/IconContainer';
+import { FlexRow } from '../layouts/Flex';
 import Space from '../layouts/Space';
+import Body from './Body';
 
 const TextArea = styled.div`
   padding: 0 .2rem;
@@ -44,7 +43,7 @@ const CloseIcon = styled(CloseRaw)`
   cursor: pointer;
 `;
 
-const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
+const ListingInfo = ({ listing, isShowingClose, onCloseClick, isHideDates }) => {
   const {
     price, sold, availRooms, toCampus
   } = listing || {};
@@ -72,7 +71,7 @@ const ListingInfo = ({ listing, isShowingClose, onCloseClick }) => {
             : (
               <FlexRow justifySpaceBetween alignCenter>
                 <div>
-                  <Body muted sm>{getDateString(listing)}</Body>
+                  {!isHideDates && (<Body muted sm>{getDateString(listing)}</Body>)}
                 </div>
                 <div>
                   <Body><span style={{ fontWeight: 500 }}>${price}</span> <span style={{ opacity: .6 }}>/ month</span></Body>

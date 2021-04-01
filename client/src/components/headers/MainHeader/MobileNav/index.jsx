@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { FlexRow } from 'src/components/layouts/Flex';
+import Space from 'src/components/layouts/Space';
 import styled from 'styled-components';
+import Bookmarks from '../Bookmarks';
 import FullscreenNav from './FullscreenNav';
 
 export const Wrapper = styled.div`
@@ -26,13 +29,17 @@ const MobileNav = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <Burger onClick={() => setIsMenuOpen(true)}>
-          <Line />
-          <Line />
-          <Line />
-        </Burger>
-      </Container>
+      <FlexRow alignCenter>
+        <Bookmarks />
+        <Space margin='0 .5rem' />
+        <Container>
+          <Burger onClick={() => setIsMenuOpen(true)}>
+            <Line />
+            <Line />
+            <Line />
+          </Burger>
+        </Container>
+      </FlexRow>
       {isMenuOpen && <FullscreenNav setIsMenuOpen={setIsMenuOpen} />}
     </Wrapper>
   )

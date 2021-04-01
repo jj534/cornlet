@@ -60,7 +60,7 @@ const BmListing = ({ listing }) => {
         <Container>
           <Img src={listing.imgs[0]} />
           <Data>
-            <ListingInfo listing={listing} isShowingClose onCloseClick={handleRemove} />
+            <ListingInfo isHideDates listing={listing} isShowingClose onCloseClick={handleRemove} />
           </Data>
         </Container>
       </Link>
