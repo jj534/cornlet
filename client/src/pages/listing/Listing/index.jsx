@@ -344,7 +344,7 @@ const Listing = ({ listing }) => {
       <Wrapper>
         <Container>
           <BackHeader 
-            label='Return to listings'
+            label='Go back'
             fullwidth 
           />
           {(!listing.active || listing.deleted)
