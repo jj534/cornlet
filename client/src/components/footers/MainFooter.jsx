@@ -17,21 +17,31 @@ const FooterContainer = styled.div`
   padding: 1rem;
 `;
 
+const JayLink = styled.a`
+  text-decoration: underline;
+  color: ${props => props.theme.brand};
+  font-weight: 400; 
+`;
+
 const MobileFooter = ({ matched }) => (
   <FooterContainer>
     <Logo isDark />
     <Space margin='1rem 0' />
-    <Link to='/terms-conditions'>
-      <Text variant='h5'>Terms of Service</Text>
-    </Link>
-    <Link to='/privacy-policy'>
-      <Text variant='h5'>Privacy Policy</Text>
-    </Link>
-    <Link to='/cookie-policy'>
-      <Text variant='h5'>Cookie Policy</Text>
-    </Link>
+    <FlexColumn alignStart>
+      <Link to='/terms-conditions'>
+        <Text variant='h5'>Terms of Service</Text>
+      </Link>
+      <Link to='/privacy-policy'>
+        <Text variant='h5'>Privacy Policy</Text>
+      </Link>
+      <Link to='/cookie-policy'>
+        <Text variant='h5'>Cookie Policy</Text>
+      </Link>
+    </FlexColumn>
     <Space margin='1rem 0' />
     <Text variant='h5' color={theme.textLight}>contactcornlet@gmail.com</Text>
+    <Space padding='.5rem 0' />
+    <Text variant='h5' color={theme.textLight}>Built with ❤️ by <JayLink href='https://www.linkedin.com/in/jay-joo-341191135/' target="_blank">Jay</JayLink></Text>
     {matched && matched.isExact && (
       <Space margin='6rem 0' />
     )}
@@ -40,6 +50,13 @@ const MobileFooter = ({ matched }) => (
 
 const StyledLink = styled(Link)`
   padding: 0 .3rem;
+
+
+  @media (min-width: ${(props) => props.theme.md}px) {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 
 const MainFooter = () => {
@@ -59,9 +76,13 @@ const MainFooter = () => {
 
   return (
     <FooterContainer>
-    <FlexRow justifySpaceBetween alignEnd>
+    <FlexRow justifySpaceBetween alignCenter>
       <Logo isDark />
+      <Text variant='h5'>Built with ❤️ by <JayLink href='https://www.linkedin.com/in/jay-joo-341191135/' target="_blank">Jay</JayLink></Text>
+    </FlexRow>
+    <FlexRow justifyEnd>
       <FlexColumn alignEnd>
+        <Space padding='.5rem 0' />
         <Text variant='h5'>contactcornlet@gmail.com</Text>
         <Space margin='.1rem 0' />
         <Text variant='h6'>
