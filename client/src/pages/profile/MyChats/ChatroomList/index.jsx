@@ -26,8 +26,7 @@ const NoChatroomsSVG = styled(NoChatroomsSVGRaw)`
 `;
 
 const ChatroomList = () => {
-  // const chatrooms = useSelector((state) => state.chatrooms);
-  const chatrooms = [];
+  const chatrooms = useSelector((state) => state.chatrooms);
 
   return (
     <Container>
