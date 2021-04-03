@@ -6,6 +6,11 @@ import DynCardList from 'src/containers/DynCardList';
 import api from 'src/util/api';
 import log from 'src/util/log';
 import styled from 'styled-components';
+import { ReactComponent as NoListingSVGRaw } from 'src/assets/illustrations/no-listings.svg';
+import { FlexColumn } from 'src/components/layouts/Flex';
+import Text from 'src/components/fonts/Text';
+import theme from 'src/theme/colors';
+import Space from 'src/components/layouts/Space';
 
 const Container = styled.div`
   margin: 2rem 0;
@@ -36,6 +41,12 @@ export const NewCardFrame = styled.div`
       box-shadow: 0 2px 8px rgba(0, 0, 0, .6);
     }
   }
+`;
+
+const NoListingSVG = styled(NoListingSVGRaw)`
+  width: 70%;
+  opacity: .9;
+  max-width: 300px;
 `;
 
 const MyListings = ({ uid, setHasListings }) => {
@@ -79,23 +90,23 @@ const MyListings = ({ uid, setHasListings }) => {
             reload={reload}
           />
         ))}
-
-        {/* new listing card */}
-        {/* {!loading && (
-          <NewCardContainer>
-            <Link to='/new'>
-              <NewCardFrame>
-                <Plus>+</Plus>
-              </NewCardFrame>
-            </Link>
-          </NewCardContainer>
-        )} */}
       </DynCardList>
       {listings.length > 0 && (
         <PaginationBtns
           totalPages={totalPages}
           page={page}
         />
+      )}
+
+      {/* no listings */}
+      {!loading && listings && listings.length === 0 && (
+        <FlexColumn alignCenter>
+          <Space padding='2rem 0' />
+          <NoListingSVG />
+          <Space margin='1rem 0' />
+          <Text variant='h4'>No listings yet!</Text>
+          <Text variant='p' color={theme.textMuted}>Create a listing to get started</Text>
+        </FlexColumn>
       )}
     </Container>
   );
