@@ -8,25 +8,28 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-
-  & > div:nth-child(odd) {
-    padding-left: 0;
-  }
-
-  & > div:nth-child(even) {
-    padding-right: 0;
-  }
 
   @media (min-width: ${(props) => props.theme.md}px) {
     width: 1565px;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: flex-start;
 
     & > div {
       padding-left: .5rem !important;
       padding-right: .5rem !important;
+    }
+
+    & > div:nth-child(odd) {
+      padding-left: 0;
+    }
+
+    & > div:nth-child(even) {
+      padding-right: 0;
     }
   }
 `;
